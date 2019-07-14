@@ -43,4 +43,7 @@ public interface MerchantMapper {
      */
     @Select("select * from merchant where ID = #{merchantID} and state = 1")
     Merchant selectMerchantByID(Integer merchantID);
+
+    @Select("select * from merchant where phoneNumber = #{phoneNumber}")
+    Merchant selectMerchantByPhoneNumber(String phoneNumber);
 }

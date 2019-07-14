@@ -1,8 +1,11 @@
 package cn.edu.hfut.coomall.service;
 
 import cn.edu.hfut.coomall.dao.MerchantMapper;
+import cn.edu.hfut.coomall.entity.Admin;
 import cn.edu.hfut.coomall.entity.Merchant;
+import cn.edu.hfut.coomall.service.exception.InvalidPasswordException;
 import cn.edu.hfut.coomall.service.exception.MerchantNotFoundException;
+import cn.edu.hfut.coomall.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,10 +58,42 @@ public class MerchantService {
     /**
      * @author 葛学文
      * @data 2019/7/14
+     * 根据 phoneNumber 查找商家
+     */
+    private Merchant getMerchantByPhoneNumber(String phoneNumber) {
+
+        Merchant merchant = merchantMapper.selectMerchantByPhoneNumber(phoneNumber);
+        if (merchant == null) {
+            throw new MerchantNotFoundException(phoneNumber);
+        }
+        return merchant;
+    }
+
+    /**
+     * @author 葛学文
+     * @data 2019/7/14
      * 获取所有商家列表
      */
     public List<Merchant> getAllMerchant() {
 
         return merchantMapper.selectAllMerchant();
     }
+
+    /**
+     * @author 葛学文
+     * @data 2019/7/14
+     * 商家登录
+     */
+    public Merchant login(String phoneNumber, String password) {
+
+        // 已经检查 merchant 是否为空
+        Merchant merchant = getMerchantByPhoneNumber(phoneNumber);
+
+        if (!PasswordUtil.checkPassword(password, merchant.getPassword())) {
+            throw new InvalidPasswordException(phoneNumber);
+        }
+
+        return merchant;
+    }
+
 }
