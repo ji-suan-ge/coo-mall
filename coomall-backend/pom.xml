@@ -27,7 +27,7 @@
         <module>coomall-entity</module>
         <module>coomall-service</module>
         <module>coomall-util</module>
-        <module>coomall-web</module>
+        <module>coomall-web-common</module>
         <module>coomall-web-admin</module>
         <module>coomall-web-custom</module>
         <module>coomall-web-merchant</module>

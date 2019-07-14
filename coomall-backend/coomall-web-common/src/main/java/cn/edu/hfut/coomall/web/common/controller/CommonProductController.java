@@ -1,13 +1,13 @@
-package cn.edu.hfut.coomall.web.controller;
+package cn.edu.hfut.coomall.web.common.controller;
 
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.entity.Product;
 import cn.edu.hfut.coomall.service.ProductService;
 import cn.edu.hfut.coomall.util.ResultUtil;
-import cn.edu.hfut.coomall.web.bean.GetProductByIDReqBean;
-import cn.edu.hfut.coomall.web.bean.GetProductByIDRespBean;
-import cn.edu.hfut.coomall.web.bean.GetProductByMerchantIDReqBean;
-import cn.edu.hfut.coomall.web.bean.GetProductByMerchantIDRespBean;
+import cn.edu.hfut.coomall.web.common.bean.GetProductByIDReqBean;
+import cn.edu.hfut.coomall.web.common.bean.GetProductByIDRespBean;
+import cn.edu.hfut.coomall.web.common.bean.GetProductByMerchantIDReqBean;
+import cn.edu.hfut.coomall.web.common.bean.GetProductByMerchantIDRespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

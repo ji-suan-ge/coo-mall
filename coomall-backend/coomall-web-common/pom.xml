@@ -7,10 +7,10 @@
         <artifactId>coomall-backend</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>coomall-web</artifactId>
+    <artifactId>coomall-web-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>coomall-web</name>
-    <description>CooMall - Web - Java training project</description>
+    <name>coomall-web-common</name>
+    <description>CooMall - Web - Common - Java training project</description>
 
     <dependencies>
         <dependency>

@@ -1,4 +1,4 @@
-package cn.edu.hfut.coomall.web.bean;
+package cn.edu.hfut.coomall.web.common.bean;
 
 import javax.validation.constraints.NotNull;
 
