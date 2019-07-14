@@ -1,9 +1,12 @@
 package cn.edu.hfut.coomall.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * @author 葛学文
  * @date 2019/7/14 10:22
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Admin {
 
     private Integer ID;

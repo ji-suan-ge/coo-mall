@@ -1,5 +1,8 @@
 package cn.edu.hfut.coomall.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Custom {
 
     private Integer ID;

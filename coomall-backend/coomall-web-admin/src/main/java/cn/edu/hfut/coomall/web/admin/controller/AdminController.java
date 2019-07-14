@@ -44,7 +44,8 @@ public class AdminController {
         }
 
         httpSession.setAttribute("admin", admin);
-        return ResultUtil.success();
+        admin.setPassword(null);
+        return ResultUtil.success(admin);
     }
 
     @PostMapping("/logout")
