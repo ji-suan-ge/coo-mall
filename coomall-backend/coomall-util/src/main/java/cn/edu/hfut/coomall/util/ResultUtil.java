@@ -23,6 +23,16 @@ public class ResultUtil {
     }
 
     /**
+     * 接口请求成功返回
+     */
+    public static Message success(){
+        Message message = new Message();
+        message.setCode("0000");
+        message.setMsg("请求成功");
+        return message;
+    }
+
+    /**
      * 接口请求失败返回
      */
     public static Message error(Integer code, String resultMessage){
