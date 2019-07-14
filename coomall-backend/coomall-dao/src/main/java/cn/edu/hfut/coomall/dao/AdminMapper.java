@@ -18,7 +18,7 @@ public interface AdminMapper {
      */
     @Insert("insert into " +
             "admin(name, gender, password, phoneNumber, email) " +
-            "values(#{name}, #{gender}, #{password}, #{phoneNumber}, #{email}")
+            "values(#{name}, #{gender}, #{password}, #{phoneNumber}, #{email})")
     void insertAdmin(Admin admin);
 
     /**

@@ -23,7 +23,7 @@ public interface MerchantMapper {
             "merchant(shopName, ownerName, phoneNumber, intro, " +
             "password, address, identityNumber, identityPhoto, email, score) " +
             "values(#{shopName}, #{ownerName}, #{phoneNumber}, #{intro}, " +
-            "#{password}, #{address}, #{identityNumber}, #{identityPhoto}, #{email}, #{score}")
+            "#{password}, #{address}, #{identityNumber}, #{identityPhoto}, #{email}, #{score})")
     void insertMerchant(Merchant merchant);
 
     /**
