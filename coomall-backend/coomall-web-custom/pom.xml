@@ -37,6 +37,12 @@
             <artifactId>coomall-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>cn.edu.hfut</groupId>
+            <artifactId>coomall-web</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
