@@ -40,7 +40,7 @@
 
         <dependency>
             <groupId>cn.edu.hfut</groupId>
-            <artifactId>coomall-web</artifactId>
+            <artifactId>coomall-web-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
