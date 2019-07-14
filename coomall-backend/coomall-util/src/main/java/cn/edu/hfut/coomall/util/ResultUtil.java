@@ -9,8 +9,7 @@ import cn.edu.hfut.coomall.entity.Message;
  */
 public class ResultUtil {
 
-    private ResultUtil(){
-    }
+    private ResultUtil() {}
 
     /**
      * 接口请求成功返回
