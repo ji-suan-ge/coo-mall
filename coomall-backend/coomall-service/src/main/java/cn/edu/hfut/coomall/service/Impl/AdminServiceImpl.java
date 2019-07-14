@@ -4,6 +4,8 @@ import cn.edu.hfut.coomall.dao.AdminMapper;
 import cn.edu.hfut.coomall.entity.Admin;
 import cn.edu.hfut.coomall.service.AdminService;
 import cn.edu.hfut.coomall.service.Impl.exception.AdminNotFoundException;
+import cn.edu.hfut.coomall.service.Impl.exception.InvalidPasswordException;
+import cn.edu.hfut.coomall.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -40,6 +42,16 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public Admin getAdminByPhoneNumber(String phoneNumber) {
+
+        Admin admin = adminMapper.selectAdminByPhoneNumber(phoneNumber);
+        if (admin == null) {
+            throw new AdminNotFoundException(phoneNumber);
+        }
+        return admin;
+    }
+
+    @Override
     public List<Admin> getAllAdmin() {
 
         return adminMapper.selectAllAdmin();
@@ -47,6 +59,14 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin login(String phoneNumber, String password) {
-        return null;
+
+        // 已经检查 admin 是否为空
+        Admin admin = getAdminByPhoneNumber(phoneNumber);
+
+        if (!PasswordUtil.checkPassword(password, admin.getPassword())) {
+            throw new InvalidPasswordException(phoneNumber);
+        }
+
+        return admin;
     }
 }

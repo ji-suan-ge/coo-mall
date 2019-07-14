@@ -31,6 +31,8 @@ public interface AdminService {
      */
     Admin getAdminByID(Integer adminID);
 
+    Admin getAdminByPhoneNumber(String phoneNumber);
+
     /**
      * @author 葛学文
      * @data 2019/7/14
