@@ -6,4 +6,9 @@ public class AdminNotFoundException extends BaseException {
 
         super("找不到管理员, adminID: " + adminID);
     }
+
+    public AdminNotFoundException(String phoneNumber) {
+
+        super("找不到管理员, phoneNumber: " + phoneNumber);
+    }
 }

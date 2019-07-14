@@ -43,4 +43,10 @@ public interface AdminMapper {
     @Select("select * from admin where ID = #{adminID}")
     Admin selectAdminByID(Integer adminID);
 
+    /**
+     * @author 郑力煽
+     * @date 2019/7/14
+     */
+    @Select("select * from admin where phoneNumber = #{AdminPhoneNumber}")
+    Admin selectAdminByPhoneNumber(String AdminPhoneNumber);
 }
