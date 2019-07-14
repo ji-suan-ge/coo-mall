@@ -29,7 +29,7 @@ public interface AdminService {
      * @data 2019/7/14
      * 根据 adminID 查找管理员
      */
-    void getAdminByID(Integer adminID);
+    Admin getAdminByID(Integer adminID);
 
     /**
      * @author 葛学文

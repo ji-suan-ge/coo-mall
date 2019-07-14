@@ -29,7 +29,7 @@ public interface MerchantService {
      * @data 2019/7/14
      * 根据 merchantID 查找商家
      */
-    void getMerchantByID(Integer merchantID);
+    Merchant getMerchantByID(Integer merchantID);
 
     /**
      * @author 葛学文
