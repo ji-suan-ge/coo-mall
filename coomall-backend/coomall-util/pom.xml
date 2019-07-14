@@ -14,7 +14,11 @@
     <description>CooMall - Util - Java training project</description>
 
     <dependencies>
-
+        <dependency>
+            <groupId>cn.edu.hfut</groupId>
+            <artifactId>coomall-entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
