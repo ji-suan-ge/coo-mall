@@ -1,6 +1,12 @@
 package cn.edu.hfut.coomall.service;
 
+import cn.edu.hfut.coomall.dao.AdminMapper;
 import cn.edu.hfut.coomall.entity.Admin;
+import cn.edu.hfut.coomall.service.exception.AdminNotFoundException;
+import cn.edu.hfut.coomall.service.exception.InvalidPasswordException;
+import cn.edu.hfut.coomall.util.PasswordUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -8,42 +14,79 @@ import java.util.List;
  * @author 葛学文
  * @date 2019/7/14 10:22
  */
-public interface AdminService {
+@Service
+public class AdminService {
+
+    @Autowired
+    AdminMapper adminMapper;
 
     /**
      * @author 葛学文
      * @data 2019/7/14
      * 保存管理员
      */
-    void saveAdmin(Admin admin);
+    public void saveAdmin(Admin admin) {
+
+        adminMapper.insertAdmin(admin);
+    }
 
     /**
      * @author 葛学文
      * @data 2019/7/14
      * 根据 adminID 删除管理员
      */
-    void removeAdminByID(Integer adminID);
+    public void removeAdminByID(Integer adminID) {
+
+        adminMapper.deleteAdminByID(adminID);
+    }
 
     /**
      * @author 葛学文
      * @data 2019/7/14
      * 根据 adminID 查找管理员
      */
-    Admin getAdminByID(Integer adminID);
+    public Admin getAdminByID(Integer adminID) {
 
-    Admin getAdminByPhoneNumber(String phoneNumber);
+        Admin admin = adminMapper.selectAdminByID(adminID);
+        if (admin == null) {
+            throw new AdminNotFoundException(adminID);
+        }
+        return admin;
+    }
+
+    public Admin getAdminByPhoneNumber(String phoneNumber) {
+
+        Admin admin = adminMapper.selectAdminByPhoneNumber(phoneNumber);
+        if (admin == null) {
+            throw new AdminNotFoundException(phoneNumber);
+        }
+        return admin;
+    }
 
     /**
      * @author 葛学文
      * @data 2019/7/14
      * 获取所有管理员列表
      */
-    List<Admin> getAllAdmin();
+    public List<Admin> getAllAdmin() {
+
+        return adminMapper.selectAllAdmin();
+    }
 
     /**
      * @author 葛学文
      * @data 2019/7/14
-     * 获取所有管理员列表
+     * 管理员登录
      */
-    Admin login(String phoneNumber, String password);
+    public Admin login(String phoneNumber, String password) {
+
+        // 已经检查 admin 是否为空
+        Admin admin = getAdminByPhoneNumber(phoneNumber);
+
+        if (!PasswordUtil.checkPassword(password, admin.getPassword())) {
+            throw new InvalidPasswordException(phoneNumber);
+        }
+
+        return admin;
+    }
 }

@@ -1,4 +1,4 @@
-package cn.edu.hfut.coomall.service.Impl.exception;
+package cn.edu.hfut.coomall.service.exception;
 
 public class InvalidPasswordException extends BaseException {
 
