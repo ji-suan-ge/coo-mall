@@ -29,4 +29,9 @@ public class AdminServiceImpl implements AdminService {
     public List<Admin> getAllAdmin() {
         return null;
     }
+
+    @Override
+    public Admin login(String phoneNumber, String password) {
+        return null;
+    }
 }
