@@ -7,18 +7,20 @@
         <artifactId>coomall-backend</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>coomall-util</artifactId>
+    <artifactId>coomall-config</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name>coomall-util</name>
-    <description>CooMall - Util - Java training project</description>
+    <name>coomall-config</name>
+    <description>CooMall - Web - Config - Java training project</description>
 
     <dependencies>
         <dependency>
-            <groupId>cn.edu.hfut</groupId>
-            <artifactId>coomall-entity</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
         </dependency>
     </dependencies>
-
 </project>

@@ -22,6 +22,7 @@
     </properties>
 
     <modules>
+        <module>coomall-config</module>
         <module>coomall-dao</module>
         <module>coomall-entity</module>
         <module>coomall-service</module>
