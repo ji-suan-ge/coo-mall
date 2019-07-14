@@ -1,13 +1,27 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data: function () {
+    return {}
+  },
+  methods: {
+  },
+  created () {
+    let that = this
+    that.axios.post('/admin/login', {
+      phoneNumber: '18226331573',
+      password: 'gxw'
+    })
+      .then(function (response) {
+        console.log(response)
+      })
+  }
 }
 </script>
 

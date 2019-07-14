@@ -1,11 +1,13 @@
 <template>
-    $END$
+  <div>
+    <p>TestRouter</p>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'Test'
-  }
+export default {
+  name: 'Test'
+}
 </script>
 
 <style scoped>
