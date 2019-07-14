@@ -37,4 +37,11 @@ public interface AdminService {
      * 获取所有管理员列表
      */
     List<Admin> getAllAdmin();
+
+    /**
+     * @author 葛学文
+     * @data 2019/7/14
+     * 获取所有管理员列表
+     */
+    Admin login(String phoneNumber, String password);
 }
