@@ -1,6 +1,7 @@
 package cn.edu.hfut.coomall.dao;
 
 import cn.edu.hfut.coomall.entity.ProductStyle;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,4 +16,7 @@ public interface ProductStyleMapper {
 
     @Select("select * from `product_style` where productID = #{productID}")
     List<ProductStyle> selectProductStyleByProductID(Integer productID);
+
+    @Insert("insert into `product_style`(`productID`, `style`) values(#{productID}, #{style})")
+    void saveStyle(ProductStyle productStyle);
 }

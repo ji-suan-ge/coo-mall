@@ -5,9 +5,11 @@ import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.entity.Product;
+import cn.edu.hfut.coomall.entity.ProductStyle;
 import cn.edu.hfut.coomall.service.ProductService;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.merchant.bean.AddProductReqBean;
+import cn.edu.hfut.coomall.web.merchant.bean.AddProductStyleReqBean;
 import cn.edu.hfut.coomall.web.merchant.bean.EditProductReqBean;
 import cn.edu.hfut.coomall.web.merchant.bean.RemoveProductReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +98,29 @@ public class ProductController {
 
         if (product.getMerchantID().equals(merchantID)) {
             productService.editProduct(productID, price, quantity, detail);
+        } else {
+            return ResultUtil.error(4200, "权限不足");
+        }
+
+        return ResultUtil.success();
+    }
+
+    @LoginRequired
+    @PostMapping("/addStyle")
+    public Message addProductStyle(@RequestBody @Valid AddProductStyleReqBean addProductStyleReqBean,
+                                        HttpSession httpSession) {
+
+        Integer productID = addProductStyleReqBean.getProductID();
+        String style = addProductStyleReqBean.getStyle();
+
+        Merchant merchant = (Merchant)httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer merchantID = merchant.getID();
+
+        Product product = productService.getProductByID(productID);
+
+        if (product.getMerchantID().equals(merchantID)) {
+            ProductStyle productStyle = new ProductStyle(productID, style);
+            productService.saveProductStyle(productStyle);
         } else {
             return ResultUtil.error(4200, "权限不足");
         }

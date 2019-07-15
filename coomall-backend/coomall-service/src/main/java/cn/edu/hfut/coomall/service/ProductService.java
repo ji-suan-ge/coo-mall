@@ -89,4 +89,9 @@ public class ProductService {
     public List<ProductStyle> getStyleByProductID(Integer productID) {
         return productStyleMapper.selectProductStyleByProductID(productID);
     }
+
+    public void saveProductStyle(ProductStyle productStyle) {
+
+        productStyleMapper.saveStyle(productStyle);
+    }
 }

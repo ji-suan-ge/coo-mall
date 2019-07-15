@@ -1,27 +1,13 @@
-package cn.edu.hfut.coomall.entity;
+package cn.edu.hfut.coomall.web.merchant.bean;
 
 /**
  * @author 葛学文
- * @date 2019/7/16 2:18
+ * @date 2019/7/16 2:36
  */
-public class ProductStyle {
+public class AddProductStyleReqBean {
 
-    private Integer ID;
     private Integer productID;
     private String style;
-
-    public ProductStyle(Integer productID, String style) {
-        this.productID = productID;
-        this.style = style;
-    }
-
-    public Integer getID() {
-        return ID;
-    }
-
-    public void setID(Integer ID) {
-        this.ID = ID;
-    }
 
     public Integer getProductID() {
         return productID;
