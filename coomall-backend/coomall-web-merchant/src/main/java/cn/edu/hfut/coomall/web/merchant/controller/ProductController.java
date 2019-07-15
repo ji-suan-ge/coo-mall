@@ -42,11 +42,12 @@ public class ProductController {
         Integer quantity = addProductReqBean.getQuantity();
         Integer category = addProductReqBean.getCategory();
         String detail = addProductReqBean.getDetail();
+        String avatar = addProductReqBean.getAvatar();
 
         Merchant merchant = (Merchant)httpSession.getAttribute(cooMallConfig.getIdentifier());
         Integer merchantID = merchant.getID();
 
-        Product product = new Product(name, price, quantity, category, detail, merchantID);
+        Product product = new Product(name, price, quantity, category, detail, merchantID, avatar);
         productService.saveProduct(product);
 
         return ResultUtil.success();

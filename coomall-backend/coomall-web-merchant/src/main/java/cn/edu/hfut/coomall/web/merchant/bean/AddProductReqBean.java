@@ -18,6 +18,8 @@ public class AddProductReqBean {
     private Integer category;
     @NotNull(message = "detail 不能为空")
     private String detail;
+    @NotNull(message = "avatar 不能为空")
+    private String avatar;
 
     @Override
     public String toString() {
@@ -27,7 +29,16 @@ public class AddProductReqBean {
                 ", quantity=" + quantity +
                 ", category=" + category +
                 ", detail='" + detail + '\'' +
+                ", avatar='" + avatar + '\'' +
                 '}';
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getName() {

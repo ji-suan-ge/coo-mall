@@ -15,10 +15,12 @@ public class Product {
     private String detail;
     private Integer state;
     private Integer merchantID;
+    private String avatar;
 
     public Product() {}
 
-    public Product(String name, Integer price, Integer quantity, Integer category, String detail, Integer merchantID) {
+    public Product(String name, Integer price, Integer quantity, Integer category, String detail, Integer merchantID,
+                   String avatar) {
 
         this.name = name;
         this.price = price;
@@ -26,6 +28,7 @@ public class Product {
         this.category = category;
         this.detail = detail;
         this.merchantID = merchantID;
+        this.avatar = avatar;
     }
 
     @Override
@@ -40,7 +43,16 @@ public class Product {
                 ", detail='" + detail + '\'' +
                 ", state=" + state +
                 ", merchantID=" + merchantID +
+                ", avatar='" + avatar + '\'' +
                 '}';
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Integer getID() {
