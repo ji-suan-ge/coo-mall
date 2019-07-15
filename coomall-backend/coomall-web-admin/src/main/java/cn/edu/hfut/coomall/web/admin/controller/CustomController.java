@@ -29,13 +29,14 @@ public class CustomController {
      * @date 2019/7/15
      */
     @SuppressWarnings("unchecked")
-    @PostMapping("/getAll")
-    public Message getAllCustom(@RequestBody @Valid
+    @PostMapping("/getByState")
+    public Message getCustomByState(@RequestBody @Valid
                                         GetAllCustomReqBean getAllCustomReqBean) {
 
         Integer currentPage = getAllCustomReqBean.getCurrentPage();
         Integer limit = getAllCustomReqBean.getLimit();
-        Map<String, Object> map = customService.getAllCustom(currentPage, limit);
+        Integer state = getAllCustomReqBean.getState();
+        Map<String, Object> map = customService.getCustomByState(state, currentPage, limit);
 
         Integer totalPage = (Integer) map.get("totalPage");
         List<Custom> customList = (List<Custom>) map.get("list");

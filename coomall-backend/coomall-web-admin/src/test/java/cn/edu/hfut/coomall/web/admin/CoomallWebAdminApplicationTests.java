@@ -19,8 +19,7 @@ public class CoomallWebAdminApplicationTests {
 
     @Test
     public void customTest() {
-        List<Custom> customs = customMapper.selectAllCustom();
-        System.out.println(customs);
+
     }
 
 }
