@@ -6,6 +6,7 @@ import cn.edu.hfut.coomall.service.MerchantService;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.admin.bean.GetAllMerchantReqBean;
 import cn.edu.hfut.coomall.web.admin.bean.GetAllMerchantRespBean;
+import cn.edu.hfut.coomall.web.admin.bean.GetMerchantByIDReqBean;
 import cn.edu.hfut.coomall.web.admin.bean.RemoveMerchantByIDReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,5 +59,20 @@ public class MerchantController {
         getAllMerchantRespBean.setTotalPage(totalPage);
 
         return ResultUtil.success(getAllMerchantRespBean);
+    }
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/15
+     */
+    @SuppressWarnings("unchecked")
+    @PostMapping("/agree")
+    public Message updateMerchantState(@RequestBody @Valid
+                                               GetMerchantByIDReqBean getMerchantReqBean) {
+
+        Integer merchantID = getMerchantReqBean.getMerchantID();
+        merchantService.updateMerchantState(merchantID);
+
+        return ResultUtil.success();
     }
 }

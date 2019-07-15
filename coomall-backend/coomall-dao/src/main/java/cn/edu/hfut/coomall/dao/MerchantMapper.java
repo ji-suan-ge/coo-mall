@@ -34,16 +34,27 @@ public interface MerchantMapper {
      * @author 郑力煽
      * @date 2019/7/14
      */
-    @Select("select * from merchant where state = 1")
+    @Select("select * from merchant where state = 1 and state = 2")
     List<Merchant> selectAllMerchant();
 
     /**
      * @author 郑力煽
      * @date 2019/7/14
      */
-    @Select("select * from merchant where ID = #{merchantID} and state = 1")
+    @Select("select * from merchant where ID = #{merchantID} and state = 2")
     Merchant selectMerchantByID(Integer merchantID);
 
-    @Select("select * from merchant where phoneNumber = #{phoneNumber}")
+    /**
+     * @author 郑力煽
+     * @date 2019/7/14
+     */
+    @Select("select * from merchant where phoneNumber = #{phoneNumber} and state = 2")
     Merchant selectMerchantByPhoneNumber(String phoneNumber);
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/15
+     */
+    @Update("update merchant set state = 2 where id=#{merchantID}")
+    void updateMerchantStateByID(Integer merchantID);
 }

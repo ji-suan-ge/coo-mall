@@ -112,4 +112,13 @@ public class MerchantService {
         return merchant;
     }
 
+    /**
+     * @author 郑力煽
+     * @data 2019/7/15
+     * 商家状态修改
+     */
+    public void updateMerchantState(Integer merchantID) {
+
+        merchantMapper.updateMerchantStateByID(merchantID);
+    }
 }
