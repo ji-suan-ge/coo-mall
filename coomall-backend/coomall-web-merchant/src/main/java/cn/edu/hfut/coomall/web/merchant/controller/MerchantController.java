@@ -8,6 +8,7 @@ import cn.edu.hfut.coomall.service.exception.MerchantNotFoundException;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.merchant.bean.LoginReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,9 @@ import javax.validation.Valid;
 @RequestMapping("/merchant")
 @RestController
 public class MerchantController {
+
+    @Value("${coomall.identifier}")
+    private String identifier;
 
     @Autowired
     MerchantService merchantService;
@@ -43,7 +47,7 @@ public class MerchantController {
             return ResultUtil.error(4102, e.getMessage());
         }
 
-        httpSession.setAttribute("merchant", merchant);
+        httpSession.setAttribute(identifier, merchant);
         merchant.setPassword(null);
         return ResultUtil.success(merchant);
     }
@@ -51,7 +55,7 @@ public class MerchantController {
     @PostMapping("/logout")
     public Message login(HttpSession httpSession) {
 
-        httpSession.removeAttribute("merchant");
+        httpSession.removeAttribute(identifier);
         return ResultUtil.success();
     }
 }

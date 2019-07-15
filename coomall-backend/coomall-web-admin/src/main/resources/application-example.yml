@@ -33,3 +33,6 @@ server:
 logging:
   level:
     root: INFO
+
+coomall:
+  identifier: admin

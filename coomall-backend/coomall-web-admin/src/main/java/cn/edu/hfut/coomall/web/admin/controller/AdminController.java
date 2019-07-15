@@ -12,6 +12,7 @@ import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.admin.bean.*;
 import cn.edu.hfut.coomall.web.common.bean.GetCustomByIDRespBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,9 @@ import java.util.Map;
 @RequestMapping("/admin")
 @RestController
 public class AdminController {
+
+    @Value("${coomall.identifier}")
+    private String identifier;
 
     @Autowired
     AdminService adminService;
@@ -51,7 +55,7 @@ public class AdminController {
             return ResultUtil.error(4102, e.getMessage());
         }
 
-        httpSession.setAttribute("admin", admin);
+        httpSession.setAttribute(identifier, admin);
         admin.setPassword(null);
         return ResultUtil.success(admin);
     }
@@ -59,7 +63,7 @@ public class AdminController {
     @PostMapping("/logout")
     public Message login(HttpSession httpSession) {
 
-        httpSession.removeAttribute("admin");
+        httpSession.removeAttribute(identifier);
         return ResultUtil.success();
     }
 
