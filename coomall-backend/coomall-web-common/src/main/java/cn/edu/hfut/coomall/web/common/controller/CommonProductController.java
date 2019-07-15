@@ -4,10 +4,7 @@ import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.entity.Product;
 import cn.edu.hfut.coomall.service.ProductService;
 import cn.edu.hfut.coomall.util.ResultUtil;
-import cn.edu.hfut.coomall.web.common.bean.GetProductByIDReqBean;
-import cn.edu.hfut.coomall.web.common.bean.GetProductByIDRespBean;
-import cn.edu.hfut.coomall.web.common.bean.GetProductByMerchantIDReqBean;
-import cn.edu.hfut.coomall.web.common.bean.GetProductByMerchantIDRespBean;
+import cn.edu.hfut.coomall.web.common.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,5 +59,25 @@ public class CommonProductController {
         getProductByMerchantIDRespBean.setTotalPage(totalPage);
 
         return ResultUtil.success(getProductByMerchantIDRespBean);
+    }
+
+    @SuppressWarnings("unchecked")
+    @PostMapping("/getByCategory")
+    public Message getProductByCategory(@RequestBody @Valid
+                                                GetProductByCategoryReqBean getProductByCategoryReqBean) {
+
+        Integer category = getProductByCategoryReqBean.getCategory();
+        Integer currentPage = getProductByCategoryReqBean.getCurrentPage();
+        Integer limit = getProductByCategoryReqBean.getLimit();
+
+        Map<String, Object> map = productService.getProductByCategory(category, currentPage, limit);
+        Integer totalPage = (Integer) map.get("totalPage");
+        List<Product> productList = (List<Product>) map.get("list");
+        GetProductByMerchantIDRespBean getProductByCategoryRespBean =
+                new GetProductByCategoryRespBean();
+        getProductByCategoryRespBean.setProductList(productList);
+        getProductByCategoryRespBean.setTotalPage(totalPage);
+
+        return ResultUtil.success(getProductByCategoryRespBean);
     }
 }

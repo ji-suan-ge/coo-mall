@@ -37,4 +37,8 @@ public interface ProductMapper {
 
     @Select("select * from `product` where `name` like concat('%',#{keyword},'%')")
     List<Product> search(String keyword);
+
+    @Select("select * from `product` where category = #{category} and `state` = 1")
+    List<Product> selectProductByCategory(Integer category);
+
 }

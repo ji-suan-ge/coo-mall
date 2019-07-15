@@ -66,4 +66,15 @@ public class ProductService {
 
         return map;
     }
+
+    public Map<String, Object> getProductByCategory(Integer category, Integer currentPage, Integer limit) {
+
+        Page page = PageHelper.startPage(currentPage, limit);
+        List<Product> productList = productMapper.selectProductByCategory(category);
+
+        Map<String , Object> map = new HashMap<>();
+        map.put("list", productList);
+        map.put("totalPage", page.getPages());
+        return map;
+    }
 }
