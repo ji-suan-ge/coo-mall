@@ -13,9 +13,9 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
-    @Select("select * from order where ID = #{orderID}")
+    @Select("select * from `order` where ID = #{orderID}")
     Order selectOrderByID(Integer orderID);
 
-    @Select("select * from order where state = #{state}")
+    @Select("select * from `order` where state = #{state}")
     List<Order> selectOrderByState(Integer state);
 }
