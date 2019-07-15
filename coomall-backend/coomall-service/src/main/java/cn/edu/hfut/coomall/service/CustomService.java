@@ -3,6 +3,7 @@ package cn.edu.hfut.coomall.service;
 import cn.edu.hfut.coomall.dao.CustomMapper;
 import cn.edu.hfut.coomall.entity.Custom;
 import cn.edu.hfut.coomall.service.exception.CustomNotFoundException;
+import cn.edu.hfut.coomall.service.exception.InvalidPasswordException;
 import cn.edu.hfut.coomall.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,5 +86,17 @@ public class CustomService {
     public List<Custom> getAllCustom() {
 
         return customMapper.selectAllCustom();
+    }
+
+    public Custom login(String phoneNumber, String password) {
+
+        // 已经检查 custom 是否为空
+        Custom custom = getCustomByPhoneNumber(phoneNumber);
+
+        if (!PasswordUtil.checkPassword(password, custom.getPassword())) {
+            throw new InvalidPasswordException(phoneNumber);
+        }
+
+        return custom;
     }
 }
