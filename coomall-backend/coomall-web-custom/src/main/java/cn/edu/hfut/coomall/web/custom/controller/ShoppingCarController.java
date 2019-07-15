@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author 郑力煽
@@ -62,6 +63,17 @@ public class ShoppingCarController {
         shoppingCarService.deleteShoppingCar(shoppingCar);
 
         return ResultUtil.success();
+    }
+
+    @LoginRequired
+    @PostMapping("/find")
+    public Message findShoppingCar(HttpSession httpSession) {
+
+        Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer customID = custom.getID();
+        List<ShoppingCar> shoppingCarList = shoppingCarService.findShoppingCar(customID);
+
+        return ResultUtil.success(shoppingCarList);
     }
 }
 

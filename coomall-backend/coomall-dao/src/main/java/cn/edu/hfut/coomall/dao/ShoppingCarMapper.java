@@ -4,6 +4,9 @@ import cn.edu.hfut.coomall.entity.ShoppingCar;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * @author 郑力煽
@@ -21,4 +24,10 @@ public interface ShoppingCarMapper {
             "shoppingcar "+
             "where productID = #{productID} and customID = #{customID}")
     void deleteShoppingCar(ShoppingCar shoppingCar);
+
+    @Select("select * from " +
+            "shoppingcar "+
+            "where customID = #{customID}")
+    List<ShoppingCar> findShoppingCar(Integer customID);
+
 }
