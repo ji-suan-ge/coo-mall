@@ -6,8 +6,10 @@ import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.MerchantService;
 import cn.edu.hfut.coomall.service.exception.BaseException;
 import cn.edu.hfut.coomall.service.exception.MerchantNotFoundException;
+import cn.edu.hfut.coomall.util.PasswordUtil;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.merchant.bean.LoginReqBean;
+import cn.edu.hfut.coomall.web.merchant.bean.RegisterMerchantReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,6 +57,32 @@ public class MerchantController {
     public Message login(HttpSession httpSession) {
 
         httpSession.removeAttribute(cooMallConfig.getIdentifier());
+        return ResultUtil.success();
+    }
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/15
+     */
+    @PostMapping("/add")
+    public Message registerMerchant(@RequestBody @Valid RegisterMerchantReqBean registerMerchantReqBean) {
+        String shopName = registerMerchantReqBean.getShopName();
+        String ownerName = registerMerchantReqBean.getOwnerName();
+        String phoneNumber = registerMerchantReqBean.getPhoneNumber();
+        String intro = registerMerchantReqBean.getIntro();
+        String password = registerMerchantReqBean.getPassword();
+        String address = registerMerchantReqBean.getAddress();
+        String identityNumber = registerMerchantReqBean.getIdentityNumber();
+        String identityPhoto = registerMerchantReqBean.getIdentityPhoto();
+        String email = registerMerchantReqBean.getEmail();
+
+        //加密存储
+        password = PasswordUtil.encode(password);
+
+        Merchant merchant = new Merchant(shopName, ownerName, phoneNumber, intro, password,
+                address, identityNumber, identityPhoto, email);
+        merchantService.saveMerchant(merchant);
+
         return ResultUtil.success();
     }
 }

@@ -1,45 +1,35 @@
-package cn.edu.hfut.coomall.entity;
+package cn.edu.hfut.coomall.web.merchant.bean;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import javax.validation.constraints.NotNull;
 
 /**
- * @author 葛学文
- * @date 2019/7/14 14:39
+ * @author 郑力煽
+ * @date 2019/7/15
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class Merchant {
-
-    private Integer ID;
+public class RegisterMerchantReqBean {
+    @NotNull(message = "shopName 不能为空")
     private String shopName;
+    @NotNull(message = "ownerName 不能为空")
     private String ownerName;
+    @NotNull(message = "phoneNumber 不能为空")
     private String phoneNumber;
+    @NotNull(message = "intro 不能为空")
     private String intro;
+    @NotNull(message = "password 不能为空")
     private String password;
+    @NotNull(message = "address 不能为空")
     private String address;
+    @NotNull(message = "identityNumber 不能为空")
     private String identityNumber;
+    @NotNull(message = "identityPhoto 不能为空")
     private String identityPhoto;
+    @NotNull(message = "email 不能为空")
     private String email;
-    private Integer score;
-    private Integer state;
-
-    public Merchant(String shopName, String ownerName, String phoneNumber, String intro, String password, String address, String identityNumber, String identityPhoto, String email) {
-        this.shopName = shopName;
-        this.ownerName = ownerName;
-        this.phoneNumber = phoneNumber;
-        this.intro = intro;
-        this.password = password;
-        this.address = address;
-        this.identityNumber = identityNumber;
-        this.identityPhoto = identityPhoto;
-        this.email = email;
-        score = 8;
-    }
 
     @Override
     public String toString() {
-        return "Merchant{" +
-                "ID=" + ID +
-                ", shopName='" + shopName + '\'' +
+        return "RegisterMerchantReqBean{" +
+                "shopName='" + shopName + '\'' +
                 ", ownerName='" + ownerName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", intro='" + intro + '\'' +
@@ -48,17 +38,7 @@ public class Merchant {
                 ", identityNumber='" + identityNumber + '\'' +
                 ", identityPhoto='" + identityPhoto + '\'' +
                 ", email='" + email + '\'' +
-                ", score=" + score +
-                ", state=" + state +
                 '}';
-    }
-
-    public Integer getID() {
-        return ID;
-    }
-
-    public void setID(Integer ID) {
-        this.ID = ID;
     }
 
     public String getShopName() {
@@ -133,19 +113,5 @@ public class Merchant {
         this.email = email;
     }
 
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
 }
+

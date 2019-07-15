@@ -6,10 +6,14 @@ import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.service.exception.InvalidPasswordException;
 import cn.edu.hfut.coomall.service.exception.MerchantNotFoundException;
 import cn.edu.hfut.coomall.util.PasswordUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 葛学文
@@ -73,10 +77,22 @@ public class MerchantService {
      * @author 葛学文
      * @data 2019/7/14
      * 获取所有商家列表
+     * 修改 by 郑力煽 7/15
      */
-    public List<Merchant> getAllMerchant() {
+    public Map<String, Object> getAllMerchant(Integer currentPage, Integer limit) {
+        //return merchantMapper.selectAllMerchant();
+        Page page = PageHelper.startPage(currentPage, limit);
+        List<Merchant> merchantList = merchantMapper.selectAllMerchant();
 
-        return merchantMapper.selectAllMerchant();
+        for (Merchant merchant :
+                merchantList) {
+            merchant.setPassword(null);
+        }
+
+        Map<String , Object> map = new HashMap<>();
+        map.put("list", merchantList);
+        map.put("totalPage", page.getPages());
+        return map;
     }
 
     /**
@@ -96,4 +112,13 @@ public class MerchantService {
         return merchant;
     }
 
+    /**
+     * @author 郑力煽
+     * @data 2019/7/15
+     * 商家状态修改
+     */
+    public void updateMerchantState(Integer merchantID) {
+
+        merchantMapper.updateMerchantStateByID(merchantID);
+    }
 }
