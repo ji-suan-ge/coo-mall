@@ -2,6 +2,8 @@ package cn.edu.hfut.coomall.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.List;
+
 /**
  * @author 葛学文
  * @date 2019/7/14 14:39
