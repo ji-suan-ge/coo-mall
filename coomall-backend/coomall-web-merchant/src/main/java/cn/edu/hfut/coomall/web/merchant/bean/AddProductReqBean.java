@@ -18,8 +18,6 @@ public class AddProductReqBean {
     private Integer category;
     @NotNull(message = "detail 不能为空")
     private String detail;
-    @NotNull(message = "merchantID 不能为空")
-    private Integer merchantID;
 
     @Override
     public String toString() {
@@ -29,7 +27,6 @@ public class AddProductReqBean {
                 ", quantity=" + quantity +
                 ", category=" + category +
                 ", detail='" + detail + '\'' +
-                ", merchantID=" + merchantID +
                 '}';
     }
 
@@ -73,11 +70,4 @@ public class AddProductReqBean {
         this.detail = detail;
     }
 
-    public Integer getMerchantID() {
-        return merchantID;
-    }
-
-    public void setMerchantID(Integer merchantID) {
-        this.merchantID = merchantID;
-    }
 }

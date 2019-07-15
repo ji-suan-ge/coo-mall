@@ -1,5 +1,7 @@
 package cn.edu.hfut.coomall.web.merchant.controller;
 
+import cn.edu.hfut.coomall.config.CooMallConfig;
+import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.entity.Product;
@@ -26,17 +28,23 @@ import javax.validation.Valid;
 public class ProductController {
 
     @Autowired
+    CooMallConfig cooMallConfig;
+    @Autowired
     ProductService productService;
 
+    @LoginRequired
     @PostMapping("/add")
-    public Message addProduct(@RequestBody @Valid AddProductReqBean addProductReqBean) {
+    public Message addProduct(@RequestBody @Valid AddProductReqBean addProductReqBean,
+                              HttpSession httpSession) {
 
         String name = addProductReqBean.getName();
         Integer price = addProductReqBean.getPrice();
         Integer quantity = addProductReqBean.getQuantity();
         Integer category = addProductReqBean.getCategory();
         String detail = addProductReqBean.getDetail();
-        Integer merchantID = addProductReqBean.getMerchantID();
+
+        Merchant merchant = (Merchant)httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer merchantID = merchant.getID();
 
         Product product = new Product(name, price, quantity, category, detail, merchantID);
         productService.saveProduct(product);
@@ -44,12 +52,15 @@ public class ProductController {
         return ResultUtil.success();
     }
 
+    @LoginRequired
     @PostMapping("/remove")
     public Message removeProduct(@RequestBody @Valid RemoveProductReqBean removeProductReqBean,
                               HttpSession httpSession) {
 
         Integer productID = removeProductReqBean.getProductID();
-        Integer merchantID = ((Merchant) httpSession.getAttribute("merchant")).getID();
+
+        Merchant merchant = (Merchant)httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer merchantID = merchant.getID();
 
         Product product = productService.getProductByID(productID);
 
@@ -62,6 +73,7 @@ public class ProductController {
         return ResultUtil.success();
     }
 
+    @LoginRequired
     @PostMapping("/edit")
     public Message editProduct(@RequestBody @Valid EditProductReqBean editProductReqBean,
                                HttpSession httpSession) {
@@ -75,7 +87,9 @@ public class ProductController {
             return ResultUtil.error(4001, "参数不足");
         }
 
-        Integer merchantID = ((Merchant) httpSession.getAttribute("merchant")).getID();
+
+        Merchant merchant = (Merchant)httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer merchantID = merchant.getID();
 
         Product product = productService.getProductByID(productID);
 

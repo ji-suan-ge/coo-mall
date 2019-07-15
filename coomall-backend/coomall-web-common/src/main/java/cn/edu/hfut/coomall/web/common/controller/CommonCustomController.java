@@ -1,5 +1,6 @@
 package cn.edu.hfut.coomall.web.common.controller;
 
+import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Custom;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.CustomService;
@@ -21,6 +22,7 @@ public class CommonCustomController {
     @Autowired
     CustomService customService;
 
+    @LoginRequired
     @PostMapping("/getByID")
     public Message getCustomByID(@RequestBody @Valid
                                          GetCustomByIDReqBean getCustomByIDReqBean) {
