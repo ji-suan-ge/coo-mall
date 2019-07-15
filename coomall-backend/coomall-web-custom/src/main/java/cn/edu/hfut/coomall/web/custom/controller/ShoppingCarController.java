@@ -3,15 +3,13 @@ package cn.edu.hfut.coomall.web.custom.controller;
 import cn.edu.hfut.coomall.config.CooMallConfig;
 import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Custom;
-import cn.edu.hfut.coomall.entity.Favorite;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.entity.ShoppingCar;
-import cn.edu.hfut.coomall.service.FavoriteService;
 import cn.edu.hfut.coomall.service.ShoppingCarService;
 import cn.edu.hfut.coomall.util.ResultUtil;
-import cn.edu.hfut.coomall.web.custom.bean.AddFavoriteReqBean;
 import cn.edu.hfut.coomall.web.custom.bean.AddShoppingCarReqBean;
 import cn.edu.hfut.coomall.web.custom.bean.DeleteShoppingCarReqBean;
+import cn.edu.hfut.coomall.web.custom.bean.UpdateShoppingCarReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +39,7 @@ public class ShoppingCarController {
     public Message addShoppingCar(@RequestBody @Valid AddShoppingCarReqBean addShoppingCarReqBean,
                                   HttpSession httpSession) {
 
-        Integer productID = addShoppingCarReqBean.getCustomID();
+        Integer productID = addShoppingCarReqBean.getProductID();
         Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
         Integer customID = custom.getID();
 
@@ -74,6 +72,25 @@ public class ShoppingCarController {
         List<ShoppingCar> shoppingCarList = shoppingCarService.findShoppingCar(customID);
 
         return ResultUtil.success(shoppingCarList);
+    }
+
+    @LoginRequired
+    @PostMapping("/update")
+    public Message updateShoppingCar(@RequestBody @Valid UpdateShoppingCarReqBean updateShoppingCarReqBean,
+                                     HttpSession httpSession) {
+
+        Integer productID = updateShoppingCarReqBean.getProductID();
+        Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer customID = custom.getID();
+        Integer changeNumber = updateShoppingCarReqBean.getChangenumber();
+        ShoppingCar shoppingCar = shoppingCarService.selectShoppingCar(customID, productID);
+        Integer number =shoppingCar.getNumber();
+        changeNumber = changeNumber + number;
+        if (changeNumber <= 0){
+            return ResultUtil.error(4300,"商品数量小于1");
+        }
+        shoppingCarService.updateShoppingCar(customID,productID,changeNumber);
+        return ResultUtil.success();
     }
 }
 

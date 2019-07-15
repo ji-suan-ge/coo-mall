@@ -28,6 +28,14 @@ public class ShoppingCarService {
         return shoppingCarMapper.findShoppingCar(customID);
     }
 
+    public void updateShoppingCar(Integer customID, Integer productID, Integer changeNumber){
+        shoppingCarMapper.updateShoppingCar(customID, productID, changeNumber);
+    }
+
+    public ShoppingCar selectShoppingCar(Integer customID, Integer productID){
+        return shoppingCarMapper.selectShoppingCarNumber(customID, productID);
+    }
+
 }
 
 

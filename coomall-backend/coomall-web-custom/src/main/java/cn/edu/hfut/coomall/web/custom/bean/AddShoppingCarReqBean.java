@@ -2,13 +2,14 @@ package cn.edu.hfut.coomall.web.custom.bean;
 
 public class AddShoppingCarReqBean {
 
-    private Integer customID;
+    private Integer productID;
 
-    public Integer getCustomID() {
-        return customID;
+    public Integer getProductID() {
+        return productID;
     }
 
-    public void setCustomID(Integer customID) {
-        this.customID = customID;
+    public void setProductID(Integer productID) {
+        this.productID = productID;
     }
+
 }
