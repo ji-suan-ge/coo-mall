@@ -10,6 +10,7 @@ import cn.edu.hfut.coomall.service.exception.BaseException;
 import cn.edu.hfut.coomall.service.exception.CustomNotFoundException;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.custom.bean.AddFavoriteReqBean;
+import cn.edu.hfut.coomall.web.custom.bean.DeleteFavoriteReqBean;
 import cn.edu.hfut.coomall.web.custom.bean.GetFavoriteRespBean;
 import cn.edu.hfut.coomall.web.custom.bean.getFavoriteReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,20 @@ public class FavoriteController {
         //getFavoriteRespBean.getFavorite(favoriteList);
 
         return ResultUtil.success(favoriteList);
+
+    }
+
+    @LoginRequired
+    @PostMapping("/delete")
+    public Message deleteFavoriteByProductID(@RequestBody @Valid DeleteFavoriteReqBean
+                                                         deleteFavoriteReqBean,HttpSession httpSession) {
+
+        Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer customID = custom.getID();
+        Integer productID = deleteFavoriteReqBean.getProductID();
+        Favorite favorite = new Favorite(productID, customID);
+        favoriteService.deleteFavoriteByProductID(favorite);
+        return ResultUtil.success();
 
     }
 }

@@ -1,6 +1,7 @@
 package cn.edu.hfut.coomall.dao;
 
 import cn.edu.hfut.coomall.entity.Favorite;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -32,4 +33,13 @@ public interface FavoriteMapper {
             "and favorite.customID = #{customID} "+
             "ORDER BY merchantID")
     List<Favorite> selectFavoriteByID(Integer customID);
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/15
+     */
+    @Delete("delete from " +
+            "favorite " +
+            "where productID = #{productID} and customID = #{customID}")
+    void deleteFavorite(Favorite favorite);
 }

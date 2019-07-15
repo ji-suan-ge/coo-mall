@@ -27,4 +27,9 @@ public class FavoriteService {
 
         return favoriteMapper.selectFavoriteByID(customID);
     }
+
+    public void deleteFavoriteByProductID(Favorite favorite){
+
+        favoriteMapper.deleteFavorite(favorite);
+    }
 }
