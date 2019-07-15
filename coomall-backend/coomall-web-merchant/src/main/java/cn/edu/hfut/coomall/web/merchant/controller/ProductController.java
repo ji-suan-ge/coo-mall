@@ -85,7 +85,7 @@ public class ProductController {
             return ResultUtil.error(4200, "权限不足");
         }
 
-        return null;
+        return ResultUtil.success();
     }
 
 }
