@@ -1,5 +1,6 @@
 package cn.edu.hfut.coomall.web.custom.controller;
 
+import cn.edu.hfut.coomall.config.CooMallConfig;
 import cn.edu.hfut.coomall.entity.Custom;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.CustomService;
@@ -8,7 +9,6 @@ import cn.edu.hfut.coomall.service.exception.CustomNotFoundException;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.custom.bean.LoginReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +25,8 @@ import javax.validation.Valid;
 @RequestMapping("/custom")
 public class CustomController {
 
-    @Value("${coomall.identifier}")
-    private String identifier;
-
+    @Autowired
+    CooMallConfig cooMallConfig;
     @Autowired
     CustomService customService;
 
@@ -47,7 +46,7 @@ public class CustomController {
             return ResultUtil.error(4102, e.getMessage());
         }
 
-        httpSession.setAttribute(identifier, custom);
+        httpSession.setAttribute(cooMallConfig.getIdentifier(), custom);
         custom.setPassword(null);
         return ResultUtil.success(custom);
     }
@@ -55,7 +54,7 @@ public class CustomController {
     @PostMapping("/logout")
     public Message login(HttpSession httpSession) {
 
-        httpSession.removeAttribute(identifier);
+        httpSession.removeAttribute(cooMallConfig.getIdentifier());
         return ResultUtil.success();
     }
 

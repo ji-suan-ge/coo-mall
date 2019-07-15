@@ -1,18 +1,17 @@
 package cn.edu.hfut.coomall.web.admin.controller;
 
+import cn.edu.hfut.coomall.config.CooMallConfig;
 import cn.edu.hfut.coomall.entity.Admin;
-import cn.edu.hfut.coomall.entity.Custom;
-import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.AdminService;
 import cn.edu.hfut.coomall.service.CustomService;
 import cn.edu.hfut.coomall.service.exception.AdminNotFoundException;
 import cn.edu.hfut.coomall.service.exception.BaseException;
 import cn.edu.hfut.coomall.util.ResultUtil;
-import cn.edu.hfut.coomall.web.admin.bean.*;
-import cn.edu.hfut.coomall.web.common.bean.GetCustomByIDRespBean;
+import cn.edu.hfut.coomall.web.admin.bean.GetAdminByIDReqBean;
+import cn.edu.hfut.coomall.web.admin.bean.GetAdminByIDRespBean;
+import cn.edu.hfut.coomall.web.admin.bean.LoginReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author 葛学文
@@ -31,9 +28,8 @@ import java.util.Map;
 @RestController
 public class AdminController {
 
-    @Value("${coomall.identifier}")
-    private String identifier;
-
+    @Autowired
+    CooMallConfig cooMallConfig;
     @Autowired
     AdminService adminService;
     @Autowired
@@ -55,7 +51,7 @@ public class AdminController {
             return ResultUtil.error(4102, e.getMessage());
         }
 
-        httpSession.setAttribute(identifier, admin);
+        httpSession.setAttribute(cooMallConfig.getIdentifier(), admin);
         admin.setPassword(null);
         return ResultUtil.success(admin);
     }
@@ -63,7 +59,7 @@ public class AdminController {
     @PostMapping("/logout")
     public Message login(HttpSession httpSession) {
 
-        httpSession.removeAttribute(identifier);
+        httpSession.removeAttribute(cooMallConfig.getIdentifier());
         return ResultUtil.success();
     }
 
