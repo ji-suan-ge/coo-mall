@@ -8,11 +8,29 @@ import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-Vue.use(VueAxios, axios)
-
 Vue.config.productionTip = false
 
+Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
+axios.defaults.baseURL = 'http://192.168.43.193:8001'
+axios.defaults.withCredentials = true
+
+axios.interceptors.response.use(
+  response => {
+    return response
+  },
+  error => {
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          router.replace({
+            path: '/login',
+            query: {redirect: router.currentRoute.fullPath}
+          })
+      }
+    }
+    return Promise.reject(error.response.data)
+  })
 
 /* eslint-disable no-new */
 new Vue({

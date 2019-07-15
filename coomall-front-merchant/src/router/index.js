@@ -9,7 +9,18 @@ import ProductsManage from '@/components/ProductsManage'
 import OrderFormManage from '@/components/OrderFormManage'
 import ReportForm from '@/components/ReportForm'
 import MerchantInfo from '@/components/MerchantInfo'
-import MerchantManage from '@/components/MerchantManage'
+import WaitPay from '@/components/orderForm/WaitPay'
+import WaitShip from '@/components/orderForm/WaitShip'
+import Shipped from '@/components/orderForm/Shipped'
+import Signed from '@/components/orderForm/Signed'
+import Finished from '@/components/orderForm/Finished'
+import WaitReturn from '@/components/orderForm/WaitReturn'
+import Returning from '@/components/orderForm/Returning'
+import Returned from '@/components/orderForm/Returned'
+import Canceled from '@/components/orderForm/Canceled'
+import FindPassword from '@/pages/FindPassword'
+import ModifyPassword from '@/pages/ModifyPassword'
+import ProductComment from '@/pages/ProductComment'
 
 Vue.use(Router)
 
@@ -24,6 +35,21 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/findPassword',
+      name: 'findPassword',
+      component: FindPassword
+    },
+    {
+      path: '/productComment',
+      name: 'productComment',
+      component: ProductComment
+    },
+    {
+      path: '/modifyPassword',
+      name: 'modifyPassword',
+      component: ModifyPassword
     },
     {
       path: '/apply',
@@ -67,9 +93,49 @@ export default new Router({
           component: MerchantInfo
         },
         {
-          path: 'merchantManage',
-          name: 'merchantManage',
-          component: MerchantManage
+          path: 'waitPay',
+          name: 'waitPay',
+          component: WaitPay
+        },
+        {
+          path: 'waitShip',
+          name: 'waitShip',
+          component: WaitShip
+        },
+        {
+          path: 'shipped',
+          name: 'shipped',
+          component: Shipped
+        },
+        {
+          path: 'signed',
+          name: 'signed',
+          component: Signed
+        },
+        {
+          path: 'finished',
+          name: 'finished',
+          component: Finished
+        },
+        {
+          path: 'waitReturn',
+          name: 'waitReturn',
+          component: WaitReturn
+        },
+        {
+          path: 'returning',
+          name: 'returning',
+          component: Returning
+        },
+        {
+          path: 'returned',
+          name: 'returned',
+          component: Returned
+        },
+        {
+          path: 'canceled',
+          name: 'canceled',
+          component: Canceled
         }
       ]
     }

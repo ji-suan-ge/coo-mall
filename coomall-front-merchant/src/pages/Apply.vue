@@ -54,6 +54,22 @@
                       v-model="phone" class="input_width"></el-input>
           </el-form-item>
         </el-row>
+        <el-row type="flex" justify="center">
+          <el-form-item label="身份证照片">
+            <el-upload list-type="picture-card"
+                       action=""  :auto-upload="false"
+                       :on-preview="handlePictureCardPreview">
+
+            </el-upload>
+          </el-form-item>
+        </el-row>
+        <el-row class="input_interval"></el-row>
+        <el-row type="flex" justify="center">
+          <el-form-item label="简介">
+            <el-input type="textarea" :rows="6" placeholder="请输入您的简介"
+                      v-model="introduce" class="input_width"></el-input>
+          </el-form-item>
+        </el-row>
         <el-row id="input_bottom"></el-row>
         <el-row type="flex" justify="center">
           <el-form-item>
@@ -78,6 +94,7 @@ export default {
       mail: '',
       address: '',
       IDNumber: '',
+      introduce: '',
       dialogImageUrl: '',
       dialogVisible: false
     }
@@ -85,14 +102,16 @@ export default {
   methods: {
     onSubmit: function () {
       let that = this
-      this.axios.post('/apply', {
-        storeName: that.storeName,
-        name: that.name,
-        phone: that.phone,
+      this.axios.post('/merchant/add', {
+        shopName: that.storeName,
+        ownerName: that.name,
+        phoneNumber: that.phone,
         password: that.password,
-        mail: that.mail,
+        email: that.mail,
         address: that.address,
-        IDNumber: that.IDNumber
+        identityNumber: that.IDNumber,
+        intro: this.introduce,
+        identityPhoto: this.dialogImageUrl
       })
         .then(function (response) {
           this.$router.push('/applyResult')
@@ -100,6 +119,10 @@ export default {
         .catch(function (error) {
           console.log(error)
         })
+    },
+    handlePictureCardPreview (file) {
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
     }
   }
 }
