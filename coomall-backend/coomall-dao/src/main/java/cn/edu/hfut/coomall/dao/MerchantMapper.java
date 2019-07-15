@@ -1,5 +1,6 @@
 package cn.edu.hfut.coomall.dao;
 
+import cn.edu.hfut.coomall.dao.provider.MerchantProvider;
 import cn.edu.hfut.coomall.entity.Merchant;
 import org.apache.ibatis.annotations.*;
 
@@ -57,4 +58,7 @@ public interface MerchantMapper {
      */
     @Update("update merchant set state = 2 where id=#{merchantID}")
     void updateMerchantStateByID(Integer merchantID);
+
+    @UpdateProvider(type = MerchantProvider.class, method = "updateMerchant")
+    void updateMerchant(Integer merchantID, String shopName ,String phoneNumber ,String intro ,String address ,String email) ;
 }
