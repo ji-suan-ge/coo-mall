@@ -103,7 +103,6 @@ public class CustomService {
         return map;
     }
 
-<<<<<<< HEAD
     public Custom login(String phoneNumber, String password) {
 
         // 已经检查 custom 是否为空
@@ -115,6 +114,4 @@ public class CustomService {
 
         return custom;
     }
-=======
->>>>>>> master
 }
