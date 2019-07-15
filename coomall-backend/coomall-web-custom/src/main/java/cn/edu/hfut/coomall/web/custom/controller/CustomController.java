@@ -1,12 +1,14 @@
 package cn.edu.hfut.coomall.web.custom.controller;
 
 import cn.edu.hfut.coomall.config.CooMallConfig;
+import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Custom;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.CustomService;
 import cn.edu.hfut.coomall.service.exception.BaseException;
 import cn.edu.hfut.coomall.service.exception.CustomNotFoundException;
 import cn.edu.hfut.coomall.util.ResultUtil;
+import cn.edu.hfut.coomall.web.custom.bean.EditCustomReqBean;
 import cn.edu.hfut.coomall.web.custom.bean.LoginReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +57,32 @@ public class CustomController {
     public Message login(HttpSession httpSession) {
 
         httpSession.removeAttribute(cooMallConfig.getIdentifier());
+        return ResultUtil.success();
+    }
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/15
+     */
+    @LoginRequired
+    @PostMapping("/edit")
+    public Message editCustom(@RequestBody @Valid EditCustomReqBean editCustomReqBean,
+                               HttpSession httpSession) {
+
+        String nickname = editCustomReqBean.getNickname();
+        Integer gender = editCustomReqBean.getGender();
+        String avatar = editCustomReqBean.getAvatar();
+        String phoneNumber = editCustomReqBean.getPhoneNumber();
+        String email = editCustomReqBean.getEmail();
+
+        if (nickname == null && gender == null && avatar == null
+                && phoneNumber == null && email == null) {
+            return ResultUtil.error(4001, "参数不足");
+        }
+        Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer customID = custom.getID();
+
+        customService.editCustom(customID, nickname, gender, avatar, phoneNumber, email);
         return ResultUtil.success();
     }
 

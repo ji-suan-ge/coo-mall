@@ -30,6 +30,7 @@ public class CommonProductController {
     @Autowired
     ProductService productService;
 
+
     @PostMapping("/getByID")
     public Message getProductByID(@RequestBody @Valid
         GetProductByIDReqBean getProductByIDReqBean) {

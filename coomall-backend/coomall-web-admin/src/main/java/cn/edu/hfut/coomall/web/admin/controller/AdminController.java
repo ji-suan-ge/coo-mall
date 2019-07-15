@@ -1,6 +1,7 @@
 package cn.edu.hfut.coomall.web.admin.controller;
 
 import cn.edu.hfut.coomall.config.CooMallConfig;
+import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Admin;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.AdminService;
@@ -67,6 +68,7 @@ public class AdminController {
      * @author 郑力煽
      * @date 2019/7/15
      */
+    @LoginRequired
     @PostMapping("/getByID")
     public Message getAdminByID(@RequestBody @Valid
                                         GetAdminByIDReqBean getAdminByIDReqBean) {

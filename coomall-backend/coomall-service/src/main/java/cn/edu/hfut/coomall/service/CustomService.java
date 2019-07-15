@@ -114,4 +114,15 @@ public class CustomService {
 
         return custom;
     }
+
+    /**
+     * @author 郑力煽
+     * @data 2019/7/14
+     * 修改客户信息
+     */
+    public void editCustom(Integer customID, String nickname, Integer gender, String avatar,
+                           String phoneNumber, String email) {
+        customMapper.updateProduct(customID,nickname,gender,avatar,phoneNumber,email);
+
+    }
 }

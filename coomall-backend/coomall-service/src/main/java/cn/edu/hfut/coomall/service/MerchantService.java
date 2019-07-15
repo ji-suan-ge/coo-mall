@@ -130,4 +130,14 @@ public class MerchantService {
 
         merchantMapper.updateMerchantStateByID(merchantID);
     }
+
+    /**
+     * @author 郑力煽
+     * @data 2019/7/15
+     * 商家信息修改
+     */
+    public void editMerchant(Integer merchantID, String shopName, String phoneNumber, String intro,
+                             String address, String email) {
+        merchantMapper.updateMerchant(merchantID, shopName,phoneNumber,intro,address,email);
+    }
 }

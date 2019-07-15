@@ -1,6 +1,7 @@
 package cn.edu.hfut.coomall.web.merchant.controller;
 
 import cn.edu.hfut.coomall.config.CooMallConfig;
+import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.MerchantService;
@@ -8,6 +9,7 @@ import cn.edu.hfut.coomall.service.exception.BaseException;
 import cn.edu.hfut.coomall.service.exception.MerchantNotFoundException;
 import cn.edu.hfut.coomall.util.PasswordUtil;
 import cn.edu.hfut.coomall.util.ResultUtil;
+import cn.edu.hfut.coomall.web.merchant.bean.EditMerchantReqBean;
 import cn.edu.hfut.coomall.web.merchant.bean.LoginReqBean;
 import cn.edu.hfut.coomall.web.merchant.bean.RegisterMerchantReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +85,32 @@ public class MerchantController {
                 address, identityNumber, identityPhoto, email);
         merchantService.saveMerchant(merchant);
 
+        return ResultUtil.success();
+    }
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/15
+     */
+    @LoginRequired
+    @PostMapping("/edit")
+    public Message editMerchant(@RequestBody @Valid EditMerchantReqBean editMerchantReqBean,
+                              HttpSession httpSession) {
+
+        String shopName = editMerchantReqBean.getShopName();
+        String phoneNumber = editMerchantReqBean.getPhoneNumber();
+        String intro = editMerchantReqBean.getIntro();
+        String address = editMerchantReqBean.getAddress();
+        String email = editMerchantReqBean.getEmail();
+
+
+        if (shopName == null && phoneNumber == null && intro == null
+                && address == null && email == null) {
+            return ResultUtil.error(4001, "参数不足");
+        }
+        Merchant merchant = (Merchant) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer merchantID = merchant.getID();
+        merchantService.editMerchant(merchantID, shopName, phoneNumber, intro, address, email);
         return ResultUtil.success();
     }
 }
