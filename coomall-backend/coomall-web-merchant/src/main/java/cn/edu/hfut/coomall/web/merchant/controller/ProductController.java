@@ -6,6 +6,7 @@ import cn.edu.hfut.coomall.entity.Product;
 import cn.edu.hfut.coomall.service.ProductService;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.merchant.bean.AddProductReqBean;
+import cn.edu.hfut.coomall.web.merchant.bean.EditProductReqBean;
 import cn.edu.hfut.coomall.web.merchant.bean.RemoveProductReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,6 +60,32 @@ public class ProductController {
         }
 
         return ResultUtil.success();
+    }
+
+    @PostMapping("/edit")
+    public Message editProduct(@RequestBody @Valid EditProductReqBean editProductReqBean,
+                               HttpSession httpSession) {
+
+        Integer productID = editProductReqBean.getProductID();
+        Integer price = editProductReqBean.getPrice();
+        Integer quantity = editProductReqBean.getQuantity();
+        String detail = editProductReqBean.getDetail();
+
+        if (price == null && quantity == null && detail == null) {
+            return ResultUtil.error(4001, "参数不足");
+        }
+
+        Integer merchantID = ((Merchant) httpSession.getAttribute("merchant")).getID();
+
+        Product product = productService.getProductByID(productID);
+
+        if (product.getMerchantID().equals(merchantID)) {
+            productService.editProduct(productID, price, quantity, detail);
+        } else {
+            return ResultUtil.error(4200, "权限不足");
+        }
+
+        return null;
     }
 
 }

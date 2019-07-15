@@ -1,10 +1,8 @@
 package cn.edu.hfut.coomall.dao;
 
+import cn.edu.hfut.coomall.dao.provider.ProductProvider;
 import cn.edu.hfut.coomall.entity.Product;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -33,4 +31,7 @@ public interface ProductMapper {
 
     @Select("select * from `product` where merchantID = #{merchantID} and `state` = 1")
     List<Product> selectProductByMerchantID(Integer merchantID);
+
+    @UpdateProvider(type = ProductProvider.class, method = "updateProduct")
+    void updateProduct(Integer productID, Integer price, Integer quantity, String detail);
 }

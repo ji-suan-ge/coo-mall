@@ -50,4 +50,9 @@ public class ProductService {
         map.put("totalPage", page.getPages());
         return map;
     }
+
+    public void editProduct(Integer productID, Integer price, Integer quantity, String detail) {
+
+        productMapper.updateProduct(productID, price, quantity, detail);
+    }
 }
