@@ -1,54 +1,36 @@
-package cn.edu.hfut.coomall.entity;
+package cn.edu.hfut.coomall.web.merchant.bean;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author 葛学文
- * @date 2019/7/14 21:29
+ * @date 2019/7/15 9:46
  */
-public class Product {
+public class AddProductReqBean {
 
-    private Integer ID;
+    @NotNull(message = "name 不能为空")
     private String name;
+    @NotNull(message = "price 不能为空")
     private Integer price;
+    @NotNull(message = "quantity 不能为空")
     private Integer quantity;
-    private Integer sale;
+    @NotNull(message = "category 不能为空")
     private Integer category;
+    @NotNull(message = "detail 不能为空")
     private String detail;
-    private Integer state;
+    @NotNull(message = "merchantID 不能为空")
     private Integer merchantID;
-
-    public Product() {}
-
-    public Product(String name, Integer price, Integer quantity, Integer category, String detail, Integer merchantID) {
-
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.category = category;
-        this.detail = detail;
-        this.merchantID = merchantID;
-    }
 
     @Override
     public String toString() {
-        return "Product{" +
-                "ID=" + ID +
-                ", name='" + name + '\'' +
+        return "AddProductReqBean{" +
+                "name='" + name + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
-                ", sale=" + sale +
                 ", category=" + category +
                 ", detail='" + detail + '\'' +
-                ", state=" + state +
                 ", merchantID=" + merchantID +
                 '}';
-    }
-
-    public Integer getID() {
-        return ID;
-    }
-
-    public void setID(Integer ID) {
-        this.ID = ID;
     }
 
     public String getName() {
@@ -75,14 +57,6 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Integer getSale() {
-        return sale;
-    }
-
-    public void setSale(Integer sale) {
-        this.sale = sale;
-    }
-
     public Integer getCategory() {
         return category;
     }
@@ -97,14 +71,6 @@ public class Product {
 
     public void setDetail(String detail) {
         this.detail = detail;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
     }
 
     public Integer getMerchantID() {
