@@ -35,13 +35,6 @@ public interface MerchantMapper {
      * @author 郑力煽
      * @date 2019/7/14
      */
-    @Select("select * from merchant where state = 1 and state = 2")
-    List<Merchant> selectAllMerchant();
-
-    /**
-     * @author 郑力煽
-     * @date 2019/7/14
-     */
     @Select("select * from merchant where ID = #{merchantID} and state = 2")
     Merchant selectMerchantByID(Integer merchantID);
 
@@ -61,4 +54,10 @@ public interface MerchantMapper {
 
     @UpdateProvider(type = MerchantProvider.class, method = "updateMerchant")
     void updateMerchant(Integer merchantID, String shopName ,String phoneNumber ,String intro ,String address ,String email) ;
+    /**
+     * @author 葛学文
+     * @date 2019/7/15
+     */
+    @Select("select * from merchant where state = #{state}")
+    List<Merchant> selectMerchantByState(Integer state);
 }

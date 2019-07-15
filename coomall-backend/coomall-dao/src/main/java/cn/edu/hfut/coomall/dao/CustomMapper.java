@@ -55,10 +55,10 @@ public interface CustomMapper {
      * @author 郑力煽
      * @date 2019/7/14
      */
-    @Select("select * from custom where state = 1")
-    List<Custom> selectAllCustom();
 
     @UpdateProvider(type = CustomProvider.class, method = "updateCustom")
     void updateProduct(Integer customID, String nickname, Integer gender, String avatar,
                        String phoneNumber, String email) ;
+    @Select("select * from custom where state = #{state}")
+    List<Custom> selectCustomByState(Integer state);
 }

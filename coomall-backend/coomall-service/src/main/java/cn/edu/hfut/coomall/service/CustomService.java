@@ -88,9 +88,9 @@ public class CustomService {
      * @data 2019/7/14
      * 查找所有客户
      */
-    public Map<String, Object> getAllCustom(Integer currentPage, Integer limit) {
+    public Map<String, Object> getCustomByState(Integer state, Integer currentPage, Integer limit) {
         Page page = PageHelper.startPage(currentPage, limit);
-        List<Custom> customList = customMapper.selectAllCustom();
+        List<Custom> customList = customMapper.selectCustomByState(state);
 
         for (Custom custom :
                 customList) {

@@ -76,13 +76,22 @@ public class MerchantService {
     /**
      * @author 葛学文
      * @data 2019/7/14
+     * 根据 state 查找商家
+     */
+    private List<Merchant> getMerchantByState(Integer state) {
+        return merchantMapper.selectMerchantByState(state);
+    }
+
+    /**
+     * @author 葛学文
+     * @data 2019/7/14
      * 获取所有商家列表
      * 修改 by 郑力煽 7/15
      */
-    public Map<String, Object> getAllMerchant(Integer currentPage, Integer limit) {
-        //return merchantMapper.selectAllMerchant();
+    public Map<String, Object> getMerchantByState(Integer state, Integer currentPage, Integer limit) {
+
         Page page = PageHelper.startPage(currentPage, limit);
-        List<Merchant> merchantList = merchantMapper.selectAllMerchant();
+        List<Merchant> merchantList = merchantMapper.selectMerchantByState(state);
 
         for (Merchant merchant :
                 merchantList) {
