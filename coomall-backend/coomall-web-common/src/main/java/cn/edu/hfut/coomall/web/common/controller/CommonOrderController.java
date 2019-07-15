@@ -2,10 +2,7 @@ package cn.edu.hfut.coomall.web.common.controller;
 
 import cn.edu.hfut.coomall.config.CooMallConfig;
 import cn.edu.hfut.coomall.config.annotation.LoginRequired;
-import cn.edu.hfut.coomall.entity.Admin;
-import cn.edu.hfut.coomall.entity.Custom;
-import cn.edu.hfut.coomall.entity.Message;
-import cn.edu.hfut.coomall.entity.Order;
+import cn.edu.hfut.coomall.entity.*;
 import cn.edu.hfut.coomall.service.OrderService;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.common.bean.GetOrderByIDReqBean;
@@ -44,6 +41,12 @@ public class CommonOrderController {
         if (object instanceof Custom) {
             Custom custom = (Custom) object;
             if (!custom.getID().equals(order.getCustomID())) {
+                return ResultUtil.error(4200, "不能查看此订单");
+            }
+        }
+        if (object instanceof Merchant) {
+            Merchant merchant = (Merchant) object;
+            if (!merchant.getID().equals(order.getMerchantID())) {
                 return ResultUtil.error(4200, "不能查看此订单");
             }
         }
