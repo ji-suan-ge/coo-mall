@@ -43,13 +43,15 @@ public class MerchantController {
      * @date 2019/7/15
      */
     @SuppressWarnings("unchecked")
-    @PostMapping("/getAll")
+    @PostMapping("/getByState")
     public Message getAllMerchant(@RequestBody @Valid
                                           GetAllMerchantReqBean getAllMerchantReqBean) {
 
         Integer currentPage = getAllMerchantReqBean.getCurrentPage();
         Integer limit = getAllMerchantReqBean.getLimit();
-        Map<String, Object> map = merchantService.getAllMerchant(currentPage, limit);
+        Integer state = getAllMerchantReqBean.getState();
+
+        Map<String, Object> map = merchantService.getMerchantByState(state, currentPage, limit);
 
         Integer totalPage = (Integer) map.get("totalPage");
         List<Merchant> merchantList = (List<Merchant>) map.get("list");
@@ -65,7 +67,6 @@ public class MerchantController {
      * @author 郑力煽
      * @date 2019/7/15
      */
-    @SuppressWarnings("unchecked")
     @PostMapping("/agree")
     public Message updateMerchantState(@RequestBody @Valid
                                                GetMerchantByIDReqBean getMerchantReqBean) {
