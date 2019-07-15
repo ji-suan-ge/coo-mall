@@ -34,4 +34,7 @@ public interface ProductMapper {
 
     @UpdateProvider(type = ProductProvider.class, method = "updateProduct")
     void updateProduct(Integer productID, Integer price, Integer quantity, String detail);
+
+    @Select("select * from `product` where `name` like concat('%',#{keyword},'%')")
+    List<Product> search(String keyword);
 }

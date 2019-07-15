@@ -55,4 +55,15 @@ public class ProductService {
 
         productMapper.updateProduct(productID, price, quantity, detail);
     }
+
+    public Map<String, Object> search(String keyword, Integer currentPage, Integer limit) {
+
+        Page page = PageHelper.startPage(currentPage, limit);
+        List<Product> productList = productMapper.search(keyword);
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", productList);
+        map.put("totalPage", page.getPages());
+
+        return map;
+    }
 }
