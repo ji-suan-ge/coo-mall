@@ -1,5 +1,6 @@
 package cn.edu.hfut.coomall.web.admin.controller;
 
+import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.MerchantService;
@@ -29,6 +30,7 @@ public class MerchantController {
      * @author 郑力煽
      * @date 2019/7/15
      */
+    @LoginRequired
     @PostMapping("/remove")
     public Message removeMerchantByID(@RequestBody @Valid
                                               RemoveMerchantByIDReqBean removeCustomByIDReqBean) {
@@ -43,6 +45,7 @@ public class MerchantController {
      * @date 2019/7/15
      */
     @SuppressWarnings("unchecked")
+    @LoginRequired
     @PostMapping("/getAll")
     public Message getAllMerchant(@RequestBody @Valid
                                           GetAllMerchantReqBean getAllMerchantReqBean) {
@@ -66,6 +69,7 @@ public class MerchantController {
      * @date 2019/7/15
      */
     @SuppressWarnings("unchecked")
+    @LoginRequired
     @PostMapping("/agree")
     public Message updateMerchantState(@RequestBody @Valid
                                                GetMerchantByIDReqBean getMerchantReqBean) {

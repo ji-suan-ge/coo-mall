@@ -1,6 +1,7 @@
 package cn.edu.hfut.coomall.web.merchant.controller;
 
 import cn.edu.hfut.coomall.config.CooMallConfig;
+import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.MerchantService;

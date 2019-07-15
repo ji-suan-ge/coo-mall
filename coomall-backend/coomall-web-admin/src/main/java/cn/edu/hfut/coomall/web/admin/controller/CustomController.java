@@ -1,5 +1,6 @@
 package cn.edu.hfut.coomall.web.admin.controller;
 
+import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Custom;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.CustomService;
@@ -29,6 +30,7 @@ public class CustomController {
      * @date 2019/7/15
      */
     @SuppressWarnings("unchecked")
+    @LoginRequired
     @PostMapping("/getAll")
     public Message getAllCustom(@RequestBody @Valid
                                         GetAllCustomReqBean getAllCustomReqBean) {
@@ -51,6 +53,7 @@ public class CustomController {
      * @author 郑力煽
      * @date 2019/7/15
      */
+    @LoginRequired
     @PostMapping("/remove")
     public Message removeCustomByID(@RequestBody @Valid
                                             RemoveCustomByIDReqBean removeCustomByIDReqBean) {
