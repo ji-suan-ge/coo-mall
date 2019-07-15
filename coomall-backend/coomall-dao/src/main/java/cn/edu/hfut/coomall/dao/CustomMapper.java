@@ -1,7 +1,6 @@
 package cn.edu.hfut.coomall.dao;
 
 import cn.edu.hfut.coomall.dao.provider.CustomProvider;
-import cn.edu.hfut.coomall.dao.provider.ProductProvider;
 import cn.edu.hfut.coomall.entity.Custom;
 import org.apache.ibatis.annotations.*;
 

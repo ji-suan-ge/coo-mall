@@ -1,7 +1,5 @@
 package cn.edu.hfut.coomall.web.custom.bean;
 
-import javax.validation.constraints.NotNull;
-
 public class EditCustomReqBean {
 
     private String nickname;

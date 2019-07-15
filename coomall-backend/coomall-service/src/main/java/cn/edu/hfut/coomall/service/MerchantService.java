@@ -1,7 +1,6 @@
 package cn.edu.hfut.coomall.service;
 
 import cn.edu.hfut.coomall.dao.MerchantMapper;
-import cn.edu.hfut.coomall.entity.Admin;
 import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.service.exception.InvalidPasswordException;
 import cn.edu.hfut.coomall.service.exception.MerchantNotFoundException;

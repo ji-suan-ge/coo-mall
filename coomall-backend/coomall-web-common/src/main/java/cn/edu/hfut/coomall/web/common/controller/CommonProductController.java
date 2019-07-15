@@ -1,6 +1,5 @@
 package cn.edu.hfut.coomall.web.common.controller;
 
-import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.entity.Product;
 import cn.edu.hfut.coomall.service.ProductService;

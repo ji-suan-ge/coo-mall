@@ -2,7 +2,6 @@ package cn.edu.hfut.coomall.service;
 
 import cn.edu.hfut.coomall.dao.CustomMapper;
 import cn.edu.hfut.coomall.entity.Custom;
-import cn.edu.hfut.coomall.entity.Product;
 import cn.edu.hfut.coomall.service.exception.CustomNotFoundException;
 import cn.edu.hfut.coomall.service.exception.InvalidPasswordException;
 import cn.edu.hfut.coomall.util.PasswordUtil;
