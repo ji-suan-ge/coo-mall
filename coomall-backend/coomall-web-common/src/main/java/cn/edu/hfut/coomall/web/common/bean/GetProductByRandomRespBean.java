@@ -6,20 +6,11 @@ import java.util.List;
 
 /**
  * @author 葛学文
- * @date 2019/7/15 23:43
+ * @date 2019/7/15 23:53
  */
-public class GetProductByCategoryRespBean {
+public class GetProductByRandomRespBean {
 
     private List<Product> productList;
-    private Integer totalPage;
-
-    public Integer getTotalPage() {
-        return totalPage;
-    }
-
-    public void setTotalPage(Integer totalPage) {
-        this.totalPage = totalPage;
-    }
 
     public List<Product> getProductList() {
         return productList;

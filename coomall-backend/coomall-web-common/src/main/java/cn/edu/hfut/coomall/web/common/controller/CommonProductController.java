@@ -73,11 +73,25 @@ public class CommonProductController {
         Map<String, Object> map = productService.getProductByCategory(category, currentPage, limit);
         Integer totalPage = (Integer) map.get("totalPage");
         List<Product> productList = (List<Product>) map.get("list");
-        GetProductByMerchantIDRespBean getProductByCategoryRespBean =
+        GetProductByCategoryRespBean getProductByCategoryRespBean =
                 new GetProductByCategoryRespBean();
         getProductByCategoryRespBean.setProductList(productList);
         getProductByCategoryRespBean.setTotalPage(totalPage);
 
         return ResultUtil.success(getProductByCategoryRespBean);
+    }
+
+    @PostMapping("/getByRandom")
+    public Message getProductByRandom(@RequestBody @Valid
+                                              GetProductByRandomReqBean getProductByRandomReqBean) {
+
+        Integer number = getProductByRandomReqBean.getNumber();
+
+        List<Product> productList = productService.getProductByRandom(number);
+        GetProductByRandomRespBean getProductByRandomRespBean =
+                new GetProductByRandomRespBean();
+        getProductByRandomRespBean.setProductList(productList);
+
+        return ResultUtil.success(getProductByRandomRespBean);
     }
 }
