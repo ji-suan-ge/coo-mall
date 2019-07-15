@@ -1,10 +1,10 @@
 <template>
-  <div>商家管理</div>
+  <div>待发货</div>
 </template>
 
 <script>
 export default {
-  name: 'merchantManage'
+  name: 'waitDeliver'
 }
 </script>
 
