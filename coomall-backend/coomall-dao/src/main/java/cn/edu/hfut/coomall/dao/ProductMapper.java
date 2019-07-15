@@ -15,9 +15,9 @@ public interface ProductMapper {
 
     @Insert("insert into " +
             "`product`(`name`, `price`, `quantity`, `sale`," +
-            "`category`, `detail`, `state`, `merchantID`) " +
+            "`category`, `detail`, `state`, `merchantID`, `avatar`) " +
             "values(#{name}, #{price}, #{quantity}, 0," +
-            "#{category}, #{detail}, 1, #{merchantID})")
+            "#{category}, #{detail}, 1, #{merchantID}, #{avatar})")
     void insertProduct(Product product);
 
     @Select("select * from `product`")
@@ -41,4 +41,9 @@ public interface ProductMapper {
     @Select("select * from `product` where category = #{category} and `state` = 1")
     List<Product> selectProductByCategory(Integer category);
 
+    @Select("SELECT *\n" +
+            "FROM `product`\n" +
+            "WHERE `ID` >= (SELECT FLOOR( MAX(`ID`) * RAND()) FROM `product`) AND `state` = 1\n" +
+            "ORDER BY `ID` LIMIT #{number}")
+    List<Product> selectProductByRandom(Integer number);
 }

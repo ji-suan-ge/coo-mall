@@ -77,4 +77,8 @@ public class ProductService {
         map.put("totalPage", page.getPages());
         return map;
     }
+
+    public List<Product> getProductByRandom(Integer number) {
+        return productMapper.selectProductByRandom(number);
+    }
 }
