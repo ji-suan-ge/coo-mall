@@ -2,6 +2,7 @@ package cn.edu.hfut.coomall.web.common.controller;
 
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.entity.Product;
+import cn.edu.hfut.coomall.entity.ProductStyle;
 import cn.edu.hfut.coomall.service.ProductService;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.common.bean.*;
@@ -93,5 +94,18 @@ public class CommonProductController {
         getProductByRandomRespBean.setProductList(productList);
 
         return ResultUtil.success(getProductByRandomRespBean);
+    }
+
+    @PostMapping("/getStyle")
+    public Message getStyle(@RequestBody @Valid GetStyleReqBean getStyleReqBean) {
+
+        Integer productID = getStyleReqBean.getProductID();
+
+        List<ProductStyle> productStyleList = productService.getStyleByProductID(productID);
+
+        GetStyleRespBean getStyleRespBean = new GetStyleRespBean();
+        getStyleRespBean.setProductStyleList(productStyleList);
+
+        return ResultUtil.success(getStyleRespBean);
     }
 }

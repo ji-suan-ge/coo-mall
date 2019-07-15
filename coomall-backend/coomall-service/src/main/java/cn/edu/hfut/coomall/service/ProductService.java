@@ -1,7 +1,9 @@
 package cn.edu.hfut.coomall.service;
 
 import cn.edu.hfut.coomall.dao.ProductMapper;
+import cn.edu.hfut.coomall.dao.ProductStyleMapper;
 import cn.edu.hfut.coomall.entity.Product;
+import cn.edu.hfut.coomall.entity.ProductStyle;
 import cn.edu.hfut.coomall.service.exception.ProductNotFoundException;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -21,6 +23,8 @@ public class ProductService {
 
     @Autowired
     ProductMapper productMapper;
+    @Autowired
+    ProductStyleMapper productStyleMapper;
 
     public void saveProduct(Product product) {
         productMapper.insertProduct(product);
@@ -80,5 +84,9 @@ public class ProductService {
 
     public List<Product> getProductByRandom(Integer number) {
         return productMapper.selectProductByRandom(number);
+    }
+
+    public List<ProductStyle> getStyleByProductID(Integer productID) {
+        return productStyleMapper.selectProductStyleByProductID(productID);
     }
 }
