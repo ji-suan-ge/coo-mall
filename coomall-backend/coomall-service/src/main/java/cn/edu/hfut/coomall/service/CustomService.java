@@ -2,12 +2,17 @@ package cn.edu.hfut.coomall.service;
 
 import cn.edu.hfut.coomall.dao.CustomMapper;
 import cn.edu.hfut.coomall.entity.Custom;
+import cn.edu.hfut.coomall.entity.Product;
 import cn.edu.hfut.coomall.service.exception.CustomNotFoundException;
 import cn.edu.hfut.coomall.util.PasswordUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 郑力煽
@@ -82,8 +87,19 @@ public class CustomService {
      * @data 2019/7/14
      * 查找所有客户
      */
-    public List<Custom> getAllCustom() {
+    public Map<String, Object> getAllCustom(Integer currentPage, Integer limit) {
+        Page page = PageHelper.startPage(currentPage, limit);
+        List<Custom> customList = customMapper.selectAllCustom();
 
-        return customMapper.selectAllCustom();
+        for (Custom custom :
+                customList) {
+            custom.setPassword(null);
+        }
+
+        Map<String , Object> map = new HashMap<>();
+        map.put("list", customList);
+        map.put("totalPage", page.getPages());
+        return map;
     }
+
 }
