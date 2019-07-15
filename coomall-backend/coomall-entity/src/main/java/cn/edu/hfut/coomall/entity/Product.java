@@ -16,6 +16,8 @@ public class Product {
     private Integer state;
     private Integer merchantID;
 
+    public Product() {}
+
     public Product(String name, Integer price, Integer quantity, Integer category, String detail, Integer merchantID) {
 
         this.name = name;
