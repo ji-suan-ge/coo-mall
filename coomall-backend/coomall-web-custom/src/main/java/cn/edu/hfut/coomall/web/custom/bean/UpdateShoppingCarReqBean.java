@@ -3,14 +3,14 @@ package cn.edu.hfut.coomall.web.custom.bean;
 public class UpdateShoppingCarReqBean {
 
     private Integer productID;
-    private Integer changenumber;
+    private Integer changeNumber;
 
-    public Integer getChangenumber() {
-        return changenumber;
+    public Integer getChangeNumber() {
+        return changeNumber;
     }
 
-    public void setChangenumber(Integer changenumber) {
-        this.changenumber = changenumber;
+    public void setChangeNumber(Integer changeNumber) {
+        this.changeNumber = changeNumber;
     }
 
     public Integer getProductID() {

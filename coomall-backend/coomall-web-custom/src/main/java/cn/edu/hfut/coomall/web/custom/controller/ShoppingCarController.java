@@ -82,7 +82,7 @@ public class ShoppingCarController {
         Integer productID = updateShoppingCarReqBean.getProductID();
         Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
         Integer customID = custom.getID();
-        Integer changeNumber = updateShoppingCarReqBean.getChangenumber();
+        Integer changeNumber = updateShoppingCarReqBean.getChangeNumber();
         ShoppingCar shoppingCar = shoppingCarService.selectShoppingCar(customID, productID);
         Integer number =shoppingCar.getNumber();
         changeNumber = changeNumber + number;
