@@ -15,7 +15,11 @@ public class ShoppingCarService {
     ShoppingCarMapper shoppingCarMapper;
 
     public void saveShoppingCar(ShoppingCar shoppingCar) {
-        shoppingCarMapper.insertPShoppingCar(shoppingCar);
+        shoppingCarMapper.insertShoppingCar(shoppingCar);
+    }
+
+    public void deleteShoppingCar(ShoppingCar shoppingCar){
+        shoppingCarMapper.deleteShoppingCar(shoppingCar);
     }
 
 }

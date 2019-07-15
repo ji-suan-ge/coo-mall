@@ -11,6 +11,7 @@ import cn.edu.hfut.coomall.service.ShoppingCarService;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.custom.bean.AddFavoriteReqBean;
 import cn.edu.hfut.coomall.web.custom.bean.AddShoppingCarReqBean;
+import cn.edu.hfut.coomall.web.custom.bean.DeleteShoppingCarReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +46,20 @@ public class ShoppingCarController {
 
         ShoppingCar shoppingCar = new ShoppingCar(productID, customID, 1);
         shoppingCarService.saveShoppingCar(shoppingCar);
+
+        return ResultUtil.success();
+    }
+
+    @LoginRequired
+    @PostMapping("/delete")
+    public Message deleteShoppingCar(@RequestBody @Valid DeleteShoppingCarReqBean deleteShoppingCarReqBean,
+                                  HttpSession httpSession) {
+
+        Integer productID = deleteShoppingCarReqBean.getProductID();
+        Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer customID = custom.getID();
+        ShoppingCar shoppingCar = new ShoppingCar(productID, customID, 0);
+        shoppingCarService.deleteShoppingCar(shoppingCar);
 
         return ResultUtil.success();
     }
