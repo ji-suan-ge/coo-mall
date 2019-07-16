@@ -6,10 +6,7 @@ import cn.edu.hfut.coomall.entity.*;
 import cn.edu.hfut.coomall.service.OrderService;
 import cn.edu.hfut.coomall.service.ProductService;
 import cn.edu.hfut.coomall.util.ResultUtil;
-import cn.edu.hfut.coomall.web.custom.bean.AddOrderByProductReqBean;
-import cn.edu.hfut.coomall.web.custom.bean.ChangeOrderStateReqBean;
-import cn.edu.hfut.coomall.web.custom.bean.GetByCustomIDAndStateRespBean;
-import cn.edu.hfut.coomall.web.custom.bean.GetByOrderCustomIDAndStateBean;
+import cn.edu.hfut.coomall.web.custom.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,6 +77,32 @@ public class OrderController {
         GetByCustomIDAndStateRespBean getResp = new GetByCustomIDAndStateRespBean();
         getResp.setOrderList(orderList);
         getResp.setTotalPage(totalPage);
+        return ResultUtil.success(getResp);
+    }
+
+    @SuppressWarnings("unchecked")
+    @LoginRequired
+    @PostMapping("/getByCustomIDAndStateAndTime")
+    public Message getByCustomIDAndStateAndTime(@RequestBody @Valid GetByCustomIDAndStateAndTimeBean get,
+                                              HttpSession httpSession) {
+
+        Integer state = get.getState();
+        Integer currentPage = get.getCurrentPage();
+        Integer limit = get.getLimit();
+        String beginTime = get.getBeginTime();
+        String endTime = get.getEndTime();
+        Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer customID = custom.getID();
+        if (!customID.equals(custom.getID())) {
+            return ResultUtil.error(4200, "不能查看此订单");
+        }
+        Map<String, Object> map = orderService.getByCustomIDAndStateAndTime(customID, state, currentPage,
+                limit ,beginTime,endTime);
+        Integer totalPage = (Integer) map.get("totalPage");
+        List<Order> orderList = (List<Order>) map.get("list");
+        GetByCustomIDAndStateRespBean getResp = new GetByCustomIDAndStateRespBean();
+        getResp.setTotalPage(totalPage);
+        getResp.setOrderList(orderList);
         return ResultUtil.success(getResp);
     }
 

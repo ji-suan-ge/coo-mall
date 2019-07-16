@@ -25,6 +25,9 @@ public interface OrderMapper {
     @Select("select * from `order` where state = #{state} and customID = #{customID}")
     List<Order> selectOrderByCustomIDAndState(Integer customID, Integer state);
 
+    @Select("select * from `order` where state =#{state} and customID = #{customID} and (createTime between #{beginTime}  and #{endTime})")
+    List<Order> selectOrderByCustomIDAndStateAndTime(Integer customID, Integer state,String beginTime,String endTime);
+
     @Select("select * from `order` where state = #{state} and merchantID = #{merchantID}")
     List<Order> selectOrderByMerchantIDAndState(Integer merchantID, Integer state);
 

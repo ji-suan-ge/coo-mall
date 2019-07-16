@@ -57,6 +57,17 @@ public class OrderService {
         return map;
     }
 
+    public Map<String, Object> getByCustomIDAndStateAndTime(Integer merchantID, Integer state,
+                                                            Integer currentPage, Integer limit, String beginTime, String endTime) {
+        Page page = PageHelper.startPage(currentPage, limit);
+        List<Order> orderList = orderMapper.selectOrderByCustomIDAndStateAndTime(merchantID, state,beginTime,endTime);
+        Integer totalPage = page.getPages();
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", orderList);
+        map.put("totalPage", totalPage);
+        return map;
+    }
+
     public Integer addOrderByProduct(Order order) {
          orderMapper.insertOrder(order);
          Integer orderID = orderMapper.getOrderID();
