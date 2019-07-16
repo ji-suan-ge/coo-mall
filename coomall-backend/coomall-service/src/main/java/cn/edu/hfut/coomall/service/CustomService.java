@@ -149,4 +149,9 @@ public class CustomService {
         String encodePassword = PasswordUtil.encode(newPassword);
         customMapper.updatePasswordByEmail(email, encodePassword);
     }
+
+    public Custom getCustomByEmail(String email) {
+
+        return customMapper.selectCustomByEmail(email);
+    }
 }

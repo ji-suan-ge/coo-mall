@@ -2,6 +2,7 @@ package cn.edu.hfut.coomall.web.common;
 
 import cn.edu.hfut.coomall.entity.Admin;
 import cn.edu.hfut.coomall.entity.Custom;
+import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.AdminService;
 import cn.edu.hfut.coomall.service.CustomService;
@@ -37,6 +38,15 @@ public class CommonController {
 
         String email = getEmailCodeReqBean.getEmail();
         Admin admin = adminService.getAdminByEmail(email);
+        if (admin == null) {
+            Custom custom = customService.getCustomByEmail(email);
+            if (custom == null) {
+                Merchant merchant = merchantService.getMerchantByEmail(email);
+                if (merchant == null) {
+                    return ResultUtil.error(4501, "邮箱不存在");
+                }
+            }
+        }
         String emailCode = RandomStringUtils.randomAlphanumeric(4);
         String content = "您找回密码的邮箱验证码为：" + emailCode;
         httpSession.setAttribute("emailCode", emailCode);

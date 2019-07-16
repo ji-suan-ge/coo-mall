@@ -164,4 +164,7 @@ public class MerchantService {
         merchantMapper.updatePasswordByEmail(email, encodePassword);
     }
 
+    public Merchant getMerchantByEmail(String email) {
+        return merchantMapper.selectMerchantByEmail(email);
+    }
 }

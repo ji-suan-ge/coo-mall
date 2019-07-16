@@ -74,4 +74,7 @@ public interface MerchantMapper {
     @Update("update merchant set password = #{encodePassword} where email = #{email}")
     void updatePasswordByEmail(String email, String encodePassword);
 
+    @Select("select * from merchant where email = #{email}")
+    Merchant selectMerchantByEmail(String email);
+
 }
