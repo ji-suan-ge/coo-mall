@@ -52,4 +52,7 @@ public interface AdminMapper {
      */
     @Select("select * from admin where phoneNumber = #{AdminPhoneNumber}")
     Admin selectAdminByPhoneNumber(String AdminPhoneNumber);
+
+    @Select("select * from admin where email = #{email}")
+    Admin selectAdminByEmail(String email);
 }

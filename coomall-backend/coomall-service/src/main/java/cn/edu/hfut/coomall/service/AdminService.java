@@ -89,4 +89,8 @@ public class AdminService {
 
         return admin;
     }
+
+    public Admin getAdminByEmail(String email) {
+        return adminMapper.selectAdminByEmail(email);
+    }
 }
