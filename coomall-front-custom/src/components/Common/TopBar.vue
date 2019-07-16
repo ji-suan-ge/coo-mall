@@ -60,7 +60,7 @@ export default {
       this.custom = JSON.parse(tmp)
       this.showStatus = 'custom'
     }
-    console.log('当前TabBar状态:' + this.showStatus + '\n当前登录用户:' + this.custom.toString())
+    console.log('当前TabBar状态:' + this.showStatus + '\n当前登录用户:' + this.custom)
   }
 }
 </script>

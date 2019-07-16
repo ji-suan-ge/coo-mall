@@ -13,14 +13,6 @@ export default {
   methods: {
   },
   created () {
-    let that = this
-    that.axios.post('/admin/login', {
-      phoneNumber: '18226331573',
-      password: 'gxw'
-    })
-      .then(function (response) {
-        console.log(response)
-      })
   }
 }
 </script>
