@@ -60,4 +60,14 @@ public interface CustomMapper {
                        String phoneNumber, String email) ;
     @Select("select * from custom where state = #{state}")
     List<Custom> selectCustomByState(Integer state);
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/14
+     */
+    @Select("select * from custom where " +
+            "(`nickName` like concat('%', #{nickName} ,'%') or " +
+            "`phoneNumber` like concat('%', #{phoneNumber} ,'%') or " +
+            " `email` like concat('%', #{email} ,'%')) and state = 1")
+    List<Custom> getByNickNameOrPhoneNumberOrEmail(String nickName, String phoneNumber, String email);
 }

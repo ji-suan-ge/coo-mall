@@ -5,9 +5,7 @@ import cn.edu.hfut.coomall.entity.Custom;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.CustomService;
 import cn.edu.hfut.coomall.util.ResultUtil;
-import cn.edu.hfut.coomall.web.admin.bean.GetAllCustomReqBean;
-import cn.edu.hfut.coomall.web.admin.bean.GetAllCustomRespBean;
-import cn.edu.hfut.coomall.web.admin.bean.RemoveCustomByIDReqBean;
+import cn.edu.hfut.coomall.web.admin.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,5 +60,37 @@ public class CustomController {
         Integer customID = removeCustomByIDReqBean.getCustomID();
         customService.removeCustomByID(customID);
         return ResultUtil.success();
+    }
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/15
+     */
+    @SuppressWarnings("unchecked")
+    @LoginRequired
+    @PostMapping("/search")
+    public Message getByNickNameOrPhoneNumberOrEmail(@RequestBody @Valid
+                                                             GetByNickNameOrPhoneNumberOrEmailReqBean getByNickNameOrPhoneNumberOrEmailReqBean) {
+
+        String nickName = getByNickNameOrPhoneNumberOrEmailReqBean.getNickName();
+        String phoneNumber = getByNickNameOrPhoneNumberOrEmailReqBean.getPhoneNumber();
+        String email = getByNickNameOrPhoneNumberOrEmailReqBean.getEmail();
+        Integer limit = getByNickNameOrPhoneNumberOrEmailReqBean.getLimit();
+        Integer currentPage = getByNickNameOrPhoneNumberOrEmailReqBean.getCurrentPage();
+
+        if (nickName == null && phoneNumber == null && email == null) {
+            return ResultUtil.error(4001, "参数不足");
+        }
+        Map<String, Object> map = customService.getByNickNameOrPhoneNumberOrEmail(
+                nickName,phoneNumber,email,currentPage,limit);
+
+        List<Custom> customList = (List<Custom>) map.get("list");
+        Integer totalPage = (Integer) map.get("totalPage");
+        GetByNickNameOrPhoneNumberOrEmailRespBean getByNickNameOrPhoneNumberOrEmailRespBean = new GetByNickNameOrPhoneNumberOrEmailRespBean();
+        getByNickNameOrPhoneNumberOrEmailRespBean.setCustomList(customList);
+        getByNickNameOrPhoneNumberOrEmailRespBean.setTotalPage(totalPage);
+
+        return ResultUtil.success(getByNickNameOrPhoneNumberOrEmailRespBean);
+
     }
 }
