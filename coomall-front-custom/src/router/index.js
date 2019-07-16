@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '../pages/Index'
 import Login from '../pages/Login'
+import findPassword from '../pages/FindPassword'
 import ProductList from '../components/Index/ProductList'
 import ProductRecommend from '../components/Index/ProductRecommend'
 import Product from '../pages/Product'
@@ -12,6 +13,7 @@ import PersonalInfo from '../components/User/PersonalInfo'
 import CheckOrder from '../components/User/CheckOrder'
 import Address from '../components/User/Address'
 import AddAddress from '../components/User/AddAddress'
+import Register from '../pages/Register'
 
 Vue.use(Router)
 
@@ -80,6 +82,14 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    }, {
+      path: '/findPassword',
+      name: 'findPassword',
+      component: findPassword
+    }, {
+      path: '/register',
+      name: 'register',
+      component: Register
     }
   ]
 })

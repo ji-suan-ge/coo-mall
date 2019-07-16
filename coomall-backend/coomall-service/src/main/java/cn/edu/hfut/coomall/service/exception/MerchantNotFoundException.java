@@ -6,4 +6,8 @@ public class MerchantNotFoundException extends BaseException {
 
         super("找不到商家, merchantID: " + merchantID);
     }
+
+    public MerchantNotFoundException(String phoneNumber) {
+        super("找不到商家, phoneNumber: " + phoneNumber);
+    }
 }

@@ -2,6 +2,8 @@ package cn.edu.hfut.coomall.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.List;
+
 /**
  * @author 葛学文
  * @date 2019/7/14 14:39
@@ -21,6 +23,19 @@ public class Merchant {
     private String email;
     private Integer score;
     private Integer state;
+
+    public Merchant(String shopName, String ownerName, String phoneNumber, String intro, String password, String address, String identityNumber, String identityPhoto, String email) {
+        this.shopName = shopName;
+        this.ownerName = ownerName;
+        this.phoneNumber = phoneNumber;
+        this.intro = intro;
+        this.password = password;
+        this.address = address;
+        this.identityNumber = identityNumber;
+        this.identityPhoto = identityPhoto;
+        this.email = email;
+        score = 8;
+    }
 
     @Override
     public String toString() {

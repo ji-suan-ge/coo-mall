@@ -5,7 +5,7 @@
       text-color="#ffffff">
       <el-menu-item index="1">咕~，欢迎来咕咕商城</el-menu-item>
       <el-menu-item index="2">
-        <span>咕咕首页</span>
+        <span @click="toIndex">咕咕首页</span>
       </el-menu-item>
       <el-menu-item index="3" style="float: right;">
         <router-link to="/login" style="text-decoration: none">登录</router-link>
@@ -19,7 +19,7 @@
       text-color="#ffffff">
       <el-menu-item index="1">咕~，欢迎来咕咕商城</el-menu-item>
       <el-menu-item index="2">
-        <span>咕咕首页</span>
+        <span @click="toIndex">咕咕首页</span>
       </el-menu-item>
       <el-menu-item index="3" style="float: right;">
         <router-link to="/user" style="text-decoration: none" v-text="custom!=null&&custom.nickname"></router-link>
@@ -38,6 +38,11 @@ export default {
     }
   },
   methods: {
+    toIndex () {
+      this.$router.replace({
+        path: '/'
+      })
+    }
   },
   created () {
     let tmp = localStorage.getItem('custom')

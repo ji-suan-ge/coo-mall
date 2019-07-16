@@ -14,6 +14,17 @@ public class Custom {
     private String password;
     private Integer state;
 
+    public Custom() {}
+
+    public Custom(String nickname, Integer gender, String avatar, String phoneNumber, String email, String password) {
+        this.nickname = nickname;
+        this.gender = gender;
+        this.avatar = avatar;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Custom{" +

@@ -16,10 +16,10 @@ import java.io.IOException;
 @Configuration
 public class BodyReaderFilterConfig {
     @Bean
-    public FilterRegistrationBean<BodyReaderFilter> Filters() {
+    public FilterRegistrationBean<BodyReaderFilter> registrationBodyReaderFilterBean() {
         FilterRegistrationBean<BodyReaderFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new BodyReaderFilter());
-        registrationBean.addUrlPatterns("/have/*");
+        registrationBean.addUrlPatterns("/*");
         registrationBean.setName("bodyReaderFilter");
         return registrationBean;
     }
@@ -28,12 +28,13 @@ public class BodyReaderFilterConfig {
 class BodyReaderFilter implements Filter {
 
     @Override
-    public void init(javax.servlet.FilterConfig filterConfig) throws ServletException {
+    public void init(javax.servlet.FilterConfig filterConfig) {
 
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
         ServletRequest requestWrapper=null;
         if(servletRequest instanceof HttpServletRequest) {
             requestWrapper=new BodyReaderWrapper((HttpServletRequest)servletRequest);

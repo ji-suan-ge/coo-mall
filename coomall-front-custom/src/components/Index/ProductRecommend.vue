@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <Category></Category>
+  <el-row>
+    <Category @submitData="getDataFromCategory"></Category>
+    <el-row>
+      <el-col :offset="6" style="font-size: 30px; margin-top: 20px" >推荐列表</el-col>
+    </el-row>
     <ProductList :list="recommendList" :tip="'没有商品推荐'"></ProductList>
-  </div>
+  </el-row>
 </template>
 
 <script>
@@ -13,8 +16,14 @@ export default {
   components: {ProductList, Category},
   data () {
     return {
-      currentDate: '2017-10-30',
-      recommendList: []
+      recommendList: [],
+      list: []
+    }
+  },
+  methods: {
+    getDataFromCategory (obj) {
+      console.log('getDataFromCategory')
+      this.$emit('submitData', obj)
     }
   },
   created () {

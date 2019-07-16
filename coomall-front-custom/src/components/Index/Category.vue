@@ -1,21 +1,25 @@
 <template>
   <el-row id="categoryContainer">
-    <el-col :span="12" :offset="6">
-      <el-row :gutter="10">
-        <el-col :span="6" v-for="(o) in categoryList" :key="o.id" style="margin-bottom: 5px;">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
-            <div style="padding: 14px;">
-              <span v-text="o.text"></span>
-              <div class="bottom clearfix">
-                <time class="time">{{ currentDate }}</time>
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-    </el-col>
+    <el-row>
+      <el-col :offset="6" style="font-size: 30px; margin-bottom: 20px" >分类列表</el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12" :offset="6">
+        <el-row :gutter="10">
+          <el-col :span="6" v-for="(o) in categoryList" :key="o.id" style="margin-bottom: 5px;">
+            <el-card :body-style="{ padding: '0px' }">
+              <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                   class="image"
+                   @click.prevent="categoryClickedHandler(o.id)">
+              <el-row style="padding-top: 5px">
+                <span v-text="o.text" style="font-size: 20px; text-align: center; display: block;"
+                   @click.prevent="categoryClickedHandler(o.id)"></span>
+              </el-row>
+            </el-card>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
   </el-row>
 </template>
 
@@ -26,44 +30,56 @@ export default {
     return {
       categoryList: [
         {
-          ID: 1,
+          id: 1,
           image: '/assets/logo.png',
           text: '电子产品'
         }, {
-          ID: 2,
+          id: 2,
           image: '',
           text: '食品'
         }, {
-          ID: 3,
+          id: 3,
           image: '',
           text: '服饰'
         }, {
-          ID: 4,
+          id: 4,
           image: '',
           text: '化妆品'
         }, {
-
-          ID: 5,
+          id: 5,
           image: '',
           text: '家电'
         }, {
-          ID: 6,
+          id: 6,
           image: '',
           text: '图书'
         }, {
-          ID: 7,
+          id: 7,
           image: '',
           text: '百货'
         }, {
-          ID: 8,
+          id: 8,
           image: '',
           text: '鞋子'
         }
-      ],
-      currentDate: '2017-10-30'
+      ]
     }
   },
   methods: {
+    categoryClickedHandler (categoryID) {
+      console.log(categoryID)
+      let that = this
+      that.axios.post('/product/getByCategory', {
+        category: categoryID,
+        currentPage: 1,
+        limit: 28
+      }).then(res => {
+        that.$emit('submitData', res.data.data)
+        that.$router.push({
+          name: 'result'
+        })
+      })
+    }
   }
 }
 </script>

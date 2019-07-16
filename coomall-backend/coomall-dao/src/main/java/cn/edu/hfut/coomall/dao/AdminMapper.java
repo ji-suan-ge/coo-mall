@@ -49,4 +49,10 @@ public interface AdminMapper {
      */
     @Select("select * from admin where phoneNumber = #{AdminPhoneNumber}")
     Admin selectAdminByPhoneNumber(String AdminPhoneNumber);
+
+    @Select("select * from admin where email = #{email}")
+    Admin selectAdminByEmail(String email);
+
+    @Update("update admin set password = #{encodePassword} where email = #{email}")
+    void updatePasswordByEmail(String email, String encodePassword);
 }

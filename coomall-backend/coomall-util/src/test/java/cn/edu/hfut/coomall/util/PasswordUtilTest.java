@@ -15,7 +15,7 @@ public class PasswordUtilTest {
     @Test
     public void encodeTest() {
 
-        String plainPassword = "gxw";
+        String plainPassword = "zls123";
         String encodePassword = PasswordUtil.encode(plainPassword);
         logger.debug(encodePassword);
     }
