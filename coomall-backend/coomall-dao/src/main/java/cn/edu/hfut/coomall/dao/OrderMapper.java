@@ -5,6 +5,7 @@ import cn.edu.hfut.coomall.entity.Order_Product;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -39,4 +40,10 @@ public interface OrderMapper {
             "`order_product`(orderID, productID, amount, style) " +
             "values(#{orderID}, #{productID}, #{amount}, #{style})")
     void insertOrder_Product(Order_Product order_product);
+
+    @Update("update  `order` set state = #{state} ,sendtime = #{sendTime},completeTime = #{completeTime}" +
+            ",cancelTime =#{cancelTime}, returnTime = #{returnTime} " +
+            " where ID = #{orderID}")
+    void changeStateByOrderID(Integer orderID, Integer state, String sendTime,
+                              String completeTime, String cancelTime, String returnTime);
 }

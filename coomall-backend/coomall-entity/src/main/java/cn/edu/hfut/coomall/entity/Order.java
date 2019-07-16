@@ -14,9 +14,9 @@ public class Order {
     private String createTime;
     private String sendTime;
     private String returnTime;
-    private String completeRime;
+    private String completeTime;
     private Integer state;
-    private String cancelTile;
+    private String cancelTime;
 
     public Order(Integer customID, Integer merchantID, Integer addressID, String remark) {
         this.customID = customID;
@@ -89,12 +89,12 @@ public class Order {
         this.returnTime = returnTime;
     }
 
-    public String getCompleteRime() {
-        return completeRime;
+    public String getCompleteTime() {
+        return completeTime;
     }
 
-    public void setCompleteRime(String completeRime) {
-        this.completeRime = completeRime;
+    public void setCompleteTime(String completeTime) {
+        this.completeTime = completeTime;
     }
 
     public Integer getState() {
@@ -105,11 +105,11 @@ public class Order {
         this.state = state;
     }
 
-    public String getCancelTile() {
-        return cancelTile;
+    public String getCancelTime() {
+        return cancelTime;
     }
 
-    public void setCancelTile(String cancelTile) {
-        this.cancelTile = cancelTile;
+    public void setCancelTime(String cancelTime) {
+        this.cancelTime = cancelTime;
     }
 }

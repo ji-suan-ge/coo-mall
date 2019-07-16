@@ -7,6 +7,7 @@ import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.entity.Order;
 import cn.edu.hfut.coomall.service.OrderService;
 import cn.edu.hfut.coomall.util.ResultUtil;
+import cn.edu.hfut.coomall.web.merchant.bean.ChangeOrderStateReqBean;
 import cn.edu.hfut.coomall.web.merchant.bean.GetByMerchantIDAndStateRespBean;
 import cn.edu.hfut.coomall.web.merchant.bean.GetByOrderMerchantIDAndStateBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -54,5 +57,43 @@ public class OrderController {
         getResp.setOrderList(orderList);
         getResp.setTotalPage(totalPage);
         return ResultUtil.success(getResp);
+    }
+
+    @SuppressWarnings("unchecked")
+    @LoginRequired
+    @PostMapping("/changeState")
+    public Message changeOrderState(@RequestBody @Valid ChangeOrderStateReqBean changeOrderStateReqBean,
+                                                HttpSession httpSession) {
+
+        Integer state = changeOrderStateReqBean.getState();
+        Integer orderID = changeOrderStateReqBean.getOrderID();
+        Order order = orderService.getOrderByID(orderID);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sendTime = order.getSendTime();
+            if (state == 3) {
+                sendTime = df.format(new Date());
+                order.setSendTime(sendTime);
+            };
+        String completeTime = order.getCompleteTime();
+            if (state == 5) {
+                completeTime = df.format(new Date());
+                order.setCompleteTime(completeTime);
+            };
+        String cancelTime = order.getCancelTime();
+            if (state == 0) {
+                cancelTime = df.format(new Date());
+                order.setCancelTime(cancelTime);
+            }
+        String returnTime = order.getReturnTime();
+            if (state == 8) {
+                returnTime = df.format(new Date());
+                order.setReturnTime(returnTime);
+            }
+        Merchant merchant = (Merchant) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        if (!order.getMerchantID().equals(merchant.getID())) {
+            return ResultUtil.error(4200, "不能修改此订单");
+        }
+        orderService.changeStateByOrderID(orderID,state,sendTime,completeTime,cancelTime,returnTime);
+        return ResultUtil.success();
     }
 }

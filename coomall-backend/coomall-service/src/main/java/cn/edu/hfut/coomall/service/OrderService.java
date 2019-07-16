@@ -67,4 +67,8 @@ public class OrderService {
         orderMapper.insertOrder_Product(order_product);
     }
 
+    public void changeStateByOrderID(Integer orderID, Integer state, String sendTime,
+                                     String completeTime, String cancelTime, String returnTime){
+        orderMapper.changeStateByOrderID(orderID,state,sendTime,completeTime,cancelTime,returnTime);
+    }
 }
