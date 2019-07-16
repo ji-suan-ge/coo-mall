@@ -55,4 +55,8 @@ public class OrderService {
         map.put("totalPage", totalPage);
         return map;
     }
+
+    public void addOrderByProduct(Order order) {
+        orderMapper.insertOrder(order);
+    }
 }

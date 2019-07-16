@@ -1,6 +1,7 @@
 package cn.edu.hfut.coomall.dao;
 
 import cn.edu.hfut.coomall.entity.Order;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -24,4 +25,9 @@ public interface OrderMapper {
 
     @Select("select * from `order` where state = #{state} and merchantID = #{merchantID}")
     List<Order> selectOrderByMerchantIDAndState(Integer merchantID, Integer state);
+
+    @Insert("insert into " +
+            "`order`(customID, merchantID, addressID, remark) " +
+            "values(#{customID}, #{merchantID}, #{addressID}, #{remark})")
+    void insertOrder(Order order);
 }

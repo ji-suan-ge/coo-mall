@@ -10,13 +10,20 @@ public class Order {
     private Integer customID;
     private Integer merchantID;
     private Integer addressID;
-    private Integer remark;
+    private String remark;
     private String createTime;
     private String sendTime;
     private String returnTime;
     private String completeRime;
     private Integer state;
     private String cancelTile;
+
+    public Order(Integer customID, Integer merchantID, Integer addressID, String remark) {
+        this.customID = customID;
+        this.merchantID = merchantID;
+        this.addressID = addressID;
+        this.remark = remark;
+    }
 
     public Integer getID() {
         return ID;
@@ -50,11 +57,11 @@ public class Order {
         this.addressID = addressID;
     }
 
-    public Integer getRemark() {
+    public String getRemark() {
         return remark;
     }
 
-    public void setRemark(Integer remark) {
+    public void setRemark(String remark) {
         this.remark = remark;
     }
 
