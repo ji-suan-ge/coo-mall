@@ -7,10 +7,7 @@ import cn.edu.hfut.coomall.entity.Custom;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.AddressService;
 import cn.edu.hfut.coomall.util.ResultUtil;
-import cn.edu.hfut.coomall.web.custom.bean.AddAddressReqBean;
-import cn.edu.hfut.coomall.web.custom.bean.DeleteAddressReqBean;
-import cn.edu.hfut.coomall.web.custom.bean.FindAddressReqBean;
-import cn.edu.hfut.coomall.web.custom.bean.FindAddressRespBean;
+import cn.edu.hfut.coomall.web.custom.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -83,5 +80,17 @@ public class AddressController {
         findAddressRespBean.setTotalPage(totalPage);
 
         return ResultUtil.success(findAddressRespBean);
+    }
+
+    @LoginRequired
+    @PostMapping("/get")
+    public Message getAddress(HttpSession httpSession) {
+        Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer customID = custom.getID();
+        List<Address> addressList = addressService.getAddress(customID);
+        GetAddressRespBean getAddressRespBean = new GetAddressRespBean();
+        getAddressRespBean.setAddressList(addressList);
+
+        return ResultUtil.success(getAddressRespBean);
     }
 }
