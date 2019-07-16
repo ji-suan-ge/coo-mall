@@ -43,5 +43,9 @@ public class AddressService {
         return map;
     }
 
+    public List<Address> getAddress(Integer customID){
+        return addressMapper.findAddress(customID);
+    }
+
 
 }
