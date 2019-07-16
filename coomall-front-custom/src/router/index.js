@@ -1,9 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import A1 from '@/components/A1'
-import A2 from '@/components/A2'
-import Admin from '@/pages/admin'
-import Login from '@/pages/login'
+import Index from '../pages/Index'
+import Login from '../pages/Login'
+import ProductList from '../components/Index/ProductList'
+import ProductRecommend from '../components/Index/ProductRecommend'
+import Product from '../pages/Product'
+import ProductDetail from '../components/Product/ProductDetail'
+import ShoppingCar from '../pages/ShoppingCar'
+import User from '../pages/User'
+import PersonalInfo from '../components/User/PersonalInfo'
+import CheckOrder from '../components/User/CheckOrder'
+import Address from '../components/User/Address'
+import AddAddress from '../components/User/AddAddress'
 
 Vue.use(Router)
 
@@ -11,27 +19,67 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/index/recommend'
+    }, {
+      path: '/index',
       name: 'index',
-      redirect: '/login'
+      component: Index,
+      redirect: '/index/recommend',
+      children: [
+        {
+          path: 'recommend',
+          name: 'recommend',
+          component: ProductRecommend
+        }, {
+          path: 'result',
+          name: 'result',
+          component: ProductList
+        }
+      ]
     },
     {
+      path: '/product',
+      name: 'product',
+      component: Product,
+      children: [
+        {
+          path: 'detail',
+          name: 'productDetail',
+          component: ProductDetail
+        }
+      ]
+    }, {
+      path: '/User',
+      name: 'User',
+      component: User,
+      redirect: '/User/PersonalInfo',
+      children: [
+        {
+          path: 'personalInfo',
+          name: 'personalInfo',
+          component: PersonalInfo
+        }, {
+          path: 'checkOrder',
+          name: 'checkOrder',
+          component: CheckOrder
+        }, {
+          path: 'address',
+          name: 'address',
+          component: Address
+        }, {
+          path: 'addAddress',
+          name: 'addAddress',
+          component: AddAddress
+        }
+      ]
+    }, {
+      path: '/shoppingCar',
+      name: 'shoppingCar',
+      component: ShoppingCar
+    }, {
       path: '/login',
       name: 'login',
       component: Login
-    }, {
-      path: '/admin',
-      name: 'admin',
-      component: Admin,
-      redirect: '/admin/a1',
-      children: [
-        {
-          path: 'a1',
-          component: A1
-        }, {
-          path: 'a2',
-          component: A2
-        }
-      ]
     }
   ]
 })
