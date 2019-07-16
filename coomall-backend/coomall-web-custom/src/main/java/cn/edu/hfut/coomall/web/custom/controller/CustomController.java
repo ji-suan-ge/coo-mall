@@ -10,6 +10,7 @@ import cn.edu.hfut.coomall.service.exception.CustomNotFoundException;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.custom.bean.AddCustomReqBean;
 import cn.edu.hfut.coomall.web.custom.bean.EditCustomReqBean;
+import cn.edu.hfut.coomall.web.custom.bean.EditPasswordRequestBean;
 import cn.edu.hfut.coomall.web.custom.bean.LoginReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,6 +59,23 @@ public class CustomController {
     public Message login(HttpSession httpSession) {
 
         httpSession.removeAttribute(cooMallConfig.getIdentifier());
+        return ResultUtil.success();
+    }
+
+    @PostMapping("/editPassword")
+    public Message editPassword(@RequestBody @Valid EditPasswordRequestBean editPasswordRequestBean,
+                                HttpSession httpSession) {
+
+        String codeInSession = (String) httpSession.getAttribute("emailCode");
+        String email = (String) httpSession.getAttribute("emailAddr");
+        String smsCode = editPasswordRequestBean.getEmailCode();
+        String newPassword = editPasswordRequestBean.getNewPassword();
+
+        if (!smsCode.equals(codeInSession)) {
+            return ResultUtil.error(4500, "验证码不正确");
+        }
+
+        customService.editPassword(email, newPassword);
         return ResultUtil.success();
     }
 

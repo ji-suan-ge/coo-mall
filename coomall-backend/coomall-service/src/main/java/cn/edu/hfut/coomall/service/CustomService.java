@@ -143,4 +143,10 @@ public class CustomService {
         return map;
 
     }
+
+    public void editPassword(String email, String newPassword) {
+
+        String encodePassword = PasswordUtil.encode(newPassword);
+        customMapper.updatePasswordByEmail(email, encodePassword);
+    }
 }
