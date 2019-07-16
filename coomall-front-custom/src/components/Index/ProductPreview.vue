@@ -8,20 +8,19 @@
         <span class="rank">评分{{item.rank}}</span>
       </div>
       <p style="margin: 0;">
-        <span v-text="item.name" class="productName" @click.prevent="productClickedHandler"></span>
+        <span v-text="item.name" class="productName" @click.prevent="productClickedHandler"
+        style="font-size: 25px;"></span>
       </p>
       <p style="margin: 0;display: block;">
         <router-link to="item.merchantLink" style="text-decoration: none" v-text="item.merchant" class="merchantName">
         </router-link>
       </p>
       <div class="productStatus">
-        <span>
+        <span
+      style="font-size: 20px;">
           月成交
-          <em>{{item.sale}}笔</em>
-        </span>
-        <span>
-          评价
-          <router-link to="item.productLink+'/comment'">{{item.comment}}</router-link>
+          <em
+      style="font-size: 20px;">{{item.sale}}笔</em>
         </span>
       </div>
     </div>
@@ -47,7 +46,7 @@ export default {
 
 <style scoped>
   .resultItem{
-    height: 300px;
+    height: 250px;
     width: 210px;
     float: left;
     display: inline-block;

@@ -1,14 +1,6 @@
 <template>
   <el-row>
     <el-row id="resultContainer" type="flex" justify="center">
-<!--      <el-row class="filter" v-if="list && list.length !== 0">-->
-<!--        <el-col :offset="5" :span="6">-->
-<!--          <el-radio-button class="filter-item" label="1" >销量降序</el-radio-button>-->
-<!--          <el-radio-button class="filter-item" label="2">评分降序</el-radio-button>-->
-<!--          <el-radio-button class="filter-item" label="3">价格降序</el-radio-button>-->
-<!--          <el-radio-button class="filter-item" label="4">价格升序</el-radio-button>-->
-<!--        </el-col>-->
-<!--      </el-row>-->
       <span v-if="!list || list.length === 0" id="noProductTip" v-text="tip"></span>
       <el-row class="productList">
         <el-col :span="18" :offset="5">
@@ -43,7 +35,7 @@ export default {
 
 <style scoped>
   #resultContainer {
-    margin-top: 50px;
+    margin-top: 20px;
   }
   #noProductTip {
     display: block;
