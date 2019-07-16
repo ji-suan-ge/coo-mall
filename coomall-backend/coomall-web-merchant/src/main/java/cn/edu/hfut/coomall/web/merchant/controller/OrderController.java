@@ -5,10 +5,12 @@ import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.entity.Order;
+import cn.edu.hfut.coomall.entity.OrderReturn;
 import cn.edu.hfut.coomall.service.OrderService;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.merchant.bean.ChangeOrderStateReqBean;
 import cn.edu.hfut.coomall.web.merchant.bean.GetByMerchantIDAndStateRespBean;
+import cn.edu.hfut.coomall.web.merchant.bean.GetByOrderMerchantIDAndStateAndTimeBean;
 import cn.edu.hfut.coomall.web.merchant.bean.GetByOrderMerchantIDAndStateBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,23 +45,43 @@ public class OrderController {
                                                 HttpSession httpSession) {
 
         Integer state = get.getState();
-        Integer merchantID = get.getMerchantID();
         Integer currentPage = get.getCurrentPage();
         Integer limit = get.getLimit();
         Merchant merchant = (Merchant) httpSession.getAttribute(cooMallConfig.getIdentifier());
-        if (!merchantID.equals(merchant.getID())) {
-            return ResultUtil.error(4200, "不能查看此订单");
-        }
+        Integer merchantID = merchant.getID();
         Map<String, Object> map = orderService.getOrderByMerchantIDAndState(merchantID, state, currentPage, limit);
         Integer totalPage = (Integer) map.get("totalPage");
-        List<Order> orderList = (List<Order>) map.get("list");
+        List<OrderReturn> orderReturnList = (List<OrderReturn>) map.get("list");
         GetByMerchantIDAndStateRespBean getResp = new GetByMerchantIDAndStateRespBean();
-        getResp.setOrderList(orderList);
+        getResp.setOrderReturnList(orderReturnList);
         getResp.setTotalPage(totalPage);
         return ResultUtil.success(getResp);
     }
 
     @SuppressWarnings("unchecked")
+    @LoginRequired
+    @PostMapping("/getByTime")
+    public Message getByOrderMerchantIDAndStateAndTime(@RequestBody @Valid GetByOrderMerchantIDAndStateAndTimeBean get,
+                                                HttpSession httpSession) {
+
+        String beginTime = get.getBeginTime();
+        String endTime = get.getEndTime();
+        Integer state = get.getState();
+        Integer currentPage = get.getCurrentPage();
+        Integer limit = get.getLimit();
+        Merchant merchant = (Merchant) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer merchantID = merchant.getID();
+        Map<String, Object> map = orderService.selectOrderByMerchantIDAndStateAndTime(merchantID,state,
+                currentPage,limit,beginTime,endTime);
+        Integer totalPage = (Integer) map.get("totalPage");
+        List<OrderReturn> orderReturnList = (List<OrderReturn>) map.get("list");
+        GetByMerchantIDAndStateRespBean getResp = new GetByMerchantIDAndStateRespBean();
+        getResp.setTotalPage(totalPage);
+        getResp.setOrderReturnList(orderReturnList);
+        return ResultUtil.success(getResp);
+    }
+
+        @SuppressWarnings("unchecked")
     @LoginRequired
     @PostMapping("/changeState")
     public Message changeOrderState(@RequestBody @Valid ChangeOrderStateReqBean changeOrderStateReqBean,
