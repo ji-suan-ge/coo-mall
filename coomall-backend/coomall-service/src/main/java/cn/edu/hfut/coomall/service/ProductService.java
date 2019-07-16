@@ -94,4 +94,9 @@ public class ProductService {
 
         productStyleMapper.saveStyle(productStyle);
     }
+
+    public Integer getMerchantID(Integer productID) {
+
+        return productStyleMapper.getMerchantID(productID);
+    }
 }

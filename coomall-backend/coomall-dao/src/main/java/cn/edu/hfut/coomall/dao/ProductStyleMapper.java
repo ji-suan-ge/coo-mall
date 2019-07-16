@@ -19,4 +19,7 @@ public interface ProductStyleMapper {
 
     @Insert("insert into `product_style`(`productID`, `style`) values(#{productID}, #{style})")
     void saveStyle(ProductStyle productStyle);
+
+    @Select("select merchantID from product where ID = #{productID}")
+    Integer getMerchantID(Integer productID);
 }

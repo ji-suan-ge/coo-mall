@@ -108,4 +108,16 @@ public class CommonProductController {
 
         return ResultUtil.success(getStyleRespBean);
     }
+
+    @PostMapping("/getMerchantID")
+    public Message getMerchantID(@RequestBody @Valid GetMerchantIDReqBean getMerchantIDReqBean) {
+
+        Integer productID = getMerchantIDReqBean.getProductID();
+
+        Integer merchantID = productService.getMerchantID(productID);
+        GetMerchantIDRespBean getMerchantIDRespBean = new GetMerchantIDRespBean();
+        getMerchantIDRespBean.setMerchantID(merchantID);
+
+        return ResultUtil.success(getMerchantIDRespBean);
+    }
 }

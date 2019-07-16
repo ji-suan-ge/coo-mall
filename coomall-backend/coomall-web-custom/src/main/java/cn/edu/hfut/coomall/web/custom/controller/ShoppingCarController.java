@@ -7,9 +7,7 @@ import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.entity.ShoppingCar;
 import cn.edu.hfut.coomall.service.ShoppingCarService;
 import cn.edu.hfut.coomall.util.ResultUtil;
-import cn.edu.hfut.coomall.web.custom.bean.AddShoppingCarReqBean;
-import cn.edu.hfut.coomall.web.custom.bean.DeleteShoppingCarReqBean;
-import cn.edu.hfut.coomall.web.custom.bean.UpdateShoppingCarReqBean;
+import cn.edu.hfut.coomall.web.custom.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 郑力煽
@@ -65,13 +64,20 @@ public class ShoppingCarController {
 
     @LoginRequired
     @PostMapping("/find")
-    public Message findShoppingCar(HttpSession httpSession) {
+    public Message findShoppingCar(@RequestBody @Valid FindShoppingCarReqBean findShoppingCarReqBean,
+                                   HttpSession httpSession) {
 
         Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
         Integer customID = custom.getID();
-        List<ShoppingCar> shoppingCarList = shoppingCarService.findShoppingCar(customID);
-
-        return ResultUtil.success(shoppingCarList);
+        Integer currentPage = findShoppingCarReqBean.getCurrentPage();
+        Integer limit = findShoppingCarReqBean.getLimit();
+        Map<String, Object> map = shoppingCarService.findShoppingCar(customID, currentPage, limit);
+        Integer totalPage = (Integer) map.get("totalPage");
+        List<ShoppingCar> shoppingCarList = (List<ShoppingCar>) map.get("list");
+        FindShoppingCarRespBean findShoppingCarRespBean = new FindShoppingCarRespBean();
+        findShoppingCarRespBean.setShoppingCarList(shoppingCarList);
+        findShoppingCarRespBean.setTotalPage(totalPage);
+        return ResultUtil.success(findShoppingCarRespBean);
     }
 
     @LoginRequired
