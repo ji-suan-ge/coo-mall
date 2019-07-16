@@ -2,6 +2,7 @@ package cn.edu.hfut.coomall.service;
 
 import cn.edu.hfut.coomall.dao.OrderMapper;
 import cn.edu.hfut.coomall.entity.Order;
+import cn.edu.hfut.coomall.entity.Order_Product;
 import cn.edu.hfut.coomall.service.exception.OrderNotFoundException;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -56,7 +57,14 @@ public class OrderService {
         return map;
     }
 
-    public void addOrderByProduct(Order order) {
-        orderMapper.insertOrder(order);
+    public Integer addOrderByProduct(Order order) {
+         orderMapper.insertOrder(order);
+         Integer orderID = orderMapper.getOrderID();
+         return orderID;
     }
+
+    public void addOrder_Product(Order_Product order_product) {
+        orderMapper.insertOrder_Product(order_product);
+    }
+
 }

@@ -41,6 +41,8 @@ public class OrderController {
     public Message addOrderByProduct(@RequestBody @Valid AddOrderByProductReqBean addOrderByProductReqBean,
                                               HttpSession httpSession) {
 
+        Integer amount = addOrderByProductReqBean.getAmount();
+        String style = addOrderByProductReqBean.getStyle();
         Integer productID = addOrderByProductReqBean.getProductID();
         Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
         Integer customID = custom.getID();
@@ -49,7 +51,10 @@ public class OrderController {
         String remark = addOrderByProductReqBean.getRemark();
 
         Order order = new Order(customID,merchantID,addressID,remark);
-        orderService.addOrderByProduct(order);
+        Integer orderID = orderService.addOrderByProduct(order);
+
+        Order_Product order_product = new Order_Product(orderID,productID,style, amount);
+        orderService.addOrder_Product(order_product);
         return ResultUtil.success();
     }
     @SuppressWarnings("unchecked")

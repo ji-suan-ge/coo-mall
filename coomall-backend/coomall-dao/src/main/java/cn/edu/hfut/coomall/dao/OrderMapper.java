@@ -1,6 +1,7 @@
 package cn.edu.hfut.coomall.dao;
 
 import cn.edu.hfut.coomall.entity.Order;
+import cn.edu.hfut.coomall.entity.Order_Product;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -30,4 +31,12 @@ public interface OrderMapper {
             "`order`(customID, merchantID, addressID, remark) " +
             "values(#{customID}, #{merchantID}, #{addressID}, #{remark})")
     void insertOrder(Order order);
+
+    @Select("select ID FROM `order` ORDER BY createTime DESC LIMIT 1")
+    Integer getOrderID();
+
+    @Insert("insert into " +
+            "`order_product`(orderID, productID, amount, style) " +
+            "values(#{orderID}, #{productID}, #{amount}, #{style})")
+    void insertOrder_Product(Order_Product order_product);
 }

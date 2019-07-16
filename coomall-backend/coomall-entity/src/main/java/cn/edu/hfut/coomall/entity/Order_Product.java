@@ -11,6 +11,13 @@ public class Order_Product {
     private String style;
     private Integer amount;
 
+    public Order_Product(Integer orderID, Integer productID, String style, Integer amount) {
+        this.orderID = orderID;
+        this.productID = productID;
+        this.style = style;
+        this.amount = amount;
+    }
+
     public Integer getOrderID() {
         return orderID;
     }
