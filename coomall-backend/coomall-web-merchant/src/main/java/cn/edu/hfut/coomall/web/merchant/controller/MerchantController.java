@@ -10,6 +10,7 @@ import cn.edu.hfut.coomall.service.exception.MerchantNotFoundException;
 import cn.edu.hfut.coomall.util.PasswordUtil;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.merchant.bean.EditMerchantReqBean;
+import cn.edu.hfut.coomall.web.merchant.bean.EditPasswordRequestBean;
 import cn.edu.hfut.coomall.web.merchant.bean.LoginReqBean;
 import cn.edu.hfut.coomall.web.merchant.bean.RegisterMerchantReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +112,23 @@ public class MerchantController {
         Merchant merchant = (Merchant) httpSession.getAttribute(cooMallConfig.getIdentifier());
         Integer merchantID = merchant.getID();
         merchantService.editMerchant(merchantID, shopName, phoneNumber, intro, address, email);
+        return ResultUtil.success();
+    }
+
+    @PostMapping("/editPassword")
+    public Message editPassword(@RequestBody @Valid EditPasswordRequestBean editPasswordRequestBean,
+                                HttpSession httpSession) {
+
+        String codeInSession = (String) httpSession.getAttribute("emailCode");
+        String email = (String) httpSession.getAttribute("emailAddr");
+        String smsCode = editPasswordRequestBean.getEmailCode();
+        String newPassword = editPasswordRequestBean.getNewPassword();
+
+        if (!smsCode.equals(codeInSession)) {
+            return ResultUtil.error(4500, "验证码不正确");
+        }
+
+        merchantService.editPassword(email, newPassword);
         return ResultUtil.success();
     }
 }

@@ -158,4 +158,10 @@ public class MerchantService {
         return map;
 
     }
+    public void editPassword(String email, String newPassword) {
+
+        String encodePassword = PasswordUtil.encode(newPassword);
+        merchantMapper.updatePasswordByEmail(email, encodePassword);
+    }
+
 }

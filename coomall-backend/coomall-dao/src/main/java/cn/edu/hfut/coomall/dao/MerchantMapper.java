@@ -54,6 +54,7 @@ public interface MerchantMapper {
 
     @UpdateProvider(type = MerchantProvider.class, method = "updateMerchant")
     void updateMerchant(Integer merchantID, String shopName ,String phoneNumber ,String intro ,String address ,String email) ;
+
     /**
      * @author 葛学文
      * @date 2019/7/15
@@ -69,5 +70,8 @@ public interface MerchantMapper {
             " `email` like concat('%', #{email} ,'%')) and state = 2")
     List<Merchant> search(String shopName, String ownerName,String intro, String address,String identityNumber
             ,String email);
+
+    @Update("update merchant set password = #{encodePassword} where email = #{email}")
+    void updatePasswordByEmail(String email, String encodePassword);
 
 }
