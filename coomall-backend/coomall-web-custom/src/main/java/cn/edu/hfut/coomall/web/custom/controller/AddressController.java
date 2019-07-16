@@ -1,6 +1,7 @@
 package cn.edu.hfut.coomall.web.custom.controller;
 
 import cn.edu.hfut.coomall.config.CooMallConfig;
+import cn.edu.hfut.coomall.config.annotation.LoginRequired;
 import cn.edu.hfut.coomall.entity.Address;
 import cn.edu.hfut.coomall.entity.Custom;
 import cn.edu.hfut.coomall.entity.Message;
@@ -8,6 +9,7 @@ import cn.edu.hfut.coomall.service.AddressService;
 import cn.edu.hfut.coomall.service.CustomService;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.custom.bean.AddAddressReqBean;
+import cn.edu.hfut.coomall.web.custom.bean.DeleteAddressReqBean;
 import cn.edu.hfut.coomall.web.custom.bean.LoginReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +33,7 @@ public class AddressController {
     @Autowired
     AddressService addressService;
 
+    @LoginRequired
     @PostMapping("/add")
     public Message addAddress(@RequestBody @Valid AddAddressReqBean addAddressReqBean,
                          HttpSession httpSession) {
@@ -42,6 +45,18 @@ public class AddressController {
 
         Address address =  new Address(customID,getaddress,phoneNumber,name);
         addressService.saveAddress(address);
+        return ResultUtil.success();
+    }
+
+    @LoginRequired
+    @PostMapping("/delete")
+    public Message deleteAddress(@RequestBody @Valid DeleteAddressReqBean deleteAddressReqBean,
+                              HttpSession httpSession) {
+        Integer addressID = deleteAddressReqBean.getAddressID();
+        Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
+        Integer customID = custom.getID();
+
+        addressService.deleteAddress(addressID);
         return ResultUtil.success();
     }
 }

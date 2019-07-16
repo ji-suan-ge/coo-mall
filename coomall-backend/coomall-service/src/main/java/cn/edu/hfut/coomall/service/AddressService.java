@@ -14,8 +14,14 @@ public class AddressService {
 
     @Autowired
     AddressMapper addressMapper;
+
     public void saveAddress(Address address) {
 
         addressMapper.insertAddress(address);
+    }
+
+    public void deleteAddress(Integer addressID) {
+
+        addressMapper.deleteAddress(addressID);
     }
 }
