@@ -139,4 +139,23 @@ public class MerchantService {
                              String address, String email) {
         merchantMapper.updateMerchant(merchantID, shopName,phoneNumber,intro,address,email);
     }
+
+    /**
+     * @author 郑力煽
+     * @data 2019/7/16
+     */
+    public Map<String, Object> search(String shopName, String ownerName,String intro, String address,String identityNumber
+                       ,String email,Integer limit, Integer currentPage) {
+        Page page = PageHelper.startPage(currentPage, limit);
+        List<Merchant> merchantList = merchantMapper.search(shopName,ownerName,intro,address,identityNumber,email);
+        for (Merchant merchant :
+                merchantList) {
+            merchant.setPassword(null);
+        }
+        Map<String , Object> map = new HashMap<>();
+        map.put("totalPage", page.getPages());
+        map.put("list", merchantList);
+        return map;
+
+    }
 }

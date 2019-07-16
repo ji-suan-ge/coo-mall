@@ -8,6 +8,7 @@ import cn.edu.hfut.coomall.service.CustomService;
 import cn.edu.hfut.coomall.service.exception.BaseException;
 import cn.edu.hfut.coomall.service.exception.CustomNotFoundException;
 import cn.edu.hfut.coomall.util.ResultUtil;
+import cn.edu.hfut.coomall.web.custom.bean.AddCustomReqBean;
 import cn.edu.hfut.coomall.web.custom.bean.EditCustomReqBean;
 import cn.edu.hfut.coomall.web.custom.bean.LoginReqBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,29 @@ public class CustomController {
         Integer customID = custom.getID();
 
         customService.editCustom(customID, nickname, gender, avatar, phoneNumber, email);
+        return ResultUtil.success();
+    }
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/16
+     */
+    @PostMapping("/add")
+    public Message addCustom(@RequestBody @Valid AddCustomReqBean addCustomReqBean) {
+
+        String nickname = addCustomReqBean.getNickname();
+        Integer gender = addCustomReqBean.getGender();
+        String avatar = addCustomReqBean.getAvatar();
+        String phoneNumber = addCustomReqBean.getPhoneNumber();
+        String email = addCustomReqBean.getEmail();
+        String password = addCustomReqBean.getPassword();
+        if (nickname == null || gender == null || avatar == null
+                || phoneNumber == null || email == null || password == null) {
+            return ResultUtil.error(4001, "参数不足");
+        }
+        Custom custom = new Custom(nickname,gender,avatar,phoneNumber,email,password);
+
+        customService.saveCustom(custom);
         return ResultUtil.success();
     }
 

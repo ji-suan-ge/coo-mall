@@ -60,4 +60,14 @@ public interface MerchantMapper {
      */
     @Select("select * from merchant where state = #{state}")
     List<Merchant> selectMerchantByState(Integer state);
+
+    @Select("select * from merchant where " +
+            "(`shopName` like concat('%', #{shopName} ,'%') or " +
+            "`ownerName` like concat('%', #{ownerName} ,'%') or " +
+            "`address` like concat('%', #{address} ,'%') or " +
+            "`identityNumber` like concat('%', #{identityNumber} ,'%') or " +
+            " `email` like concat('%', #{email} ,'%')) and state = 2")
+    List<Merchant> search(String shopName, String ownerName,String intro, String address,String identityNumber
+            ,String email);
+
 }
