@@ -1,14 +1,12 @@
 package cn.edu.hfut.coomall.web.admin.controller;
 
 import cn.edu.hfut.coomall.config.annotation.LoginRequired;
+import cn.edu.hfut.coomall.entity.Custom;
 import cn.edu.hfut.coomall.entity.Merchant;
 import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.MerchantService;
 import cn.edu.hfut.coomall.util.ResultUtil;
-import cn.edu.hfut.coomall.web.admin.bean.GetAllMerchantReqBean;
-import cn.edu.hfut.coomall.web.admin.bean.GetAllMerchantRespBean;
-import cn.edu.hfut.coomall.web.admin.bean.GetMerchantByIDReqBean;
-import cn.edu.hfut.coomall.web.admin.bean.RemoveMerchantByIDReqBean;
+import cn.edu.hfut.coomall.web.admin.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,5 +78,41 @@ public class MerchantController {
         merchantService.updateMerchantState(merchantID);
 
         return ResultUtil.success();
+    }
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/16
+     */
+    @SuppressWarnings("unchecked")
+    @LoginRequired
+    @PostMapping("/search")
+    public Message serach(@RequestBody @Valid
+                                      SearchReqBean searchReqBean) {
+
+        String shopName = searchReqBean.getShopName();
+        String ownerName = searchReqBean.getOwnerName();
+        String intro = searchReqBean.getIntro();
+        String address = searchReqBean.getAddress();
+        String identityNumber = searchReqBean.getIdentityNumber();
+        String email = searchReqBean.getEmail();
+        Integer limit = searchReqBean.getLimit();
+        Integer currentPage = searchReqBean.getCurrentPage();
+
+        if (shopName == null && ownerName == null && intro == null
+        && address == null && identityNumber == null && email == null) {
+            return ResultUtil.error(4001, "参数不足");
+        }
+        Map<String, Object> map = merchantService.search(
+                shopName,ownerName,intro,address,identityNumber,email,limit,currentPage);
+
+        List<Merchant> merchantList = (List<Merchant>) map.get("list");
+        Integer totalPage = (Integer) map.get("totalPage");
+        SearchRespBean searchRespBean = new SearchRespBean();
+        searchRespBean.setMerchantList(merchantList);
+        searchRespBean.setTotalPage(totalPage);
+
+        return ResultUtil.success(searchRespBean);
+
     }
 }
