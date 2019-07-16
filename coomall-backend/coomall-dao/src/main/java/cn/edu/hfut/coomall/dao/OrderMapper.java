@@ -1,6 +1,7 @@
 package cn.edu.hfut.coomall.dao;
 
 import cn.edu.hfut.coomall.entity.Order;
+import cn.edu.hfut.coomall.entity.OrderReturn;
 import cn.edu.hfut.coomall.entity.Order_Product;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -22,15 +23,110 @@ public interface OrderMapper {
     @Select("select * from `order` where state = #{state}")
     List<Order> selectOrderByState(Integer state);
 
-    @Select("select * from `order` where state = #{state} and customID = #{customID}")
-    List<Order> selectOrderByCustomIDAndState(Integer customID, Integer state);
+    @Select("select   \n" +
+            "`order`.ID as orderID,\n" +
+            "`address`.`name` as customName,\n" +
+            "`product`.`name` as productName,\n" +
+            "`product`.ID as productID,\n" +
+            "`order_product`.style as productStyle,\n" +
+            "`address`.phoneNUmber as phoneNumber,\n" +
+            "`address`.address as address,\n" +
+            "`order`.remark as remark,\n" +
+            "`order`.createTime as createTime,\n" +
+            "`order`.sendTime as sendTime,\n" +
+            "`order`.returnTime as returnTime,\n" +
+            "`order`.completeTime as completeTime,\n" +
+            "`product`.price as price,\n" +
+            "`order_product`.amount as amount,\n" +
+            "`order`.state as state,\n" +
+            "`product`.avatar as avatar,\n" +
+            "`product`.detail as detail,\n" +
+            "`product`.category as category  \n" +
+            "from\n" +
+            "`order`,`order_product`,product,address\n" +
+            "where address.ID = `order`.addressID and `order_product`.productID = product.ID and `order`.ID = `order_product`.orderID\n" +
+            "and `order`.state = #{state} and `order`.customID = #{customID}")
+    List<OrderReturn> selectOrderByCustomIDAndState(Integer customID, Integer state);
 
-    @Select("select * from `order` where state =#{state} and customID = #{customID} and (createTime between #{beginTime}  and #{endTime})")
-    List<Order> selectOrderByCustomIDAndStateAndTime(Integer customID, Integer state,String beginTime,String endTime);
+    @Select("select   \n" +
+            "`order`.ID as orderID,\n" +
+            "`address`.`name` as customName,\n" +
+            "`product`.`name` as productName,\n" +
+            "`product`.ID as productID,\n" +
+            "`order_product`.style as productStyle,\n" +
+            "`address`.phoneNUmber as phoneNumber,\n" +
+            "`address`.address as address,\n" +
+            "`order`.remark as remark,\n" +
+            "`order`.createTime as createTime,\n" +
+            "`order`.sendTime as sendTime,\n" +
+            "`order`.returnTime as returnTime,\n" +
+            "`order`.completeTime as completeTime,\n" +
+            "`product`.price as price,\n" +
+            "`order_product`.amount as amount,\n" +
+            "`order`.state as state,\n" +
+            "`product`.avatar as avatar,\n" +
+            "`product`.detail as detail,\n" +
+            "`product`.category as category  \n" +
+            "from\n" +
+            "`order`,`order_product`,product,address\n" +
+            "where address.ID = `order`.addressID and " +
+            "`order_product`.productID = product.ID and `order`.ID = `order_product`.orderID\n" +
+            "and `order`.state = #{state} and `order`.customID = #{customID} and (completeTime between  #{beginTime}  and #{endTime})")
+    List<OrderReturn> selectOrderByCustomIDAndStateAndTime(
+            Integer customID, Integer state, String beginTime, String endTime);
 
-    @Select("select * from `order` where state = #{state} and merchantID = #{merchantID}")
-    List<Order> selectOrderByMerchantIDAndState(Integer merchantID, Integer state);
+    @Select("select   \n" +
+            "`order`.ID as orderID,\n" +
+            "`address`.`name` as customName,\n" +
+            "`product`.`name` as productName,\n" +
+            "`product`.ID as productID,\n" +
+            "`order_product`.style as productStyle,\n" +
+            "`address`.phoneNUmber as phoneNumber,\n" +
+            "`address`.address as address,\n" +
+            "`order`.remark as remark,\n" +
+            "`order`.createTime as createTime,\n" +
+            "`order`.sendTime as sendTime,\n" +
+            "`order`.returnTime as returnTime,\n" +
+            "`order`.completeTime as completeTime,\n" +
+            "`product`.price as price,\n" +
+            "`order_product`.amount as amount,\n" +
+            "`order`.state as state,\n" +
+            "`product`.avatar as avatar,\n" +
+            "`product`.detail as detail,\n" +
+            "`product`.category as category  \n" +
+            "from\n" +
+            "`order`,`order_product`,product,address\n" +
+            " where address.ID = `order`.addressID and `order_product`.productID = product.ID " +
+            "and `order`.ID = `order_product`.orderID and"+
+             " `order`.state = #{state} and `order`.merchantID = #{merchantID}")
+    List<OrderReturn> selectOrderByMerchantIDAndState(Integer merchantID, Integer state);
 
+    @Select("select   \n" +
+            "`order`.ID as orderID,\n" +
+            "`address`.`name` as customName,\n" +
+            "`product`.`name` as productName,\n" +
+            "`product`.ID as productID,\n" +
+            "`order_product`.style as productStyle,\n" +
+            "`address`.phoneNUmber as phoneNumber,\n" +
+            "`address`.address as address,\n" +
+            "`order`.remark as remark,\n" +
+            "`order`.createTime as createTime,\n" +
+            "`order`.sendTime as sendTime,\n" +
+            "`order`.returnTime as returnTime,\n" +
+            "`order`.completeTime as completeTime,\n" +
+            "`product`.price as price,\n" +
+            "`order_product`.amount as amount,\n" +
+            "`order`.state as state,\n" +
+            "`product`.avatar as avatar,\n" +
+            "`product`.detail as detail,\n" +
+            "`product`.category as category  \n" +
+            "from\n" +
+            "`order`,`order_product`,product,address\n" +
+            " where address.ID = `order`.addressID and `order_product`.productID = product.ID " +
+            "and `order`.ID = `order_product`.orderID and"+
+            " `order`.state = #{state} and `order`.merchantID = #{merchantID} " +
+            "and (completeTime between  #{beginTime}  and #{endTime})")
+    List<OrderReturn> selectOrderByMerchantIDAndStateAndTime(Integer merchantID, Integer state,String beginTime,String endTime);
     @Insert("insert into " +
             "`order`(customID, merchantID, addressID, remark) " +
             "values(#{customID}, #{merchantID}, #{addressID}, #{remark})")

@@ -73,9 +73,9 @@ public class OrderController {
         }
         Map<String, Object> map = orderService.getOrderByCustomIDAndState(customID, state, currentPage, limit);
         Integer totalPage = (Integer) map.get("totalPage");
-        List<Order> orderList = (List<Order>) map.get("list");
+        List<OrderReturn> orderReturnList = (List<OrderReturn>) map.get("list");
         GetByCustomIDAndStateRespBean getResp = new GetByCustomIDAndStateRespBean();
-        getResp.setOrderList(orderList);
+        getResp.setOrderReturnList(orderReturnList);
         getResp.setTotalPage(totalPage);
         return ResultUtil.success(getResp);
     }
@@ -99,10 +99,10 @@ public class OrderController {
         Map<String, Object> map = orderService.getByCustomIDAndStateAndTime(customID, state, currentPage,
                 limit ,beginTime,endTime);
         Integer totalPage = (Integer) map.get("totalPage");
-        List<Order> orderList = (List<Order>) map.get("list");
+        List<OrderReturn> orderReturnList = (List<OrderReturn>) map.get("list");
         GetByCustomIDAndStateRespBean getResp = new GetByCustomIDAndStateRespBean();
         getResp.setTotalPage(totalPage);
-        getResp.setOrderList(orderList);
+        getResp.setOrderReturnList(orderReturnList);
         return ResultUtil.success(getResp);
     }
 

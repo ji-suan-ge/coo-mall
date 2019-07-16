@@ -2,6 +2,7 @@ package cn.edu.hfut.coomall.service;
 
 import cn.edu.hfut.coomall.dao.OrderMapper;
 import cn.edu.hfut.coomall.entity.Order;
+import cn.edu.hfut.coomall.entity.OrderReturn;
 import cn.edu.hfut.coomall.entity.Order_Product;
 import cn.edu.hfut.coomall.service.exception.OrderNotFoundException;
 import com.github.pagehelper.Page;
@@ -38,10 +39,10 @@ public class OrderService {
     public Map<String, Object> getOrderByCustomIDAndState(Integer customID, Integer state,
                                                           Integer currentPage, Integer limit) {
         Page page = PageHelper.startPage(currentPage, limit);
-        List<Order> orderList = orderMapper.selectOrderByCustomIDAndState(customID, state);
+        List<OrderReturn> orderReturnList = orderMapper.selectOrderByCustomIDAndState(customID, state);
         Integer totalPage = page.getPages();
         Map<String, Object> map = new HashMap<>();
-        map.put("list", orderList);
+        map.put("list", orderReturnList);
         map.put("totalPage", totalPage);
         return map;
     }
@@ -49,10 +50,21 @@ public class OrderService {
     public Map<String, Object> getOrderByMerchantIDAndState(Integer merchantID, Integer state,
                                                           Integer currentPage, Integer limit) {
         Page page = PageHelper.startPage(currentPage, limit);
-        List<Order> orderList = orderMapper.selectOrderByMerchantIDAndState(merchantID, state);
+        List<OrderReturn> orderReturnList = orderMapper.selectOrderByMerchantIDAndState(merchantID, state);
         Integer totalPage = page.getPages();
         Map<String, Object> map = new HashMap<>();
-        map.put("list", orderList);
+        map.put("list", orderReturnList);
+        map.put("totalPage", totalPage);
+        return map;
+    }
+
+    public Map<String, Object> selectOrderByMerchantIDAndStateAndTime(Integer merchantID, Integer state,
+                                                            Integer currentPage, Integer limit,String beginTime, String endTime) {
+        Page page = PageHelper.startPage(currentPage, limit);
+        List<OrderReturn> orderReturnList = orderMapper.selectOrderByMerchantIDAndStateAndTime(merchantID, state,beginTime,endTime);
+        Integer totalPage = page.getPages();
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", orderReturnList);
         map.put("totalPage", totalPage);
         return map;
     }
@@ -60,10 +72,10 @@ public class OrderService {
     public Map<String, Object> getByCustomIDAndStateAndTime(Integer merchantID, Integer state,
                                                             Integer currentPage, Integer limit, String beginTime, String endTime) {
         Page page = PageHelper.startPage(currentPage, limit);
-        List<Order> orderList = orderMapper.selectOrderByCustomIDAndStateAndTime(merchantID, state,beginTime,endTime);
+        List<OrderReturn> orderReturnList= orderMapper.selectOrderByCustomIDAndStateAndTime(merchantID, state,beginTime,endTime);
         Integer totalPage = page.getPages();
         Map<String, Object> map = new HashMap<>();
-        map.put("list", orderList);
+        map.put("list", orderReturnList);
         map.put("totalPage", totalPage);
         return map;
     }
