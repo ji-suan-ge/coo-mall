@@ -58,6 +58,7 @@ public interface CustomMapper {
     @UpdateProvider(type = CustomProvider.class, method = "updateCustom")
     void updateProduct(Integer customID, String nickname, Integer gender, String avatar,
                        String phoneNumber, String email) ;
+
     @Select("select * from custom where state = #{state}")
     List<Custom> selectCustomByState(Integer state);
 
@@ -73,4 +74,7 @@ public interface CustomMapper {
 
     @Update("update custom set password = #{encodePassword} where email = #{email}")
     void updatePasswordByEmail(String email, String encodePassword);
+
+    @Select("select * from custom where email = #{email}")
+    Custom selectCustomByEmail(String email);
 }

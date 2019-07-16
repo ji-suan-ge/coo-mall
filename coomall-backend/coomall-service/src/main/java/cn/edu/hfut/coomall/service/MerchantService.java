@@ -158,4 +158,8 @@ public class MerchantService {
         return map;
 
     }
+
+    public Merchant getMerchantByEmail(String email) {
+        return merchantMapper.selectMerchantByEmail(email);
+    }
 }

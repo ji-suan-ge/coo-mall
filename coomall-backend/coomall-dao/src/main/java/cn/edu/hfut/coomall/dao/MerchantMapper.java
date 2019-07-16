@@ -70,4 +70,6 @@ public interface MerchantMapper {
     List<Merchant> search(String shopName, String ownerName,String intro, String address,String identityNumber
             ,String email);
 
+    @Select("select * from merchant where email = #{email}")
+    Merchant selectMerchantByEmail(String email);
 }
