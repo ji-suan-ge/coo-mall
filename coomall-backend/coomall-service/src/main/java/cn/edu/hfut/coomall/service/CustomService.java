@@ -124,4 +124,23 @@ public class CustomService {
         customMapper.updateProduct(customID,nickname,gender,avatar,phoneNumber,email);
 
     }
+
+    /**
+     * @author 郑力煽
+     * @data 2019/7/14
+     */
+    public Map<String, Object> getByNickNameOrPhoneNumberOrEmail(String nickName, String phoneNumber, String email,Integer currentPage, Integer limit){
+
+        Page page = PageHelper.startPage(currentPage, limit);
+        List<Custom> customList = customMapper.getByNickNameOrPhoneNumberOrEmail(nickName,phoneNumber,email);
+        for (Custom custom :
+                customList) {
+            custom.setPassword(null);
+        }
+        Map<String , Object> map = new HashMap<>();
+        map.put("totalPage", page.getPages());
+        map.put("list", customList);
+        return map;
+
+    }
 }
