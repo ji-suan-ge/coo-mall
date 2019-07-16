@@ -1,18 +1,24 @@
 <template>
   <div class="">
-    <el-row>
+    <el-row :gutter="10">
       <el-col :span="12">详细地址</el-col>
       <el-col :span="4">联系人</el-col>
       <el-col :span="4">联系电话</el-col>
       <el-col :span="4">添加</el-col>
     </el-row>
-    <el-row>
+    <el-row :gutter="10">
       <el-col :span="12">
-        <el-input ></el-input>
+        <el-input v-model="addressInfo.address"></el-input>
       </el-col>
-      <el-col :span="4">联系人</el-col>
-      <el-col :span="4">联系电话</el-col>
-      <el-col :span="4">添加</el-col>
+      <el-col :span="4">
+        <el-input v-model="addressInfo.name"></el-input>
+      </el-col>
+      <el-col :span="4">
+        <el-input v-model="addressInfo.phoneNumber"></el-input>
+      </el-col>
+      <el-col :span="4">
+        <el-button @click="add">添加</el-button>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -36,7 +42,8 @@ export default {
   methods: {
     add () {
       let that = this
-      that.axios.post('/product/add', that.addressInfo)
+      console.log(that.addressInfo)
+      that.axios.post('/address/add', that.addressInfo)
         .then(function (response) {
           if (response.data.msg === '请求成功') {
             that.$message({message: '添加成功', type: 'success'})
@@ -54,16 +61,4 @@ export default {
 </script>
 
 <style scoped>
-  #productInfo {
-    width: 100%;
-    text-align: center;
-  }
-  .table_row {
-  }
-  .table_bottom {
-    height: 40px;
-  }
-  .input_width {
-    width: 170px;
-  }
 </style>

@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
-axios.defaults.baseURL = 'http://192.168.43.193:8002'
+axios.defaults.baseURL = 'http://192.168.1.103:8002'
 axios.defaults.withCredentials = true
 
 axios.interceptors.response.use(

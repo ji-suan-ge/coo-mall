@@ -16,6 +16,36 @@
                        class="table_row" label="退货时间"></el-table-column>
       <el-table-column prop="state"
                        class="table_row" label="订单状态"></el-table-column>
+      <el-table-column class="table_row" label="操作">
+        <template slot-scope="scope">
+          <el-row  v-if="checkState(1)">
+            <el-col :span="12">
+              <el-button @click="purchaseHandler(scope.row.id)">付款</el-button>
+            </el-col>
+            <el-col :span="12">
+              <el-button @click="cancelHandler(scope.row.id)">取消</el-button>
+            </el-col>
+          </el-row>
+        </template>
+        <el-row  v-if="checkState(3)">
+          <el-col>
+            <el-button @click="signedHandler(scope.row.id)">签收</el-button>
+          </el-col>
+        </el-row>
+        <el-row  v-if="checkState(4)">
+        <el-col :span="12">
+          <el-button @click="completeHandler(scope.row.id)">完成</el-button>
+        </el-col>
+        <el-col :span="12">
+          <el-button @click="returnHandler(scope.row.id)">退货</el-button>
+        </el-col>
+      </el-row>
+        <el-row  v-if="checkState(6)">
+          <el-col>
+            <el-button @click="confirmReturnHandler(scope.row.id)">确认退货</el-button>
+          </el-col>
+        </el-row>
+      </el-table-column>
     </el-table>
     <el-pagination
       @current-change="changeDataHandler"
@@ -85,6 +115,82 @@ export default {
     },
     changeDataHandler () {
       this.getAddressData(this.currentPage)
+    },
+    checkState (check) {
+      return parseInt(this.state) === parseInt(check)
+    },
+    purchaseHandler (orderID) {
+      this.$message.error('当前不可执行该操作')
+    },
+    cancelHandler (orderID) {
+      let that = this
+      that.axios.post('order/changeState', {
+        orderID: orderID,
+        state: 0
+      }).then(res => {
+        console.log('Change order:' + orderID + ' to state ' + 0)
+        if (res.data.code === '0000') {
+          this.$message({message: '取消订单成功', type: 'success'})
+        } else {
+          this.$message.error('系统繁忙，请求失败')
+        }
+      })
+    },
+    signedHandler (orderID) {
+      let that = this
+      that.axios.post('order/changeState', {
+        orderID: orderID,
+        state: 4
+      }).then(res => {
+        console.log('Change order:' + orderID + ' to state ' + 0)
+        if (res.data.code === '0000') {
+          this.$message({message: '订单已签收', type: 'success'})
+        } else {
+          this.$message.error('系统繁忙，请求失败')
+        }
+      })
+    },
+    completeHandler (orderID) {
+      let that = this
+      that.axios.post('order/changeState', {
+        orderID: orderID,
+        state: 5
+      }).then(res => {
+        console.log('Change order:' + orderID + ' to state ' + 0)
+        if (res.data.code === '0000') {
+          this.$message({message: '订单已完成', type: 'success'})
+        } else {
+          this.$message.error('系统繁忙，请求失败')
+        }
+      })
+    },
+    returnHandler (orderID) {
+      let that = this
+      that.axios.post('order/changeState', {
+        orderID: orderID,
+        state: 5
+      }).then(res => {
+        console.log('Change order:' + orderID + ' to state ' + 0)
+        if (res.data.code === '0000') {
+          this.$message({message: '退货申请成功', type: 'success'})
+        } else {
+          this.$message.error('系统繁忙，请求失败')
+        }
+      })
+    },
+    confirmReturnHandler (orderID) {
+      let that = this
+      that.axios.post('order/changeState', {
+        orderID: orderID,
+        state: 5
+      }).then(res => {
+        console.log('Change order:' + orderID + ' to state ' + 0)
+        if (res.data.code === '0000') {
+          this.$message({message: '确认退货成功', type: 'success'})
+        } else {
+          this.$message.error('系统繁忙，请求失败')
+        }
+      })
     }
   }
 }
