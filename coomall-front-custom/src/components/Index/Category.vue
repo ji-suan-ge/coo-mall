@@ -1,7 +1,7 @@
 <template>
   <el-row id="categoryContainer">
     <el-row>
-      <el-col :offset="6" style="font-size: 30px; margin-bottom: 20px" >分类列表</el-col>
+      <el-col :offset="6" style="font-size: 30px; margin-bottom: 20px" :span="5">分类列表</el-col>
     </el-row>
     <el-row>
       <el-col :span="12" :offset="6">
