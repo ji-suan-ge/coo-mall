@@ -70,4 +70,7 @@ public interface CustomMapper {
             "`phoneNumber` like concat('%', #{phoneNumber} ,'%') or " +
             " `email` like concat('%', #{email} ,'%')) and state = 1")
     List<Custom> getByNickNameOrPhoneNumberOrEmail(String nickName, String phoneNumber, String email);
+
+    @Update("update custom set password = #{encodePassword} where email = #{email}")
+    void updatePasswordByEmail(String email, String encodePassword);
 }
