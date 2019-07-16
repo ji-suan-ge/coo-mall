@@ -9,6 +9,7 @@ import cn.edu.hfut.coomall.service.CustomService;
 import cn.edu.hfut.coomall.service.exception.AdminNotFoundException;
 import cn.edu.hfut.coomall.service.exception.BaseException;
 import cn.edu.hfut.coomall.util.ResultUtil;
+import cn.edu.hfut.coomall.web.admin.bean.EditPasswordRequestBean;
 import cn.edu.hfut.coomall.web.admin.bean.GetAdminByIDReqBean;
 import cn.edu.hfut.coomall.web.admin.bean.GetAdminByIDRespBean;
 import cn.edu.hfut.coomall.web.admin.bean.LoginReqBean;
@@ -80,5 +81,22 @@ public class AdminController {
         getAdminByIDRespBean.setAdmin(admin);
 
         return ResultUtil.success(getAdminByIDRespBean);
+    }
+
+    @PostMapping("/editPassword")
+    public Message editPassword(@RequestBody @Valid EditPasswordRequestBean editPasswordRequestBean,
+                                HttpSession httpSession) {
+
+        String codeInSession = (String) httpSession.getAttribute("emailCode");
+        String email = (String) httpSession.getAttribute("emailAddr");
+        String smsCode = editPasswordRequestBean.getEmailCode();
+        String newPassword = editPasswordRequestBean.getNewPassword();
+
+        if (!smsCode.equals(codeInSession)) {
+            return ResultUtil.error(4500, "验证码不正确");
+        }
+
+        adminService.editPassword(email, newPassword);
+        return ResultUtil.success();
     }
 }

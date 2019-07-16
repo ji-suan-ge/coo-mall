@@ -1,10 +1,7 @@
 package cn.edu.hfut.coomall.dao;
 
 import cn.edu.hfut.coomall.entity.Admin;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -55,4 +52,7 @@ public interface AdminMapper {
 
     @Select("select * from admin where email = #{email}")
     Admin selectAdminByEmail(String email);
+
+    @Update("update admin set password = #{encodePassword} where email = #{email}")
+    void updatePasswordByEmail(String email, String encodePassword);
 }
