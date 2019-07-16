@@ -1,10 +1,19 @@
 package cn.edu.hfut.coomall.entity;
 
 public class Address {
+    private Integer ID;
     private Integer customID;
     private String address;
     private String phoneNumber;
     private String name;
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
 
     public Address(Integer customID, String address, String phoneNumber, String name) {
         this.customID = customID;

@@ -2,10 +2,9 @@ package cn.edu.hfut.coomall.dao;
 
 import cn.edu.hfut.coomall.entity.Address;
 import cn.edu.hfut.coomall.entity.Admin;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 /**
  * @author 郑力煽
@@ -31,4 +30,13 @@ public interface AddressMapper {
             "address set state = 0 " +
             "where ID = #{addressID} ")
     void deleteAddress(Integer addressID);
+
+    /**
+     * @author 郑力煽
+     * @date 2019/7/16
+     */
+    @Select("select * from " +
+            "address " +
+            "where customID = #{customID} ")
+    List<Address> findAddress(Integer customID);
 }
