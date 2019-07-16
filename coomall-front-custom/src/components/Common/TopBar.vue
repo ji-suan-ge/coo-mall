@@ -2,27 +2,23 @@
   <div>
     <el-menu class="el-menu-demo" mode="horizontal" v-show="showStatus==='tourist'"
       background-color="#777777"
-      text-color="#ffffff">
-      <el-menu-item index="1">咕~，欢迎来咕咕商城</el-menu-item>
-      <el-menu-item index="2">
-        <span @click="toIndex">咕咕首页</span>
-      </el-menu-item>
-      <el-menu-item index="3" style="float: right;">
-        <router-link to="/login" style="text-decoration: none">登录</router-link>
-      </el-menu-item>
-      <el-menu-item index="4" style="float: right;">
-        <router-link to="/register" style="text-decoration: none">注册</router-link>
-      </el-menu-item>
+      text-color="#ffffff"
+      :router="true">
+      <el-menu-item index="/index/recommend">咕~，欢迎来咕咕商城</el-menu-item>
+      <el-menu-item index="/login" style="float: right;">登录</el-menu-item>
+      <el-menu-item index="/register" style="float: right;">注册</el-menu-item>
     </el-menu>
     <el-menu class="el-menu-demo" mode="horizontal" v-show="showStatus==='custom'"
        background-color="#777777"
-      text-color="#ffffff">
-      <el-menu-item index="1">咕~，欢迎来咕咕商城</el-menu-item>
-      <el-menu-item index="2">
-        <span @click="toIndex">咕咕首页</span>
+      text-color="#ffffff"
+      :router="true">
+      <el-menu-item index="/index/recommend">咕~，欢迎来咕咕商城</el-menu-item>
+<!--      <el-button style="float: right; background-color: #777; color: #fff; border: 0; height: 60px;">登出</el-button>-->
+      <el-menu-item @click="logout" style="float: right;">
+        <span>登出</span>
       </el-menu-item>
-      <el-menu-item index="3" style="float: right;">
-        <router-link to="/user" style="text-decoration: none" v-text="custom!=null&&custom.nickname"></router-link>
+      <el-menu-item index="/User/PersonalInfo" style="float: right;">
+        <span v-text="custom == null ? '' : custom.nickname"></span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -38,9 +34,21 @@ export default {
     }
   },
   methods: {
-    toIndex () {
-      this.$router.replace({
-        path: '/'
+    logout () {
+      let that = this
+      that.axios.post('/custom/logout').then(res => {
+        if (res.data.code === '0000') {
+          that.$message({
+            type: 'success',
+            message: '登出成功！'
+          })
+          localStorage.removeItem('custom')
+          that.custom = null
+          that.showStatus = 'tourist'
+          that.$router.push({
+            name: 'recommend'
+          })
+        }
       })
     }
   },

@@ -80,6 +80,10 @@ export default {
         .then(function (response) {
           if (response.data.msg === '请求成功') {
             localStorage.setItem('custom', JSON.stringify(response.data.data))
+            that.$message({
+              type: 'success',
+              message: '登陆成功！'
+            })
             that.$router.push('/index')
           } else {
             that.loginFailed()
