@@ -17,8 +17,8 @@
           <el-row>
             <span>店铺：</span><router-link
             id="merchant"
-            :to="'/merchant?merchantID='+product.merchanID"
-            v-text="product.merchantName"></router-link>
+            :to="'/merchant?merchantID='+product.merchantID"
+            v-text="merchantName"></router-link>
           </el-row>
           <el-row>
             <span>价格：</span><span id="price">&yen; {{ product.price }}</span>
@@ -85,6 +85,7 @@ export default {
           '一个商品一个商品一个商品一个商品一个商品一个商品一个商品一个商品一个商品一个商品一个商品一个商品一个商品一个商品' +
           '一个商品一个商品一个商品一个商品一个商品一个商品一个商品'
       },
+      merchantName: null,
       styleChoice: null,
       addressChoice: null,
       buyNumber: 1,
@@ -110,6 +111,15 @@ export default {
         that.addressList = res.data.data.addressList
         that.addressChoice = res.data.data.addressList[0].id
         console.log(that.addressChoice)
+      })
+    },
+    getMerchantInfo () {
+      let that = this
+      this.axios.post('/merchant/getByID', {
+        merchantID: this.product.merchantID
+      }).then(res => {
+        that.merchantName = res.data.data.shopName
+        console.log(that.merchantName)
       })
     },
     purchase () {
@@ -143,12 +153,7 @@ export default {
       that.product = res.data.data.product
       that.getStyle()
       that.getAddress()
-      // that.product.merchantName = '测试商铺'
-      this.axios.post('/merchant/getByID', {
-        merchantID: this.product.merchantID
-      }).then(res => {
-        that.product.merchantName = res.data.data.shopName
-      })
+      this.getMerchantInfo()
     })
   }
 }
