@@ -4,7 +4,7 @@
         class="el-menu"
         @open="handleOpen"
         @close="handleClose"
-        background-color="#545c64"
+        background-color="#777777"
         text-color="#fff"
         active-text-color="#ffd04b">
         <router-link to="/platform">

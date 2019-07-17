@@ -40,7 +40,9 @@ export default {
 
 <style scoped>
   .homepage-header {
-    background-color: #545c64;
+    /*display: inline;*/
+    background-color: #777777;
+    color: white;
     text-align: center;
   }
 </style>
