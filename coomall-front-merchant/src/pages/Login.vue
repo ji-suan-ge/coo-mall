@@ -73,6 +73,24 @@ export default {
       let that = this
       that.$refs[formName].validate((valid) => {
         if (valid) {
+          that.axios.post('/merchant/login', {
+            phoneNumber: that.form.phone,
+            password: that.form.password
+          })
+            .then(function (response) {
+              if (response.data.msg === '请求成功') {
+                localStorage.setItem('merchant', JSON.stringify(response.data.data))
+                that.$router.push('/homePage')
+              } else {
+                that.$message({
+                  type: 'error',
+                  message: '用户名或密码错误'
+                })
+              }
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
         } else {
           that.$message({
             type: 'error',
@@ -81,24 +99,6 @@ export default {
           return false
         }
       })
-      that.axios.post('/merchant/login', {
-        phoneNumber: that.form.phone,
-        password: that.form.password
-      })
-        .then(function (response) {
-          if (response.data.msg === '请求成功') {
-            localStorage.setItem('merchant', JSON.stringify(response.data.data))
-            that.$router.push('/homePage')
-          } else {
-            that.$message({
-              type: 'error',
-              message: '用户名或密码错误'
-            })
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
     }
   }
 }
