@@ -89,4 +89,14 @@ public class AdminService {
 
         return admin;
     }
+
+    public Admin getAdminByEmail(String email) {
+        return adminMapper.selectAdminByEmail(email);
+    }
+
+    public void editPassword(String email, String newPassword) {
+
+        String encodePassword = PasswordUtil.encode(newPassword);
+        adminMapper.updatePasswordByEmail(email, encodePassword);
+    }
 }
