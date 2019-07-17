@@ -173,8 +173,9 @@ export default {
         address: that.keyword,
         identityNumber: that.keyword,
         email: that.keyword,
+        state: that.state,
         limit: that.limit,
-        currentPage: that.currentPage
+        currentPage: 1
       }).then(res => {
         that.totalPage = res.data.data.totalPage
         that.tableData = res.data.data.merchantList
@@ -186,13 +187,10 @@ export default {
   },
   watch: {
     state () {
-      console.log(this.state)
+      console.log('state: ' + this.state)
       this.findAll()
     },
     keyword () {
-      if (this.keyword === '') {
-        return
-      }
       this.search()
     }
   }
