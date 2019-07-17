@@ -12,8 +12,6 @@ public class GetByOrderMerchantIDAndStateBean {
     private Integer currentPage;
     @NotNull(message = "limit 不能为空")
     private Integer limit;
-    @NotNull(message = "merchantID 不能为空")
-    private Integer merchantID;
     @NotNull(message = "state 不能为空")
     private Integer state;
 
@@ -31,14 +29,6 @@ public class GetByOrderMerchantIDAndStateBean {
 
     public void setCurrentPage(Integer currentPage) {
         this.currentPage = currentPage;
-    }
-
-    public Integer getMerchantID() {
-        return merchantID;
-    }
-
-    public void setMerchantID(Integer merchantID) {
-        this.merchantID = merchantID;
     }
 
     public Integer getState() {

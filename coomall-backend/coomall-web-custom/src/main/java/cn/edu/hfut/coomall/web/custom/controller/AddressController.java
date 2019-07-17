@@ -54,7 +54,6 @@ public class AddressController {
         Integer addressID = deleteAddressReqBean.getAddressID();
         Custom custom = (Custom) httpSession.getAttribute(cooMallConfig.getIdentifier());
         Integer customID = custom.getID();
-
         addressService.deleteAddress(addressID);
         return ResultUtil.success();
     }

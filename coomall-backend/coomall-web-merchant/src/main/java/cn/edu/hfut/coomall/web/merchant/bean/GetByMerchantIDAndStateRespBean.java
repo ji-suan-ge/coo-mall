@@ -1,6 +1,7 @@
 package cn.edu.hfut.coomall.web.merchant.bean;
 
 import cn.edu.hfut.coomall.entity.Order;
+import cn.edu.hfut.coomall.entity.OrderReturn;
 
 import java.util.List;
 
@@ -11,7 +12,15 @@ import java.util.List;
 public class GetByMerchantIDAndStateRespBean {
 
     private Integer totalPage;
-    private List<Order> orderList;
+    private List<OrderReturn> orderReturnList;
+
+    public List<OrderReturn> getOrderReturnList() {
+        return orderReturnList;
+    }
+
+    public void setOrderReturnList(List<OrderReturn> orderReturnList) {
+        this.orderReturnList = orderReturnList;
+    }
 
     public Integer getTotalPage() {
         return totalPage;
@@ -19,13 +28,5 @@ public class GetByMerchantIDAndStateRespBean {
 
     public void setTotalPage(Integer totalPage) {
         this.totalPage = totalPage;
-    }
-
-    public List<Order> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
     }
 }

@@ -1,14 +1,14 @@
 <template>
   <el-row id="categoryContainer">
     <el-row>
-      <el-col :offset="6" style="font-size: 30px; margin-bottom: 20px" >分类列表</el-col>
+      <el-col :offset="6" style="font-size: 30px; margin-bottom: 20px" :span="5">分类列表</el-col>
     </el-row>
     <el-row>
       <el-col :span="12" :offset="6">
         <el-row :gutter="10">
           <el-col :span="6" v-for="(o) in categoryList" :key="o.id" style="margin-bottom: 5px;">
             <el-card :body-style="{ padding: '0px' }">
-              <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+              <img :src="o.image"
                    class="image"
                    @click.prevent="categoryClickedHandler(o.id)">
               <el-row style="padding-top: 5px">
@@ -35,31 +35,31 @@ export default {
           text: '电子产品'
         }, {
           id: 2,
-          image: '',
+          image: '/static/shipin.jpg',
           text: '食品'
         }, {
           id: 3,
-          image: '',
+          image: '/static/fushi.jpg',
           text: '服饰'
         }, {
           id: 4,
-          image: '',
+          image: '/static/meizhuang.jpg',
           text: '化妆品'
         }, {
           id: 5,
-          image: '',
+          image: '/static/jiadian.jpg',
           text: '家电'
         }, {
           id: 6,
-          image: '',
+          image: '/static/shipin.jpg',
           text: '图书'
         }, {
           id: 7,
-          image: '',
+          image: '/static/tushu.jpg',
           text: '百货'
         }, {
           id: 8,
-          image: '',
+          image: '/static/xiezi.jpg',
           text: '鞋子'
         }
       ]

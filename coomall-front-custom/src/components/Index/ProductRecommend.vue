@@ -2,7 +2,7 @@
   <el-row>
     <Category @submitData="getDataFromCategory"></Category>
     <el-row>
-      <el-col :offset="6" style="font-size: 30px; margin-top: 20px" >推荐列表</el-col>
+      <el-col :offset="6" style="font-size: 30px; margin-top: 20px" :span="5">推荐列表</el-col>
     </el-row>
     <ProductList :list="recommendList" :tip="'没有商品推荐'"></ProductList>
   </el-row>

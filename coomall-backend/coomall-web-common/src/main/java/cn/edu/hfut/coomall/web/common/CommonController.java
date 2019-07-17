@@ -37,16 +37,16 @@ public class CommonController {
                                 HttpSession httpSession) {
 
         String email = getEmailCodeReqBean.getEmail();
-        Admin admin = adminService.getAdminByEmail(email);
-        if (admin == null) {
-            Custom custom = customService.getCustomByEmail(email);
-            if (custom == null) {
-                Merchant merchant = merchantService.getMerchantByEmail(email);
-                if (merchant == null) {
-                    return ResultUtil.error(4501, "邮箱不存在");
-                }
-            }
-        }
+//        Admin admin = adminService.getAdminByEmail(email);
+//        if (admin == null) {
+//            Custom custom = customService.getCustomByEmail(email);
+//            if (custom == null) {
+//                Merchant merchant = merchantService.getMerchantByEmail(email);
+//                if (merchant == null) {
+//                    return ResultUtil.error(4501, "邮箱不存在");
+//                }
+//            }
+//        }
         String emailCode = RandomStringUtils.randomAlphanumeric(4);
         String content = "您找回密码的邮箱验证码为：" + emailCode;
         httpSession.setAttribute("emailCode", emailCode);
