@@ -7,7 +7,7 @@
             v-model="year"
             align="center"
             type="year"
-            @change="choose"
+            @change="choose()"
             value-format="yyyy"
             placeholder="选择年份">
           </el-date-picker>
@@ -37,102 +37,102 @@ export default {
   data () {
     return {
       reportForm: [
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '1'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '2'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '3'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '4'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '5'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '6'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '7'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '8'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '9'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '10'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '11'
-        },
-        {
-          lowPrice: '0',
-          highPrice: '0',
-          dailyAverage: '0',
-          monthAmount: '0',
-          monthSale: '0',
-          month: '12'
-        }
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 1
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 2
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 3
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 4
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 5
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 6
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 7
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 8
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 9
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 10
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 11
+        // },
+        // {
+        //   lowPrice: 0,
+        //   highPrice: 0,
+        //   dailyAverage: 0,
+        //   monthAmount: 0,
+        //   monthSale: 0,
+        //   month: 12
+        // }
       ],
       rowStyle: {
         height: '50px'
@@ -149,18 +149,29 @@ export default {
       })
         .then(function (response) {
           if (response.data.msg === '请求成功') {
+            // for (var p = 0; p < that.reportForm.length; p++) {
+            //   that.reportForm[p].dailyAverage = 0
+            //   that.reportForm[p].hignPrice = 0
+            //   that.reportForm[p].lowPrice = 0
+            //   that.reportForm[p].monthAmount = 0
+            //   that.reportForm[p].monthSale = 0
+            //   for (var b = 0; b < response.data.data.billList.length; b++) {
+            //     if (that.reportForm[p].month === response.data.data.billList[b].month) {
+            //       that.reportForm[p] = response.data.data.billList[b]
+            //       console.log('匹配到数据')
+            //       console.log('本地index')
+            //       console.log(p)
+            //       console.log(that.reportForm[p])
+            //       console.log('服务器index')
+            //       console.log(b)
+            //       console.log(response.data.data.billList[b])
+            //       that.reportForm[p].dailyAverage = that.reportForm[p].monthSale / that.monthDay[parseInt(that.reportForm[p].month) - 1]
+            //     }
+            //   }
+            // }
+            that.reportForm = response.data.data.billList
             for (var p in that.reportForm) {
-              that.reportForm[p].dailyAverage = 0
-              that.reportForm[p].hignPrice = 0
-              that.reportForm[p].lowPrice = 0
-              that.reportForm[p].monthAmount = 0
-              that.reportForm[p].monthSale = 0
-              for (var b in response.data.data.billList) {
-                if (that.reportForm[p].month === response.data.data.billList[b].month) {
-                  that.reportForm[p] = response.data.data.billList[b]
-                  that.reportForm[p].dailyAverage = that.reportForm[p].monthSale / that.monthDay[parseInt(that.reportForm[p].month)]
-                }
-              }
+              that.reportForm[p].dailyAverage = (that.reportForm[p].monthSale / that.monthDay[parseInt(that.reportForm[p].month) - 1]).toFixed(2)
             }
           } else {
             that.$message({
