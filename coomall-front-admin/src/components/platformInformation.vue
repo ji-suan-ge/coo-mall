@@ -40,19 +40,19 @@ export default {
         {
           id: 1,
           name: '用户数量',
-          value: 10092
+          value: 233
         }, {
           id: 2,
-          name: '日活跃用户数',
-          value: 10292
+          name: '总交易额',
+          value: 233
         }, {
           id: 3,
           name: '商家数量',
-          value: 101
+          value: 233
         }, {
           id: 4,
           name: '商品总数',
-          value: 121112
+          value: 233
         }
       ],
       platform: {
@@ -66,7 +66,20 @@ export default {
   },
   methods: {
     modify () {
+    },
+    getBillData () {
+      let that = this
+      that.axios.post('bill/get')
+        .then(res => {
+          that.infoList[0].value = res.data.data.customNumber
+          that.infoList[1].value = res.data.data.allSale
+          that.infoList[2].value = res.data.data.merchantNumber
+          that.infoList[3].value = res.data.data.productNumber
+        })
     }
+  },
+  created () {
+    this.getBillData()
   }
 }
 </script>
