@@ -1,15 +1,17 @@
 <template>
-  <el-row>
-    <el-row id="resultContainer" type="flex" justify="center">
+  <el-row id="resultContainer">
+    <el-row>
       <span v-if="!list || list.length === 0" id="noProductTip" v-text="tip"></span>
-      <el-row class="productList">
-        <el-col :span="18" :offset="5">
+    </el-row>
+    <el-row class="productList">
+      <el-col :span="16" :offset="4">
+        <el-row>
           <ProductPreview v-for="item in list"
                           v-bind:item="item"
                           :key="item.id">
           </ProductPreview>
-        </el-col>
-      </el-row>
+        </el-row>
+      </el-col>
     </el-row>
   </el-row>
 </template>
@@ -25,10 +27,6 @@ export default {
     }
   },
   methods: {
-    handleProductClicked (val) {
-      console.log(val)
-      this.$emit('productClicked', val)
-    }
   }
 }
 </script>
@@ -42,15 +40,5 @@ export default {
     font-size: 30px;
     margin: 20px auto;
     text-align: center;
-  }
-  /*.filter{*/
-  /*  height: 50px;*/
-  /*}*/
-  /*.filter-item{*/
-  /*  width: 80px;*/
-  /*  height: 35px;*/
-  /*  margin: 0;*/
-  /*}*/
-  .resultContainer{
   }
 </style>

@@ -15,6 +15,7 @@ import Address from '../components/User/Address'
 import AddAddress from '../components/User/AddAddress'
 import Register from '../pages/Register'
 import EditAddress from '../components/User/EditAddress'
+import Merchant from '../pages/Merchant'
 
 Vue.use(Router)
 
@@ -95,6 +96,10 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    }, {
+      path: '/merchant',
+      name: 'merchant',
+      component: Merchant
     }
   ]
 })

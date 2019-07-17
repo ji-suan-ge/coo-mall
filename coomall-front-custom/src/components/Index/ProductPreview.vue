@@ -1,5 +1,5 @@
 <template>
-  <el-col class="productPreview" :span="5">
+  <el-col class="productPreview" :span="6">
     <div v-bind:key="item.id" class="resultItem">
       <a href="#" style="text-decoration: none" @click.prevent="productClickedHandler">
         <img :src="item.avatar" class="ItemImage">
@@ -8,8 +8,9 @@
         <span class="rank">评分{{item.rank}}</span>
       </div>
       <p style="margin: 0;">
-        <span v-text="item.name" class="productName" @click.prevent="productClickedHandler"
-        style="font-size: 25px;"></span>
+        <span v-text="item.name.length <= 13 ? item.name : item.name.substring(0, 13) + '...'"
+              class="productName" @click.prevent="productClickedHandler"
+        style="font-size: 14px; overflow: hidden;"></span>
       </p>
       <p style="margin: 0;display: block;">
         <router-link to="item.merchantLink" style="text-decoration: none" v-text="item.merchant" class="merchantName">
@@ -17,10 +18,10 @@
       </p>
       <div class="productStatus">
         <span
-      style="font-size: 20px;">
+      style="font-size: 12px;">
           月成交
           <em
-      style="font-size: 20px;">{{item.sale}}笔</em>
+      style="font-size: 14px;">{{item.sale}}笔</em>
         </span>
       </div>
     </div>

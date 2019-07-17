@@ -15,6 +15,12 @@
             <h1 v-text="product.name" style="font-size: 30px;"></h1>
           </el-row>
           <el-row>
+            <span>店铺：</span><router-link
+            id="merchant"
+            :to="'/merchant?merchantID='+product.merchanID"
+            v-text="product.merchantName"></router-link>
+          </el-row>
+          <el-row>
             <span>价格：</span><span id="price">&yen; {{ product.price }}</span>
           </el-row>
           <el-row>
@@ -137,6 +143,12 @@ export default {
       that.product = res.data.data.product
       that.getStyle()
       that.getAddress()
+      // that.product.merchantName = '测试商铺'
+      this.axios.post('/merchant/getByID', {
+        merchantID: this.product.merchantID
+      }).then(res => {
+        that.product.merchantName = res.data.data.shopName
+      })
     })
   }
 }
