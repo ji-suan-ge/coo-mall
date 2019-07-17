@@ -1,7 +1,9 @@
 package cn.edu.hfut.coomall.dao;
 
 import cn.edu.hfut.coomall.dao.provider.ProductProvider;
+import cn.edu.hfut.coomall.entity.Order_Product;
 import cn.edu.hfut.coomall.entity.Product;
+import cn.edu.hfut.coomall.entity.ProductStyle;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -46,4 +48,11 @@ public interface ProductMapper {
             "WHERE `ID` >= (SELECT FLOOR( MAX(`ID`) * RAND()) FROM `product`) AND `state` = 1\n" +
             "ORDER BY `ID` LIMIT #{number}")
     List<Product> selectProductByRandom(Integer number);
+
+    @Update("update product set quantity = quantity - #{number}," +
+            "sale = sale + #{number}  where ID = #{productID}")
+    void updateProductNumber(Integer productID, Integer number);
+
+    @Select("select * from `order_product` where orderID = #{orderID} ")
+    Order_Product selectStyleByOrderID(Integer orderID);
 }

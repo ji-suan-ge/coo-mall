@@ -2,6 +2,7 @@ package cn.edu.hfut.coomall.service;
 
 import cn.edu.hfut.coomall.dao.ProductMapper;
 import cn.edu.hfut.coomall.dao.ProductStyleMapper;
+import cn.edu.hfut.coomall.entity.Order_Product;
 import cn.edu.hfut.coomall.entity.Product;
 import cn.edu.hfut.coomall.entity.ProductStyle;
 import cn.edu.hfut.coomall.service.exception.ProductNotFoundException;
@@ -99,4 +100,15 @@ public class ProductService {
 
         return productStyleMapper.getMerchantID(productID);
     }
+
+    public void updateProductNumber(Integer productID, Integer number) {
+
+        productMapper.updateProductNumber(productID, number);
+    }
+
+    public Order_Product getStyleByOrderID(Integer orderID){
+
+        return productMapper.selectStyleByOrderID(orderID);
+    }
+
 }
