@@ -1,29 +1,14 @@
 <template>
-  <el-container>
-    <el-header>Header</el-header>
-    <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-container>
-        <el-main>Main</el-main>
-      </el-container>
-    </el-container>
-  </el-container>
+  <el-pagination
+    background
+    layout="prev, pager, next"
+    :total="1000">
+  </el-pagination>
 </template>
 <script>
 export default {
   name: 'test',
   methods: {
-    handleOpen (key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose (key, keyPath) {
-      console.log(key, keyPath)
-    }
-  },
-  created () {
-    this.axios.post('/order/getByMerchantIDAndState').then(resp => {
-      console.log(resp)
-    })
   }
 }
 </script>

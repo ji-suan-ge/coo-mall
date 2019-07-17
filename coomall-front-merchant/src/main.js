@@ -36,6 +36,16 @@ axios.interceptors.response.use(
 new Vue({
   el: '#app',
   router,
+  merchant: {
+    shopName: '',
+    ownerName: '2',
+    identityNumber: '',
+    phoneNumber: '',
+    email: '',
+    address: '',
+    registerTime: '',
+    intro: ''
+  },
   components: { App },
   template: '<App/>'
 })

@@ -3,24 +3,24 @@ import Router from 'vue-router'
 import Test from '@/pages/Test'
 import Login from '@/pages/Login'
 import Apply from '@/pages/Apply'
-import ApplyResult from '@/pages/ApplyResult'
 import HomePage from '@/pages/HomePage'
 import ProductsManage from '@/components/ProductsManage'
-import OrderFormManage from '@/components/OrderFormManage'
 import ReportForm from '@/components/ReportForm'
 import MerchantInfo from '@/components/MerchantInfo'
 import WaitPay from '@/components/orderForm/WaitPay'
 import WaitShip from '@/components/orderForm/WaitShip'
 import Shipped from '@/components/orderForm/Shipped'
-import Signed from '@/components/orderForm/Signed'
 import Finished from '@/components/orderForm/Finished'
-import WaitReturn from '@/components/orderForm/WaitReturn'
 import Returning from '@/components/orderForm/Returning'
 import Returned from '@/components/orderForm/Returned'
 import Canceled from '@/components/orderForm/Canceled'
 import FindPassword from '@/pages/FindPassword'
 import ModifyPassword from '@/pages/ModifyPassword'
-import ProductComment from '@/pages/ProductComment'
+import WelcomePage from '@/components/WelcomePage'
+import ProductsAdd from '@/components/ProductsAdd'
+import ModifyProduct from '@/components/ModifyProduct'
+import ModifyStyle from '@/components/ModifyStyle'
+import ModifyDetail from '@/components/ModifyDetail'
 
 Vue.use(Router)
 
@@ -42,11 +42,6 @@ export default new Router({
       component: FindPassword
     },
     {
-      path: '/productComment',
-      name: 'productComment',
-      component: ProductComment
-    },
-    {
       path: '/modifyPassword',
       name: 'modifyPassword',
       component: ModifyPassword
@@ -57,11 +52,6 @@ export default new Router({
       component: Apply
     },
     {
-      path: '/applyResult',
-      name: 'applyResult',
-      component: ApplyResult
-    },
-    {
       path: '/test',
       name: 'test',
       component: Test
@@ -70,17 +60,37 @@ export default new Router({
       path: '/homePage',
       name: 'homePage',
       component: HomePage,
-      redirect: 'homePage/productsManage',
+      redirect: '/homePage/welcomePage',
       children: [
+        {
+          path: 'welcomePage',
+          name: 'welComePage',
+          component: WelcomePage
+        },
+        {
+          path: 'modifyStyle',
+          name: 'modifyStyle',
+          component: ModifyStyle
+        },
+        {
+          path: 'modifyDetail',
+          name: 'modifyDetail',
+          component: ModifyDetail
+        },
+        {
+          path: 'modifyProduct',
+          name: 'modifyProduct',
+          component: ModifyProduct
+        },
+        {
+          path: 'productsAdd',
+          name: 'productsAdd',
+          component: ProductsAdd
+        },
         {
           path: 'productsManage',
           name: 'productsManage',
           component: ProductsManage
-        },
-        {
-          path: 'orderFormManage',
-          name: 'orderFormManage',
-          component: OrderFormManage
         },
         {
           path: 'reportForm',
@@ -108,19 +118,9 @@ export default new Router({
           component: Shipped
         },
         {
-          path: 'signed',
-          name: 'signed',
-          component: Signed
-        },
-        {
           path: 'finished',
           name: 'finished',
           component: Finished
-        },
-        {
-          path: 'waitReturn',
-          name: 'waitReturn',
-          component: WaitReturn
         },
         {
           path: 'returning',
