@@ -14,6 +14,15 @@ public class SearchReqBean {
     private String address;
     private String email;
     private String identityNumber;
+    private Integer state;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public Integer getCurrentPage() {
         return currentPage;

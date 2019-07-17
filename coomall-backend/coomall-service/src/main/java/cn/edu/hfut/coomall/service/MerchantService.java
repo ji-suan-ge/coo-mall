@@ -145,9 +145,9 @@ public class MerchantService {
      * @data 2019/7/16
      */
     public Map<String, Object> search(String shopName, String ownerName,String intro, String address,String identityNumber
-                       ,String email,Integer limit, Integer currentPage) {
+                       ,String email,Integer limit, Integer currentPage,Integer state) {
         Page page = PageHelper.startPage(currentPage, limit);
-        List<Merchant> merchantList = merchantMapper.search(shopName,ownerName,intro,address,identityNumber,email);
+        List<Merchant> merchantList = merchantMapper.search(shopName,ownerName,intro,address,identityNumber,email,state);
         for (Merchant merchant :
                 merchantList) {
             merchant.setPassword(null);

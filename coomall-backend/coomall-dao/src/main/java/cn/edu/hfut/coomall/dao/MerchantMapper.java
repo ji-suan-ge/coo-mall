@@ -67,9 +67,9 @@ public interface MerchantMapper {
             "`ownerName` like concat('%', #{ownerName} ,'%') or " +
             "`address` like concat('%', #{address} ,'%') or " +
             "`identityNumber` like concat('%', #{identityNumber} ,'%') or " +
-            " `email` like concat('%', #{email} ,'%')) and (state = 2 or state = 1)")
+            " `email` like concat('%', #{email} ,'%')) and state = #{state}")
     List<Merchant> search(String shopName, String ownerName,String intro, String address,String identityNumber
-            ,String email);
+            ,String email,Integer state);
 
     @Update("update merchant set password = #{encodePassword} where email = #{email}")
     void updatePasswordByEmail(String email, String encodePassword);

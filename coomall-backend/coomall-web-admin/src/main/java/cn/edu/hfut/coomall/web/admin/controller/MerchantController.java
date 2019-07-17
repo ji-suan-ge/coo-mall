@@ -87,7 +87,7 @@ public class MerchantController {
     @SuppressWarnings("unchecked")
     @LoginRequired
     @PostMapping("/search")
-    public Message serach(@RequestBody @Valid
+    public Message search(@RequestBody @Valid
                                       SearchReqBean searchReqBean) {
 
         String shopName = searchReqBean.getShopName();
@@ -98,13 +98,14 @@ public class MerchantController {
         String email = searchReqBean.getEmail();
         Integer limit = searchReqBean.getLimit();
         Integer currentPage = searchReqBean.getCurrentPage();
+        Integer state = searchReqBean.getState();
 
         if (shopName == null && ownerName == null && intro == null
-        && address == null && identityNumber == null && email == null) {
+        && address == null && identityNumber == null && email == null && state == null) {
             return ResultUtil.error(4001, "参数不足");
         }
         Map<String, Object> map = merchantService.search(
-                shopName,ownerName,intro,address,identityNumber,email,limit,currentPage);
+                shopName,ownerName,intro,address,identityNumber,email,limit,currentPage,state);
 
         List<Merchant> merchantList = (List<Merchant>) map.get("list");
         Integer totalPage = (Integer) map.get("totalPage");
