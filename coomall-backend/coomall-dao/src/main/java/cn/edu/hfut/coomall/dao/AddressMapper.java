@@ -37,6 +37,6 @@ public interface AddressMapper {
      */
     @Select("select * from " +
             "address " +
-            "where customID = #{customID} ")
+            "where customID = #{customID} and state = 1")
     List<Address> findAddress(Integer customID);
 }

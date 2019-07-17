@@ -7,6 +7,7 @@ import cn.edu.hfut.coomall.entity.Message;
 import cn.edu.hfut.coomall.service.CustomService;
 import cn.edu.hfut.coomall.service.exception.BaseException;
 import cn.edu.hfut.coomall.service.exception.CustomNotFoundException;
+import cn.edu.hfut.coomall.util.PasswordUtil;
 import cn.edu.hfut.coomall.util.ResultUtil;
 import cn.edu.hfut.coomall.web.custom.bean.AddCustomReqBean;
 import cn.edu.hfut.coomall.web.custom.bean.EditCustomReqBean;
@@ -123,6 +124,7 @@ public class CustomController {
                 || phoneNumber == null || email == null || password == null) {
             return ResultUtil.error(4001, "参数不足");
         }
+        password = PasswordUtil.encode(password);
         Custom custom = new Custom(nickname,gender,avatar,phoneNumber,email,password);
 
         customService.saveCustom(custom);
