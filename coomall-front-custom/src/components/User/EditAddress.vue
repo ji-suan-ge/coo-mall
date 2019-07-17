@@ -17,7 +17,7 @@
         <el-input v-model="addressInfo.phoneNumber"></el-input>
       </el-col>
       <el-col :span="4">
-        <el-button @click="add">添加</el-button>
+        <el-button @click="editHandler">修改</el-button>
       </el-col>
     </el-row>
   </div>
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: 'addAddress',
+  name: 'editAddress',
   data () {
     return {
       addressInfo: {
@@ -40,14 +40,29 @@ export default {
     }
   },
   methods: {
-    add () {
+    editHandler () {
       let that = this
       console.log(that.addressInfo)
-      that.axios.post('/address/add', that.addressInfo)
+      that.axios.post('/address/delete', {
+        addressID: that.addressInfo.id
+      })
         .then(function (response) {
-          if (response.data.msg === '请求成功') {
-            that.$message({message: '添加成功', type: 'success'})
-            that.$router.push('/User/Address')
+          if (response.data.code === '0000') {
+            that.axios.post('/address/add', {
+              name: that.addressInfo.name,
+              address: that.addressInfo.address,
+              phoneNumber: that.addressInfo.phoneNumber
+            }).then(res => {
+              if (res.data.code === '0000') {
+                that.$message({message: '修改成功', type: 'success'})
+                that.$router.push('/User/Address')
+              } else {
+                that.$message.error('系统繁忙，请稍后重试')
+              }
+            })
+              .catch(function (error) {
+                console.log(error)
+              })
           } else {
             that.$message.error('系统繁忙，请稍后重试')
           }
@@ -55,6 +70,14 @@ export default {
         .catch(function (error) {
           console.log(error)
         })
+    }
+  },
+  created () {
+    this.addressInfo = {
+      address: this.$route.query.address,
+      name: this.$route.query.name,
+      phoneNumber: this.$route.query.phoneNumber,
+      id: this.$route.query.id
     }
   }
 }

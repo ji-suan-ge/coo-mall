@@ -99,15 +99,17 @@ export default {
     state (val) {
       console.log('State of CheckOrder change to ' + this.state)
       this.getOrderData(1)
+      // this.$router.go(0)
     }
   },
   created () {
-    // console.log('navigate to CheckOrder with state of ' + this.$route.query.state)
+    console.log('navigate to CheckOrder with state of ' + this.$route.query.state)
     // this.state = this.$route.query.state
     this.getOrderData(1)
   },
   methods: {
     getOrderData (cur) {
+      console.log('发起请求获取订单数据，订单state:' + this.state)
       let that = this
       that.axios.post('/order/getByCustomIDAndState', {
         customID: JSON.parse(localStorage.getItem('custom')).id,
@@ -139,6 +141,7 @@ export default {
     },
     purchaseHandler (orderID) {
       this.$message.error('当前不可执行该操作')
+      this.getOrderData(1)
     },
     cancelHandler (orderID) {
       let that = this
@@ -153,6 +156,7 @@ export default {
           this.$message.error('系统繁忙，请求失败')
         }
       })
+      this.getOrderData(1)
     },
     signedHandler (orderID) {
       let that = this
@@ -167,6 +171,7 @@ export default {
           this.$message.error('系统繁忙，请求失败')
         }
       })
+      this.getOrderData(1)
     },
     completeHandler (orderID) {
       let that = this
@@ -181,6 +186,7 @@ export default {
           this.$message.error('系统繁忙，请求失败')
         }
       })
+      this.getOrderData(1)
     },
     returnHandler (orderID) {
       let that = this
@@ -195,6 +201,7 @@ export default {
           this.$message.error('系统繁忙，请求失败')
         }
       })
+      this.getOrderData(1)
     },
     confirmReturnHandler (orderID) {
       let that = this
@@ -209,6 +216,7 @@ export default {
           this.$message.error('系统繁忙，请求失败')
         }
       })
+      this.getOrderData(1)
     }
   }
 }

@@ -9,6 +9,16 @@
       <el-table-column prop="phoneNumber"
                        class="table_row" label="联系电话"></el-table-column>
       <el-table-column class="table_row" label="操作">
+        <template slot-scope="scope">
+          <el-row>
+            <el-col>
+              <el-button @click="editHandler(scope.$index)">修改</el-button>
+            </el-col>
+            <el-col>
+              <el-button @click="deleteHandler(scope.row.id)">删除</el-button>
+            </el-col>
+          </el-row>
+        </template>
       </el-table-column>
     </el-table>
     <el-row>
@@ -32,17 +42,11 @@ export default {
     return {
       addressFormInfo: [
         {
-          ID: '',
+          id: '',
+          name: '',
+          phoneNumber: '',
           customID: '',
-          merchantID: '',
-          addressID: '',
-          remark: '',
-          createTime: '',
-          sendTime: '',
-          returnTim: '',
-          completeRime: '',
-          cancelTile: '',
-          state: ''
+          address: ''
         }
       ],
       rowStyle: {
@@ -78,6 +82,46 @@ export default {
     },
     addAddress () {
       this.$router.push({path: '/User/addAddress'})
+    },
+    editHandler (Index) {
+      let tmp = this.addressFormInfo[Index]
+      this.$router.push({path: '/User/editAddress',
+        query: {
+          id: tmp.id,
+          address: tmp.address,
+          name: tmp.name,
+          phoneNumber: tmp.phoneNumber}})
+    },
+    deleteHandler (ID) {
+      console.log(ID)
+      this.$confirm('永久删除该地址, 是否继续?', '确认删除', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let that = this
+        that.axios.post('address/delete', {
+          addressID: ID
+        }).then(res => {
+          if (res.data.code === '0000') {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.$router.go(0)
+          } else {
+            that.$message.error('系统繁忙，请稍后重试')
+          }
+        })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     }
   }
 }

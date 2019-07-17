@@ -14,6 +14,7 @@ import CheckOrder from '../components/User/CheckOrder'
 import Address from '../components/User/Address'
 import AddAddress from '../components/User/AddAddress'
 import Register from '../pages/Register'
+import EditAddress from '../components/User/EditAddress'
 
 Vue.use(Router)
 
@@ -72,6 +73,10 @@ export default new Router({
           path: 'addAddress',
           name: 'addAddress',
           component: AddAddress
+        }, {
+          path: 'editAddress',
+          name: 'editAddress',
+          component: EditAddress
         }
       ]
     }, {
