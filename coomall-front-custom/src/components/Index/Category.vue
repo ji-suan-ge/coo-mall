@@ -9,6 +9,7 @@
           <el-col :span="6" v-for="(o) in categoryList" :key="o.id" style="margin-bottom: 5px;">
             <el-card :body-style="{ padding: '0px' }">
               <img :src="o.image"
+                   style=" height:180px;"
                    class="image"
                    @click.prevent="categoryClickedHandler(o.id)">
               <el-row style="padding-top: 5px">
@@ -31,7 +32,7 @@ export default {
       categoryList: [
         {
           id: 1,
-          image: '/assets/logo.png',
+          image: '/static/dianzichanpin.jpg',
           text: '电子产品'
         }, {
           id: 2,
