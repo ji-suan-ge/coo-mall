@@ -35,6 +35,7 @@ public class OrderController {
     @Autowired
     CooMallConfig cooMallConfig;
 
+
     @SuppressWarnings("unchecked")
     @LoginRequired
     @PostMapping("/addByProduct")
@@ -125,6 +126,10 @@ public class OrderController {
         if (state == 5) {
             completeTime = df.format(new Date());
             order.setCompleteTime(completeTime);
+            Order_Product order_product = productService.getStyleByOrderID(order.getID());
+            Integer productID = order_product.getProductID();
+            Integer number = order_product.getAmount();
+            productService.updateProductNumber(productID,number);
         };
         String cancelTime = order.getCancelTime();
         if (state == 0) {

@@ -1,9 +1,11 @@
 package cn.edu.hfut.coomall.service;
 
 import cn.edu.hfut.coomall.dao.OrderMapper;
+import cn.edu.hfut.coomall.dao.ProductMapper;
 import cn.edu.hfut.coomall.entity.Order;
 import cn.edu.hfut.coomall.entity.OrderReturn;
 import cn.edu.hfut.coomall.entity.Order_Product;
+import cn.edu.hfut.coomall.entity.ProductStyle;
 import cn.edu.hfut.coomall.service.exception.OrderNotFoundException;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -93,5 +95,13 @@ public class OrderService {
     public void changeStateByOrderID(Integer orderID, Integer state, String sendTime,
                                      String completeTime, String cancelTime, String returnTime){
         orderMapper.changeStateByOrderID(orderID,state,sendTime,completeTime,cancelTime,returnTime);
+    }
+
+    public Order getProductIDByorderID(Integer orderID) {
+        Order order = orderMapper.selectOrderByID(orderID);
+        if (order == null) {
+            throw new OrderNotFoundException(orderID);
+        }
+        return order;
     }
 }

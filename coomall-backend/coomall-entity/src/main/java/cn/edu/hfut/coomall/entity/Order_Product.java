@@ -8,9 +8,11 @@ public class Order_Product {
 
     private Integer orderID;
     private Integer productID;
-    private String style;
     private Integer amount;
+    private String style;
 
+
+    public Order_Product(){}
     public Order_Product(Integer orderID, Integer productID, String style, Integer amount) {
         this.orderID = orderID;
         this.productID = productID;
