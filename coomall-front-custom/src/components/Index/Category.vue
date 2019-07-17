@@ -52,11 +52,11 @@ export default {
           text: '家电'
         }, {
           id: 6,
-          image: '/static/shipin.jpg',
+          image: '/static/tushu.jpg',
           text: '图书'
         }, {
           id: 7,
-          image: '/static/tushu.jpg',
+          image: '/static/baihuo.jpg',
           text: '百货'
         }, {
           id: 8,
