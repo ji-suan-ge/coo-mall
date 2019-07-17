@@ -52,9 +52,9 @@
     <router-link to="personalInfo">
       <el-menu-item index="3">我的个人信息</el-menu-item>
     </router-link>
-    <router-link to="shoppingCar">
-      <el-menu-item index="4">我的购物车</el-menu-item>
-    </router-link>
+<!--    <router-link to="shoppingCar">-->
+<!--      <el-menu-item index="4">我的购物车</el-menu-item>-->
+<!--    </router-link>-->
   </el-menu>
 </template>
 

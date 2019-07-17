@@ -63,7 +63,7 @@
           </el-row>
           <el-row class="itemGroup">
             <el-button plain type="primary" @click="purchase">立即购买</el-button>
-            <el-button type="primary">加入购物车</el-button>
+<!--            <el-button type="primary">加入购物车</el-button>-->
           </el-row>
         </el-main>
 <!--      </el-col>-->
