@@ -62,20 +62,29 @@ export default {
       rules: {
         email: [
           {required: true, message: '邮箱不为空', trigger: 'blur'},
-          {type: 'email', message: '邮箱格式错误，请输入有效的邮箱', trigger: 'blur'}
+          {required: true, message: '邮箱不为空', trigger: 'change'},
+          {type: 'email', message: '邮箱格式错误，请输入有效的邮箱', trigger: 'blur'},
+          {type: 'email', message: '邮箱格式错误，请输入有效的邮箱', trigger: 'change'}
         ],
         password: [
           {required: true, message: '密码不为空', trigger: 'blur'},
-          {min: 8, max: 16, message: '密码长度在 8 到 16 个字符', trigger: 'blur'}
+          {required: true, message: '密码不为空', trigger: 'change'},
+          {min: 8, max: 16, message: '密码长度在 8 到 16 个字符', trigger: 'blur'},
+          {min: 8, max: 16, message: '密码长度在 8 到 16 个字符', trigger: 'change'}
         ],
         password2: [
           {required: true, message: '密码不为空', trigger: 'blur'},
+          {required: true, message: '密码不为空', trigger: 'change'},
           {min: 8, max: 16, message: '密码长度在 8 到 16 个字符', trigger: 'blur'},
-          {validator: validatePass2, trigger: 'blur'}
+          {min: 8, max: 16, message: '密码长度在 8 到 16 个字符', trigger: 'change'},
+          {validator: validatePass2, trigger: 'blur'},
+          {validator: validatePass2, trigger: 'change'}
         ],
         verifyCode: [
           {required: true, message: '邮箱验证码不为空', trigger: 'blur'},
-          {pattern: /^([0-9a-zA-Z]){4}$/, message: '邮箱验证码组成为4位,字母和数字的组合', trigger: 'blur'}
+          {required: true, message: '邮箱验证码不为空', trigger: 'change'},
+          {pattern: /^([0-9a-zA-Z]){4}$/, message: '邮箱验证码组成为4位,字母和数字的组合', trigger: 'blur'},
+          {pattern: /^([0-9a-zA-Z]){4}$/, message: '邮箱验证码组成为4位,字母和数字的组合', trigger: 'change'}
         ]
       }
     }
@@ -85,6 +94,31 @@ export default {
       let that = this
       that.$refs[formName].validate((valid) => {
         if (valid) {
+          that.axios.post('/merchant/editPassword', {
+            emailCode: that.form.verifyCode,
+            newPassword: that.form.password
+          })
+            .then(function (response) {
+              if (response.data.code === '0000') {
+                that.$message(
+                  {
+                    type: 'success',
+                    message: '修改成功，请使用新密码登录'
+                  }
+                )
+                that.$router.push('/login')
+              } else {
+                that.$message(
+                  {
+                    type: 'error',
+                    message: response.data.msg
+                  }
+                )
+              }
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
         } else {
           that.$message({
             type: 'error',
@@ -94,31 +128,6 @@ export default {
           return false
         }
       })
-      that.axios.post('/merchant/editPassword', {
-        emailCode: that.form.verifyCode,
-        newPassword: that.form.password
-      })
-        .then(function (response) {
-          if (response.data.code === '0000') {
-            that.$message(
-              {
-                type: 'success',
-                message: '修改成功，请使用新密码登录'
-              }
-            )
-            that.$router.push('/login')
-          } else {
-            that.$message(
-              {
-                type: 'error',
-                message: response.data.msg
-              }
-            )
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
     },
     getVerifyCode () {
       let that = this

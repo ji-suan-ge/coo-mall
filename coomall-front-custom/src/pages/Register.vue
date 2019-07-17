@@ -104,7 +104,9 @@ export default {
         ],
         verifyCode: [
           {required: true, message: '邮箱验证码不为空', trigger: 'blur'},
-          {pattern: /^([0-9a-zA-Z]){4}$/, message: '邮箱验证码组成为4位,字母和数字的组合', trigger: 'blur'}
+          {required: true, message: '邮箱验证码不为空', trigger: 'change'},
+          {pattern: /^([0-9a-zA-Z]){4}$/, message: '邮箱验证码组成为4位,字母和数字的组合', trigger: 'blur'},
+          {pattern: /^([0-9a-zA-Z]){4}$/, message: '邮箱验证码组成为4位,字母和数字的组合', trigger: 'change'}
         ]
       }
     }
@@ -114,6 +116,54 @@ export default {
       let that = this
       that.$refs[formName].validate((valid) => {
         if (valid) {
+          if (that.form.gender === '男') {
+            that.form.gender = 0
+          } else if (that.form.gender === '女') {
+            that.form.gender = 1
+          }
+          that.axios.post('/custom/editPassword', {
+            emailCode: that.form.verifyCode,
+            newPassword: 'testtest'
+          })
+            .then(function (response) {
+              if (response.data.code === '0000') {
+                that.axios.post('/custom/add', {
+                  nickname: that.form.nickname,
+                  gender: that.form.gender,
+                  phoneNumber: that.form.phoneNumber,
+                  avatar: that.form.avatar,
+                  password: that.form.password,
+                  email: 'hello'
+                })
+                  .then(function (response) {
+                    if (response.data.msg === '请求成功') {
+                      that.$message({
+                        type: 'success',
+                        message: '注册成功，请登录'
+                      })
+                      that.$router.push('/login')
+                    } else {
+                      that.$message({
+                        type: 'error',
+                        message: '系统繁忙，稍后重试'
+                      })
+                    }
+                  })
+                  .catch(function (error) {
+                    console.log(error)
+                  })
+              } else {
+                that.$message(
+                  {
+                    type: 'error',
+                    message: response.data.msg
+                  }
+                )
+              }
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
         } else {
           that.$message({
             type: 'error',
@@ -122,54 +172,6 @@ export default {
           return false
         }
       })
-      if (that.form.gender === '男') {
-        that.form.gender = 0
-      } else if (that.form.gender === '女') {
-        that.form.gender = 1
-      }
-      that.axios.post('/custom/editPassword', {
-        emailCode: that.form.verifyCode,
-        newPassword: 'testtest'
-      })
-        .then(function (response) {
-          if (response.data.code === '0000') {
-            that.axios.post('/custom/add', {
-              nickname: that.form.nickname,
-              gender: that.form.gender,
-              phoneNumber: that.form.phoneNumber,
-              avatar: that.form.avatar,
-              password: that.form.password,
-              email: 'hello'
-            })
-              .then(function (response) {
-                if (response.data.msg === '请求成功') {
-                  that.$message({
-                    type: 'success',
-                    message: '注册成功，请登录'
-                  })
-                  that.$router.push('/login')
-                } else {
-                  that.$message({
-                    type: 'error',
-                    message: '系统繁忙，稍后重试'
-                  })
-                }
-              })
-              .catch(function (error) {
-                console.log(error)
-              })
-          } else {
-            that.$message(
-              {
-                type: 'error',
-                message: response.data.msg
-              }
-            )
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
     },
     getVerifyCode () {
       let that = this

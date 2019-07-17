@@ -54,11 +54,16 @@ export default {
       },
       rules: {
         phone: [
-          {required: true, message: '手机号不为空', trigger: 'blur'}
+          {required: true, message: '手机号不能为空', trigger: 'blur'},
+          {required: true, message: '手机号不能为空', trigger: 'change'},
+          {pattern: /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/, message: '请输入有效的手机号', trigger: 'blur'},
+          {pattern: /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/, message: '请输入有效的手机号', trigger: 'change'}
         ],
         password: [
           {required: true, message: '密码不为空', trigger: 'blur'},
-          {min: 1, max: 16, message: '长度在 1 到 16 个字符', trigger: 'blur'}
+          {required: true, message: '密码不为空', trigger: 'change'},
+          {min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'change'},
+          {min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur'}
         ]
       }
     }
@@ -68,30 +73,30 @@ export default {
       let that = this
       that.$refs[formName].validate((valid) => {
         if (valid) {
+          that.axios.post('/custom/login', {
+            phoneNumber: that.form.phone,
+            password: that.form.password
+          })
+            .then(function (response) {
+              if (response.data.msg === '请求成功') {
+                localStorage.setItem('custom', JSON.stringify(response.data.data))
+                that.$message({
+                  type: 'success',
+                  message: '登陆成功！'
+                })
+                that.$router.push('/index')
+              } else {
+                that.loginFailed()
+              }
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
         } else {
           that.loginFailed()
           return false
         }
       })
-      that.axios.post('/custom/login', {
-        phoneNumber: that.form.phone,
-        password: that.form.password
-      })
-        .then(function (response) {
-          if (response.data.msg === '请求成功') {
-            localStorage.setItem('custom', JSON.stringify(response.data.data))
-            that.$message({
-              type: 'success',
-              message: '登陆成功！'
-            })
-            that.$router.push('/index')
-          } else {
-            that.loginFailed()
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
     },
     loginFailed () {
       this.$message.error('账号或密码错误！')

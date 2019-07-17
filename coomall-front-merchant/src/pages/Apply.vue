@@ -158,6 +158,52 @@ export default {
       let that = this
       that.$refs[formName].validate((valid) => {
         if (valid) {
+          that.axios.post('/merchant/editPassword', {
+            emailCode: that.form.verifyCode,
+            newPassword: 'testtest'
+          })
+            .then(function (response) {
+              if (response.data.code === '0000') {
+                that.axios.post('/merchant/add', {
+                  shopName: that.form.storeName,
+                  ownerName: that.form.name,
+                  phoneNumber: that.form.phone,
+                  password: that.form.password,
+                  email: that.form.mail,
+                  address: that.form.address,
+                  identityNumber: that.form.IDNumber,
+                  intro: that.form.introduce,
+                  identityPhoto: 'test'
+                })
+                  .then(function (response) {
+                    if (response.data.msg === '请求成功') {
+                      that.$message({
+                        type: 'success',
+                        message: '申请成功，正在等待审批'
+                      })
+                      that.$router.push('/login')
+                    } else {
+                      that.$message({
+                        type: 'error',
+                        message: '系统繁忙，稍后重试'
+                      })
+                    }
+                  })
+                  .catch(function (error) {
+                    console.log(error)
+                  })
+              } else {
+                that.$message(
+                  {
+                    type: 'error',
+                    message: response.data.msg
+                  }
+                )
+              }
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
         } else {
           that.$message({
             type: 'error',
@@ -166,52 +212,6 @@ export default {
           return false
         }
       })
-      that.axios.post('/custom/editPassword', {
-        emailCode: that.form.verifyCode,
-        newPassword: 'testtest'
-      })
-        .then(function (response) {
-          if (response.data.code === '0000') {
-            that.axios.post('/merchant/add', {
-              shopName: that.form.storeName,
-              ownerName: that.form.name,
-              phoneNumber: that.form.phone,
-              password: that.form.password,
-              email: that.form.mail,
-              address: that.form.address,
-              identityNumber: that.form.IDNumber,
-              intro: that.form.introduce,
-              identityPhoto: 'test'
-            })
-              .then(function (response) {
-                if (response.data.msg === '请求成功') {
-                  that.$message({
-                    type: 'success',
-                    message: '申请成功，正在等待审批'
-                  })
-                  that.$router.push('/login')
-                } else {
-                  that.$message({
-                    type: 'error',
-                    message: '系统繁忙，稍后重试'
-                  })
-                }
-              })
-              .catch(function (error) {
-                console.log(error)
-              })
-          } else {
-            that.$message(
-              {
-                type: 'error',
-                message: response.data.msg
-              }
-            )
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
     },
     getVerifyCode () {
       let that = this
