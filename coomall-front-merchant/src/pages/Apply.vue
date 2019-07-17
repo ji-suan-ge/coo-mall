@@ -41,6 +41,7 @@
                       v-model="form.mail" class="input_width"></el-input>
           </el-form-item>
         </el-row>
+        <el-row class="input_interval"></el-row>
         <el-row type="flex" justify="center">
           <el-form-item label="验证码"  prop="verifyCode">
             <el-input type="text" placeholder="请输入验证码" class="verifyCode"
@@ -60,12 +61,6 @@
           <el-form-item label="身份证号" prop="IDNumber">
             <el-input type="text" placeholder="请输入您的身份证号"
                       v-model="form.IDNumber" class="input_width"></el-input>
-          </el-form-item>
-        </el-row>
-        <el-row type="flex" justify="center">
-          <el-form-item label="身份证照片" prop="IDphoto">
-            <el-input type="text" placeholder="请输入照片url"
-                      v-model="form.IDphoto" class="input_width"></el-input>
           </el-form-item>
         </el-row>
         <el-row class="input_interval"></el-row>
@@ -114,8 +109,8 @@ export default {
         name: [
           {required: true, message: '姓名不为空', trigger: 'blur'},
           {required: true, message: '姓名不为空', trigger: 'change'},
-          {pattern: /^([\u4e00-\u9fa5]{2, 6})|([\u4e00-\u9fa5]{1, 5}·[\u4e00-\u9fa5]{1, 5})$/, message: '姓名需要符合规范，请输入真实姓名', trigger: 'blur'},
-          {pattern: /^([\u4e00-\u9fa5]{2, 6})|([\u4e00-\u9fa5]{1, 5}·[\u4e00-\u9fa5]{1, 5})$/, message: '姓名需要符合规范，请输入真实姓名', trigger: 'change'}
+          {pattern: /^[\u4e00-\u9fa5]{2,6}$/, message: '姓名需要符合规范，请输入真实姓名', trigger: 'blur'},
+          {pattern: /^[\u4e00-\u9fa5]{2,6}$/, message: '姓名需要符合规范，请输入真实姓名', trigger: 'change'}
         ],
         phone: [
           {required: true, message: '手机号不能为空', trigger: 'blur'},
@@ -135,6 +130,10 @@ export default {
           {type: 'email', message: '请输入有效的邮箱地址', trigger: 'blur'},
           {type: 'email', message: '请输入有效的邮箱地址', trigger: 'change'}
         ],
+        verifyCode: [
+          {required: true, message: '邮箱验证码不为空', trigger: 'blur'},
+          {pattern: /^([0-9a-zA-Z]){4}$/, message: '邮箱验证码组成为4位,字母和数字的组合', trigger: 'blur'}
+        ],
         address: [
           {required: true, message: '家庭住址不能为空', trigger: 'blur'},
           {required: true, message: '家庭住址不能为空', trigger: 'change'},
@@ -150,12 +149,6 @@ export default {
           {pattern: /^([1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx]))$/,
             message: '请输入18位有效的身份证号',
             trigger: 'change'}
-        ],
-        IDphoto: [
-          {required: true, message: '身份证照片URL不能为空', trigger: 'blur'},
-          {required: true, message: '身份证照片URL不能为空', trigger: 'change'},
-          {type: 'url', message: '请输入有效的URL', trigger: 'blur'},
-          {type: 'url', message: '请输入有效的URL', trigger: 'change'}
         ]
       }
     }
@@ -173,25 +166,47 @@ export default {
           return false
         }
       })
-      this.axios.post('/merchant/add', {
-        shopName: that.form.storeName,
-        ownerName: that.form.name,
-        phoneNumber: that.form.phone,
-        password: that.form.password,
-        email: that.form.mail,
-        address: that.form.address,
-        identityNumber: that.form.IDNumber,
-        intro: that.form.introduce,
-        identityPhoto: that.form.IDphoto,
-        emailCode: that.form.verifyCode
+      that.axios.post('/custom/editPassword', {
+        emailCode: that.form.verifyCode,
+        newPassword: 'testtest'
       })
         .then(function (response) {
-          if (response.date.msg === '请求成功') {
-            that.$message({
-              type: 'success',
-              message: '申请成功，正在等待审批'
+          if (response.data.code === '0000') {
+            that.axios.post('/merchant/add', {
+              shopName: that.form.storeName,
+              ownerName: that.form.name,
+              phoneNumber: that.form.phone,
+              password: that.form.password,
+              email: that.form.mail,
+              address: that.form.address,
+              identityNumber: that.form.IDNumber,
+              intro: that.form.introduce,
+              identityPhoto: 'test'
             })
-            that.$router.push('/login')
+              .then(function (response) {
+                if (response.data.msg === '请求成功') {
+                  that.$message({
+                    type: 'success',
+                    message: '申请成功，正在等待审批'
+                  })
+                  that.$router.push('/login')
+                } else {
+                  that.$message({
+                    type: 'error',
+                    message: '系统繁忙，稍后重试'
+                  })
+                }
+              })
+              .catch(function (error) {
+                console.log(error)
+              })
+          } else {
+            that.$message(
+              {
+                type: 'error',
+                message: response.data.msg
+              }
+            )
           }
         })
         .catch(function (error) {
@@ -201,7 +216,7 @@ export default {
     getVerifyCode () {
       let that = this
       that.axios.post('/getEmailCode', {
-        email: that.form.email
+        email: that.form.mail
       })
         .then(function (response) {
           if (response.data.code === '4501') {
@@ -251,5 +266,9 @@ export default {
   }
   #bt_submit {
     margin-right: 44px
+  }
+  .verifyCode {
+    width: 130px;
+    margin-left: 20px
   }
 </style>

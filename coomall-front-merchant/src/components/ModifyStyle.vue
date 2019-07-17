@@ -59,10 +59,16 @@ export default {
       })
         .then(function (response) {
           if (response.data.msg === '请求成功') {
-            alert('修改成功')
+            that.$message({
+              type: 'success',
+              message: '保存成功'
+            })
             that.$router.go(-1)
           } else {
-            alert('系统繁忙，稍后重试')
+            that.$message({
+              type: 'error',
+              message: '系统繁忙。稍后重试'
+            })
           }
         })
         .catch(function (error) {
